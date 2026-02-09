@@ -54,6 +54,15 @@ claude
 # Optimize for AI search
 /seo geo https://example.com
 ```
+
+### Demo
+
+**Full video walkthrough (12 minutes):**
+
+[![Watch the demo](https://img.youtube.com/vi/COMnNlUakQk/maxresdefault.jpg)](https://www.youtube.com/watch?v=COMnNlUakQk)
+
+[Watch the full demo on YouTube](https://www.youtube.com/watch?v=COMnNlUakQk)
+
 **`/seo audit` — full site audit with parallel subagents:**
 
 ![SEO Audit Demo](screenshots/seo-audit-demo.gif)
