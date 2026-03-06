@@ -17,8 +17,8 @@ description: >
 # SEO — Universal SEO Analysis Skill
 
 Comprehensive SEO analysis across all industries (SaaS, local services,
-e-commerce, publishers, agencies). Orchestrates 13 specialized sub-skills
-and 6 subagents.
+e-commerce, publishers, agencies). Orchestrates 12 specialized sub-skills
+and 6 subagents (+ optional extension sub-skills).
 
 ## Quick Reference
 
@@ -98,7 +98,7 @@ Weighted aggregate of all categories:
 
 ## Sub-Skills
 
-This skill orchestrates 13 specialized sub-skills:
+This skill orchestrates 12 specialized sub-skills (+ 1 extension):
 
 1. **seo-audit** — Full website audit with parallel delegation
 2. **seo-page** — Deep single-page analysis

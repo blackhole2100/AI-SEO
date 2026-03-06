@@ -20,8 +20,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Frontmatter cleanup**: Removed non-standard `allowed-tools` from main SKILL.md
 
 ### Changed
-- Sub-skill count: 12 → 13 (added seo-dataforseo)
-- Subagent count: 6 → 7 (added seo-dataforseo agent, optional)
+- Sub-skill count: 12 + 1 extension (added seo-dataforseo via DataForSEO extension)
+- Subagent count: 6 + 1 optional (added seo-dataforseo agent via extension)
 - DataForSEO promoted from "Community" to "Official extension" in MCP docs
 
 ---
