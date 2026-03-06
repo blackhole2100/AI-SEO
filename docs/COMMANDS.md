@@ -259,6 +259,60 @@ Programmatic SEO analysis and planning for pages generated at scale.
 
 ---
 
+### `/seo dataforseo [command]`
+
+Live SEO data via DataForSEO MCP server (extension). 22 commands across 9 API modules.
+
+**Prerequisites:** DataForSEO extension installed (`./extensions/dataforseo/install.sh`)
+
+**SERP Analysis:**
+```
+/seo dataforseo serp <keyword>              # Google organic results (also Bing/Yahoo)
+/seo dataforseo serp-youtube <keyword>      # YouTube search results
+/seo dataforseo youtube <video_id>          # YouTube video deep analysis
+```
+
+**Keyword Research:**
+```
+/seo dataforseo keywords <seed>             # Keyword ideas and suggestions
+/seo dataforseo volume <keywords>           # Search volume metrics
+/seo dataforseo difficulty <keywords>       # Keyword difficulty scores
+/seo dataforseo intent <keywords>           # Search intent classification
+/seo dataforseo trends <keyword>            # Google Trends data
+```
+
+**Domain & Competitors:**
+```
+/seo dataforseo backlinks <domain>          # Full backlink profile
+/seo dataforseo competitors <domain>        # Competitor analysis
+/seo dataforseo ranked <domain>             # Ranked keywords
+/seo dataforseo intersection <domains>      # Keyword/backlink overlap
+/seo dataforseo traffic <domains>           # Traffic estimation
+/seo dataforseo subdomains <domain>         # Subdomains with ranking data
+/seo dataforseo top-searches <domain>       # Top queries mentioning domain
+```
+
+**Technical / On-Page:**
+```
+/seo dataforseo onpage <url>                # On-page analysis (Lighthouse)
+/seo dataforseo tech <domain>               # Technology detection
+/seo dataforseo whois <domain>              # WHOIS data
+```
+
+**Content & Business Data:**
+```
+/seo dataforseo content <keyword/url>       # Content analysis and trends
+/seo dataforseo listings <keyword>          # Business listings search
+```
+
+**AI Visibility / GEO:**
+```
+/seo dataforseo ai-scrape <query>           # ChatGPT web scraper for GEO
+/seo dataforseo ai-mentions <keyword>       # LLM mention tracking
+```
+
+---
+
 ## Quick Reference
 
 | Command | Use Case |
@@ -276,3 +330,4 @@ Programmatic SEO analysis and planning for pages generated at scale.
 | `/seo sitemap <url>` | Sitemap validation |
 | `/seo sitemap generate` | Create new sitemap |
 | `/seo technical <url>` | Technical SEO check |
+| `/seo dataforseo [command]` | Live SEO data (extension) |

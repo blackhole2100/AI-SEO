@@ -5,6 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.0] - 2026-03-06
+
+### Added
+- **Extension system**: `extensions/` directory convention for self-contained add-ons with install/uninstall scripts
+- **DataForSEO extension**: 22 commands across 9 API modules (SERP, keywords, backlinks, on-page, content, business listings, AI visibility, LLM mentions). Install: `./extensions/dataforseo/install.sh`
+- **DataForSEO integration**: seo-audit, seo-content, seo-geo, seo-page, seo-plan, seo-technical auto-detect DataForSEO MCP tools for enriched analysis
+- **Plugin manifest**: `.claude-plugin/plugin.json` for official plugin directory submission
+- **Documentation**: Extensions architecture in ARCHITECTURE.md, 22 new commands in COMMANDS.md, updated MCP integration guide
+
+### Fixed
+- **Title tag threshold**: Pre-commit hook now uses 60-char max, aligned with quality-gates.md and echo message
+- **SSRF prevention**: Added to `capture_screenshot.py` (defense-in-depth, matching `fetch_page.py`)
+- **Frontmatter cleanup**: Removed non-standard `allowed-tools` from main SKILL.md
+
+### Changed
+- Sub-skill count: 12 → 13 (added seo-dataforseo)
+- Subagent count: 6 → 7 (added seo-dataforseo agent, optional)
+- DataForSEO promoted from "Community" to "Official extension" in MCP docs
+
+---
+
 ## [1.2.0] - 2026-02-19
 
 ### Security

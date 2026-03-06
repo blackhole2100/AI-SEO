@@ -1,4 +1,4 @@
-<!-- Updated: 2026-02-08 -->
+<!-- Updated: 2026-03-06 -->
 
 ![Claude SEO](screenshots/cover-image.jpeg)
 
@@ -193,6 +193,30 @@ curl -fsSL https://raw.githubusercontent.com/AgriciDaniel/claude-seo/main/uninst
 ### MCP Integrations
 
 Integrates with MCP servers for live SEO data — including official servers from **Ahrefs** (`@ahrefs/mcp`) and **Semrush**, plus community servers for Google Search Console, PageSpeed Insights, and DataForSEO. See [MCP Integration Guide](docs/MCP-INTEGRATION.md) for setup.
+
+## Extensions
+
+Optional add-ons that integrate external data sources via MCP servers.
+
+### DataForSEO
+
+Live SERP data, keyword research, backlinks, on-page analysis, content analysis, business listings, AI visibility checking, and LLM mention tracking. 22 commands across 9 API modules.
+
+```bash
+# Install (requires DataForSEO account)
+./extensions/dataforseo/install.sh
+```
+
+```bash
+# Example commands
+/seo dataforseo serp best coffee shops
+/seo dataforseo keywords seo tools
+/seo dataforseo backlinks example.com
+/seo dataforseo ai-mentions your brand
+/seo dataforseo ai-scrape your brand name
+```
+
+See [DataForSEO Extension](extensions/dataforseo/README.md) for full documentation.
 
 ## Documentation
 

@@ -146,3 +146,7 @@ Google updated its JavaScript SEO documentation in December 2025 with critical c
 ### High Priority (fix within 1 week)
 ### Medium Priority (fix within 1 month)
 ### Low Priority (backlog)
+
+## DataForSEO Integration (Optional)
+
+If DataForSEO MCP tools are available, use `on_page_instant_pages` for real page analysis (status codes, page timing, broken links, on-page checks), `on_page_lighthouse` for Lighthouse audits (performance, accessibility, SEO scores), and `domain_analytics_technologies_domain_technologies` for technology stack detection.
