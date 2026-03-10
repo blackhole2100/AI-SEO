@@ -13,16 +13,17 @@ schema markup, image optimization, sitemap architecture, and AI search optimizat
 ```
 claude-seo/
   CLAUDE.md                          # Project instructions (this file)
-  .claude-plugin/plugin.json         # Plugin manifest (v1.3.0)
+  .claude-plugin/plugin.json         # Plugin manifest (v1.3.2)
   seo/                               # Main orchestrator skill
     SKILL.md                         # Entry point, routing table, core rules
     references/                      # On-demand knowledge files
-    scripts/                         # Python execution scripts
-    hooks/                           # Quality gate hooks
+  scripts/                           # Python execution scripts
+  hooks/                             # Quality gate hooks
+  schema/                            # Schema.org JSON-LD templates
   skills/                            # 12 specialized sub-skills
     seo-audit/SKILL.md              # Full site audit with parallel agents
     seo-page/SKILL.md              # Deep single-page analysis
-    seo-technical/SKILL.md         # Technical SEO (8 categories)
+    seo-technical/SKILL.md         # Technical SEO (9 categories)
     seo-content/SKILL.md           # E-E-A-T and content quality
     seo-schema/SKILL.md            # Schema.org markup detection/generation
     seo-sitemap/SKILL.md           # XML sitemap analysis/generation
@@ -53,7 +54,7 @@ claude-seo/
 |---------|---------|
 | `/seo audit <url>` | Full site audit with 6 parallel subagents |
 | `/seo page <url>` | Deep single-page analysis |
-| `/seo technical <url>` | Technical SEO audit (8 categories) |
+| `/seo technical <url>` | Technical SEO audit (9 categories) |
 | `/seo content <url>` | E-E-A-T and content quality analysis |
 | `/seo schema <url>` | Schema.org detection, validation, generation |
 | `/seo sitemap <url>` | XML sitemap analysis or generation |

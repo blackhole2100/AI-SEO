@@ -47,3 +47,4 @@ Provide a structured report with:
 6. Core Web Vitals (LCP, INP, CLS potential issues)
 7. Structured Data (detection, validation)
 8. JavaScript Rendering (CSR vs SSR)
+9. IndexNow Protocol (Bing, Yandex, Naver)
