@@ -2,7 +2,7 @@
 name: seo-audit
 description: >
   Full website SEO audit with parallel subagent delegation. Crawls up to 500
-  pages, detects business type, delegates to 6 specialists, generates health
+  pages, detects business type, delegates to 7 specialists, generates health
   score. Use when user says "audit", "full SEO check", "analyze my site",
   or "website health check".
 ---

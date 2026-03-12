@@ -18,7 +18,7 @@ description: >
 
 Comprehensive SEO analysis across all industries (SaaS, local services,
 e-commerce, publishers, agencies). Orchestrates 12 specialized sub-skills
-and 6 subagents (+ optional extension sub-skills).
+and 7 subagents (+ optional extension sub-skills).
 
 ## Quick Reference
 

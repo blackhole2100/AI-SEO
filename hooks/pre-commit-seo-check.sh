@@ -12,8 +12,7 @@ set -euo pipefail
 #         "hooks": [
 #           {
 #             "type": "command",
-#             "command": "~/.claude/skills/seo/hooks/pre-commit-seo-check.sh",
-#             "exitCodes": { "2": "block" }
+#             "command": "~/.claude/skills/seo/hooks/pre-commit-seo-check.sh"
 #           }
 #         ]
 #       }

@@ -4,7 +4,7 @@
 
 This repository contains **Claude SEO**, a Tier 4 Claude Code skill for comprehensive
 SEO analysis across all industries. It follows the Agent Skills open standard and the
-3-layer architecture (directive, orchestration, execution). 13 sub-skills, 6 parallel
+3-layer architecture (directive, orchestration, execution). 13 sub-skills, 7 parallel
 subagents, and an extensible reference system cover technical SEO, content quality,
 schema markup, image optimization, sitemap architecture, and AI search optimization.
 
@@ -33,13 +33,14 @@ claude-seo/
     seo-programmatic/SKILL.md      # Programmatic SEO at scale
     seo-competitor-pages/SKILL.md  # Competitor comparison pages
     seo-hreflang/SKILL.md         # International SEO / hreflang
-  agents/                            # 6 parallel subagents
+  agents/                            # 7 parallel subagents
     seo-technical.md               # Crawlability, indexability, security
     seo-content.md                 # E-E-A-T, readability, thin content
     seo-schema.md                  # Structured data validation
     seo-sitemap.md                 # Sitemap quality gates
     seo-performance.md             # Core Web Vitals, page speed
     seo-visual.md                  # Screenshots, mobile rendering
+    seo-geo.md                     # AI crawler access, GEO, citability
   docs/                              # Extended documentation
     ARCHITECTURE.md                # System design overview
     COMMANDS.md                    # Full command reference
@@ -52,7 +53,7 @@ claude-seo/
 
 | Command | Purpose |
 |---------|---------|
-| `/seo audit <url>` | Full site audit with 6 parallel subagents |
+| `/seo audit <url>` | Full site audit with 7 parallel subagents |
 | `/seo page <url>` | Deep single-page analysis |
 | `/seo technical <url>` | Technical SEO audit (9 categories) |
 | `/seo content <url>` | E-E-A-T and content quality analysis |
@@ -79,5 +80,5 @@ claude-seo/
 
 1. **Progressive Disclosure**: Metadata always loaded, instructions on activation, resources on demand
 2. **Industry Detection**: Auto-detect SaaS, e-commerce, local, publisher, agency
-3. **Parallel Execution**: Full audits spawn 6 subagents simultaneously
+3. **Parallel Execution**: Full audits spawn 7 subagents simultaneously
 4. **Extension System**: DataForSEO MCP integration for live data

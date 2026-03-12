@@ -18,7 +18,7 @@ Full website SEO audit with parallel analysis.
 **What it does:**
 1. Crawls up to 500 pages
 2. Detects business type
-3. Delegates to 6 specialist subagents in parallel
+3. Delegates to 7 specialist subagents in parallel
 4. Generates SEO Health Score (0-100)
 5. Creates prioritized action plan
 
