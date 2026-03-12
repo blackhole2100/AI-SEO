@@ -9,6 +9,11 @@
 - [x] **requirements.txt persistence** — Copied to skill dir after install (from @edustef #1)
 - [x] **Path traversal prevention** — Output path sanitization in capture_screenshot.py, file validation in parse_html.py
 
+## Completed — Extensions
+
+- [x] **Extension system** — `extensions/` directory convention with self-contained add-ons
+- [x] **DataForSEO extension** — 22 commands across 9 API modules (SERP, keywords, backlinks, on-page, content, business listings, AI visibility, LLM mentions). Install: `./extensions/dataforseo/install.sh`
+
 ## Deferred from Community Feedback
 
 - [ ] **Reduce Bash scope on agents** (Priority: Medium, from @artyomsv #7)

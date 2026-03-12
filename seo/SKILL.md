@@ -12,19 +12,13 @@ description: >
   e-commerce, local business, publishers, agencies. Triggers on: "SEO", "audit",
   "schema", "Core Web Vitals", "sitemap", "E-E-A-T", "AI Overviews", "GEO",
   "technical SEO", "content quality", "page speed", "structured data".
-allowed-tools:
-  - Read
-  - Grep
-  - Glob
-  - Bash
-  - WebFetch
 ---
 
 # SEO — Universal SEO Analysis Skill
 
 Comprehensive SEO analysis across all industries (SaaS, local services,
 e-commerce, publishers, agencies). Orchestrates 12 specialized sub-skills
-and 6 subagents.
+and 6 subagents (+ optional extension sub-skills).
 
 ## Quick Reference
 
@@ -35,13 +29,14 @@ and 6 subagents.
 | `/seo sitemap <url or generate>` | Analyze or generate XML sitemaps |
 | `/seo schema <url>` | Detect, validate, and generate Schema.org markup |
 | `/seo images <url>` | Image optimization analysis |
-| `/seo technical <url>` | Technical SEO audit (8 categories) |
+| `/seo technical <url>` | Technical SEO audit (9 categories) |
 | `/seo content <url>` | E-E-A-T and content quality analysis |
 | `/seo geo <url>` | AI Overviews / Generative Engine Optimization |
 | `/seo plan <business-type>` | Strategic SEO planning |
 | `/seo programmatic [url\|plan]` | Programmatic SEO analysis and planning |
 | `/seo competitor-pages [url\|generate]` | Competitor comparison page generation |
 | `/seo hreflang [url]` | Hreflang/i18n SEO audit and generation |
+| `/seo dataforseo [command]` | Live SEO data via DataForSEO (extension) |
 
 ## Orchestration Logic
 
@@ -103,7 +98,7 @@ Weighted aggregate of all categories:
 
 ## Sub-Skills
 
-This skill orchestrates 12 specialized sub-skills:
+This skill orchestrates 12 specialized sub-skills (+ 1 extension):
 
 1. **seo-audit** — Full website audit with parallel delegation
 2. **seo-page** — Deep single-page analysis
@@ -117,6 +112,7 @@ This skill orchestrates 12 specialized sub-skills:
 10. **seo-programmatic** — Programmatic SEO analysis and planning
 11. **seo-competitor-pages** — Competitor comparison page generation
 12. **seo-hreflang** — Hreflang/i18n SEO audit and generation
+13. **seo-dataforseo** — Live SEO data via DataForSEO MCP (extension)
 
 ## Subagents
 
@@ -127,3 +123,4 @@ For parallel analysis during audits:
 - `seo-sitemap` — Structure, coverage, quality gates
 - `seo-performance` — Core Web Vitals measurement
 - `seo-visual` — Screenshots, mobile testing, above-fold
+- `seo-dataforseo` — Live SERP, keyword, backlink, local SEO data (extension, optional)

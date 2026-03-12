@@ -155,3 +155,7 @@ GEO is the emerging discipline of optimizing content specifically for AI-generat
 
 ### Issues Found
 ### Recommendations
+
+## DataForSEO Integration (Optional)
+
+If DataForSEO MCP tools are available, use `kw_data_google_ads_search_volume` for real keyword volume data, `dataforseo_labs_bulk_keyword_difficulty` for difficulty scores, `dataforseo_labs_search_intent` for intent classification, and `content_analysis_summary` for content quality analysis.

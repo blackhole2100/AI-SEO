@@ -9,7 +9,9 @@ Usage:
 """
 
 import argparse
+import ipaddress
 import os
+import socket
 import sys
 from urllib.parse import urlparse
 
@@ -59,6 +61,17 @@ def capture_screenshot(
     if viewport not in VIEWPORTS:
         result["error"] = f"Invalid viewport: {viewport}. Choose from: {list(VIEWPORTS.keys())}"
         return result
+
+    # SSRF prevention: block private/internal IPs
+    try:
+        parsed = urlparse(url)
+        resolved_ip = socket.gethostbyname(parsed.hostname)
+        ip = ipaddress.ip_address(resolved_ip)
+        if ip.is_private or ip.is_loopback or ip.is_reserved:
+            result["error"] = f"Blocked: URL resolves to private/internal IP ({resolved_ip})"
+            return result
+    except (socket.gaierror, ValueError):
+        pass
 
     vp = VIEWPORTS[viewport]
 
