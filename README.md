@@ -13,7 +13,15 @@ Comprehensive SEO analysis skill for Claude Code. Covers technical SEO, on-page 
 
 ## Installation
 
-### One-Command Install (Unix/macOS/Linux)
+### Recommended Install (Unix/macOS/Linux)
+
+```bash
+git clone --depth 1 https://github.com/AgriciDaniel/claude-seo.git
+bash claude-seo/install.sh
+```
+
+<details>
+<summary>One-liner (curl)</summary>
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/AgriciDaniel/claude-seo/main/install.sh | bash
@@ -25,19 +33,25 @@ Or via [install.cat](https://install.cat):
 curl -fsSL install.cat/AgriciDaniel/claude-seo | bash
 ```
 
-### Manual Install
+Prefer to review the script before running?
 
 ```bash
-git clone https://github.com/AgriciDaniel/claude-seo.git
-cd claude-seo
-./install.sh
+curl -fsSL https://raw.githubusercontent.com/AgriciDaniel/claude-seo/main/install.sh > install.sh
+cat install.sh        # review
+bash install.sh       # run when satisfied
+rm install.sh
 ```
 
-### Windows
+</details>
+
+### Windows (PowerShell)
 
 ```powershell
-irm https://raw.githubusercontent.com/AgriciDaniel/claude-seo/main/install.ps1 | iex
+git clone --depth 1 https://github.com/AgriciDaniel/claude-seo.git
+powershell -ExecutionPolicy Bypass -File claude-seo\install.ps1
 ```
+
+> **Why git clone instead of `irm | iex`?** Claude Code's own security guardrails flag `irm ... | iex` as a supply chain risk (downloading and executing remote code with no verification). The git clone approach lets you inspect the script at `claude-seo\install.ps1` before running it.
 
 ## Quick Start
 
@@ -186,15 +200,25 @@ See `schema/templates.json` for ready-to-use JSON-LD snippets.
 
 ## Requirements
 
-- Python 3.8+
+- Python 3.10+
 - Claude Code CLI
 - Optional: Playwright for screenshots
 
 ## Uninstall
 
 ```bash
+git clone --depth 1 https://github.com/AgriciDaniel/claude-seo.git
+bash claude-seo/uninstall.sh
+```
+
+<details>
+<summary>One-liner (curl)</summary>
+
+```bash
 curl -fsSL https://raw.githubusercontent.com/AgriciDaniel/claude-seo/main/uninstall.sh | bash
 ```
+
+</details>
 
 ### MCP Integrations
 

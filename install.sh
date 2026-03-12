@@ -8,6 +8,9 @@ main() {
     SKILL_DIR="${HOME}/.claude/skills/seo"
     AGENT_DIR="${HOME}/.claude/agents"
     REPO_URL="https://github.com/AgriciDaniel/claude-seo"
+    # Pin to a specific release tag to prevent silent updates from main.
+    # Override: CLAUDE_SEO_TAG=main bash install.sh
+    REPO_TAG="${CLAUDE_SEO_TAG:-v1.3.0}"
 
     echo "════════════════════════════════════════"
     echo "║   Claude SEO - Installer             ║"
@@ -36,8 +39,8 @@ main() {
     TEMP_DIR=$(mktemp -d)
     trap "rm -rf ${TEMP_DIR}" EXIT
 
-    echo "↓ Downloading Claude SEO..."
-    git clone --depth 1 "${REPO_URL}" "${TEMP_DIR}/claude-seo" 2>/dev/null
+    echo "↓ Downloading Claude SEO (${REPO_TAG})..."
+    git clone --depth 1 --branch "${REPO_TAG}" "${REPO_URL}" "${TEMP_DIR}/claude-seo" 2>/dev/null
 
     # Copy skill files
     echo "→ Installing skill files..."

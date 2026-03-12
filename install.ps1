@@ -30,8 +30,26 @@ function Invoke-External {
         [switch]$Quiet
     )
 
-    $output = & $Exe @Args 2>&1
-    $exitCode = $LASTEXITCODE
+    $previousErrorActionPreference = $ErrorActionPreference
+    $hasNativePreference = $null -ne (Get-Variable -Name PSNativeCommandUseErrorActionPreference -ErrorAction SilentlyContinue)
+    if ($hasNativePreference) {
+        $previousNativePreference = $PSNativeCommandUseErrorActionPreference
+    }
+
+    try {
+        $ErrorActionPreference = 'Continue'
+        if ($hasNativePreference) {
+            $PSNativeCommandUseErrorActionPreference = $false
+        }
+
+        $output = & $Exe @Args 2>&1 | ForEach-Object { $_.ToString() }
+        $exitCode = $LASTEXITCODE
+    } finally {
+        $ErrorActionPreference = $previousErrorActionPreference
+        if ($hasNativePreference) {
+            $PSNativeCommandUseErrorActionPreference = $previousNativePreference
+        }
+    }
 
     if (-not $Quiet -and $null -ne $output -and $output.Count -gt 0) {
         $output | ForEach-Object { Write-Host $_ }
@@ -67,6 +85,9 @@ try {
 $SkillDir = "$env:USERPROFILE\.claude\skills\seo"
 $AgentDir = "$env:USERPROFILE\.claude\agents"
 $RepoUrl = "https://github.com/AgriciDaniel/claude-seo"
+# Pin to a specific release tag to prevent silent updates from main.
+# Override: $env:CLAUDE_SEO_TAG = 'main'; .\install.ps1
+$RepoTag = if ($env:CLAUDE_SEO_TAG) { $env:CLAUDE_SEO_TAG } else { 'v1.3.0' }
 
 # Create directories
 New-Item -ItemType Directory -Force -Path $SkillDir | Out-Null
@@ -81,8 +102,8 @@ if (Test-Path $TempDir) {
 $keepTemp = ($env:CLAUDE_SEO_KEEP_TEMP -eq '1')
 
 try {
-    Write-Host "↓ Downloading Claude SEO..." -ForegroundColor Yellow
-    $clone = Invoke-External -Exe 'git' -Args @('clone','--depth','1',$RepoUrl,$TempDir) -Quiet
+    Write-Host "↓ Downloading Claude SEO ($RepoTag)..." -ForegroundColor Yellow
+    $clone = Invoke-External -Exe 'git' -Args @('clone','--depth','1','--branch',$RepoTag,$RepoUrl,$TempDir) -Quiet
     if ($clone.ExitCode -ne 0) {
         throw "git clone failed. Output:`n$($clone.Output -join "`n")"
     }

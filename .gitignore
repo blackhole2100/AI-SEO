@@ -47,3 +47,24 @@ screenshots/
 # Temporary analysis files
 *-AUDIT-REPORT.md
 *-ACTION-PLAN.md
+FULL-AUDIT-REPORT.md
+ACTION-PLAN.md
+GEO-ANALYSIS.md
+SCHEMA-REPORT.md
+SITEMAP-REPORT*.md
+VALIDATION-REPORT.md
+
+# Generated artifacts from audits
+charts/
+*.pdf
+report.html
+generated-schema.json
+rankenstein-schema-audit.md
+capture_closeups.py
+capture_desktop.py
+generate_charts.py
+generate_pdf.py
+
+# Debug logs
+firebase-debug.log
+firebase-debug.*.log

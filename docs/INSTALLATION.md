@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-- **Python 3.8+** with pip
+- **Python 3.10+** with pip
 - **Git** for cloning the repository
 - **Claude Code CLI** installed and configured
 

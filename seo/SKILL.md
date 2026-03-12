@@ -42,7 +42,7 @@ and 6 subagents (+ optional extension sub-skills).
 
 When the user invokes `/seo audit`, delegate to subagents in parallel:
 1. Detect business type (SaaS, local, ecommerce, publisher, agency, other)
-2. Spawn subagents: seo-technical, seo-content, seo-schema, seo-sitemap, seo-performance, seo-visual
+2. Spawn subagents: seo-technical, seo-content, seo-schema, seo-sitemap, seo-performance, seo-visual, seo-geo
 3. Collect results and generate unified report with SEO Health Score (0-100)
 4. Create prioritized action plan (Critical → High → Medium → Low)
 
@@ -64,7 +64,7 @@ Hard rules:
 - ⚠️ WARNING at 30+ location pages (enforce 60%+ unique content)
 - 🛑 HARD STOP at 50+ location pages (require user justification)
 - Never recommend HowTo schema (deprecated Sept 2023)
-- FAQ schema only for government and healthcare sites
+- FAQ schema for Google rich results: only government and healthcare sites (Aug 2023 restriction); existing FAQPage on commercial sites → flag Info priority (not Critical), noting AI/LLM citation benefit; adding new FAQPage → not recommended for Google benefit
 - All Core Web Vitals references use INP, never FID
 
 ## Reference Files
@@ -82,13 +82,13 @@ Weighted aggregate of all categories:
 
 | Category | Weight |
 |----------|--------|
-| Technical SEO | 25% |
-| Content Quality | 25% |
+| Technical SEO | 22% |
+| Content Quality | 23% |
 | On-Page SEO | 20% |
 | Schema / Structured Data | 10% |
 | Performance (CWV) | 10% |
+| AI Search Readiness | 10% |
 | Images | 5% |
-| AI Search Readiness | 5% |
 
 ### Priority Levels
 - **Critical**: Blocks indexing or causes penalties (immediate fix required)
@@ -123,4 +123,5 @@ For parallel analysis during audits:
 - `seo-sitemap` — Structure, coverage, quality gates
 - `seo-performance` — Core Web Vitals measurement
 - `seo-visual` — Screenshots, mobile testing, above-fold
+- `seo-geo` — AI crawler access, llms.txt, citability, brand mention signals
 - `seo-dataforseo` — Live SERP, keyword, backlink, local SEO data (extension, optional)

@@ -26,6 +26,15 @@ DEFAULT_USER_AGENT = (
     "(KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 ClaudeSEO/1.2"
 )
 
+# Googlebot UA for prerender/dynamic rendering detection.
+# Prerender services (Prerender.io, Rendertron) serve fully rendered HTML to
+# Googlebot but raw JS shells to other UAs. Comparing response sizes between
+# DEFAULT_USER_AGENT and GOOGLEBOT_USER_AGENT reveals whether a site uses
+# dynamic rendering — a key signal for SPA detection.
+GOOGLEBOT_USER_AGENT = (
+    "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+)
+
 DEFAULT_HEADERS = {
     "User-Agent": DEFAULT_USER_AGENT,
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
@@ -134,14 +143,26 @@ def main():
     parser.add_argument("--timeout", "-t", type=int, default=30, help="Timeout in seconds")
     parser.add_argument("--no-redirects", action="store_true", help="Don't follow redirects")
     parser.add_argument("--user-agent", help="Custom User-Agent string")
+    parser.add_argument(
+        "--googlebot",
+        action="store_true",
+        help=(
+            "Use Googlebot UA to detect dynamic rendering / prerender services. "
+            "Compare response size with default UA to identify SPA prerender configuration."
+        ),
+    )
 
     args = parser.parse_args()
+
+    ua = args.user_agent
+    if args.googlebot:
+        ua = GOOGLEBOT_USER_AGENT
 
     result = fetch_page(
         args.url,
         timeout=args.timeout,
         follow_redirects=not args.no_redirects,
-        user_agent=args.user_agent,
+        user_agent=ua,
     )
 
     if result["error"]:
