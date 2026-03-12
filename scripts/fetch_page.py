@@ -21,8 +21,13 @@ except ImportError:
     sys.exit(1)
 
 
+DEFAULT_USER_AGENT = (
+    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
+    "(KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 ClaudeSEO/1.2"
+)
+
 DEFAULT_HEADERS = {
-    "User-Agent": "Mozilla/5.0 (compatible; ClaudeSEO/1.0; +https://github.com/AgriciDaniel/claude-seo)",
+    "User-Agent": DEFAULT_USER_AGENT,
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
     "Accept-Language": "en-US,en;q=0.5",
     "Accept-Encoding": "gzip, deflate",
@@ -35,6 +40,7 @@ def fetch_page(
     timeout: int = 30,
     follow_redirects: bool = True,
     max_redirects: int = 5,
+    user_agent: Optional[str] = None,
 ) -> dict:
     """
     Fetch a web page and return response details.
@@ -87,9 +93,13 @@ def fetch_page(
         session = requests.Session()
         session.max_redirects = max_redirects
 
+        headers = dict(DEFAULT_HEADERS)
+        if user_agent:
+            headers["User-Agent"] = user_agent
+
         response = session.get(
             url,
-            headers=DEFAULT_HEADERS,
+            headers=headers,
             timeout=timeout,
             allow_redirects=follow_redirects,
         )
@@ -123,6 +133,7 @@ def main():
     parser.add_argument("--output", "-o", help="Output file path")
     parser.add_argument("--timeout", "-t", type=int, default=30, help="Timeout in seconds")
     parser.add_argument("--no-redirects", action="store_true", help="Don't follow redirects")
+    parser.add_argument("--user-agent", help="Custom User-Agent string")
 
     args = parser.parse_args()
 
@@ -130,6 +141,7 @@ def main():
         args.url,
         timeout=args.timeout,
         follow_redirects=not args.no_redirects,
+        user_agent=args.user_agent,
     )
 
     if result["error"]:

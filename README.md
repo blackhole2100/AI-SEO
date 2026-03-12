@@ -19,6 +19,12 @@ Comprehensive SEO analysis skill for Claude Code. Covers technical SEO, on-page 
 curl -fsSL https://raw.githubusercontent.com/AgriciDaniel/claude-seo/main/install.sh | bash
 ```
 
+Or via [install.cat](https://install.cat):
+
+```bash
+curl -fsSL install.cat/AgriciDaniel/claude-seo | bash
+```
+
 ### Manual Install
 
 ```bash
