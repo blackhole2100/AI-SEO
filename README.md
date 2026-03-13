@@ -2,7 +2,7 @@
 
 ![Claude SEO](screenshots/cover-image.jpeg)
 
-# Claude SEO
+# Claude SEO — SEO Audit Skill for Claude Code
 
 Comprehensive SEO analysis skill for Claude Code. Covers technical SEO, on-page analysis, content quality (E-E-A-T), schema markup, image optimization, sitemap architecture, AI search optimization (GEO), and strategic planning.
 
@@ -10,6 +10,20 @@ Comprehensive SEO analysis skill for Claude Code. Covers technical SEO, on-page 
 
 [![Claude Code Skill](https://img.shields.io/badge/Claude%20Code-Skill-blue)](https://claude.ai/claude-code)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Version](https://img.shields.io/github/v/release/AgriciDaniel/claude-seo)](https://github.com/AgriciDaniel/claude-seo/releases)
+
+## Table of Contents
+
+- [Installation](#installation)
+- [Quick Start](#quick-start)
+- [Commands](#commands)
+- [Features](#features)
+- [Architecture](#architecture)
+- [Extensions](#extensions)
+- [Documentation](#documentation)
+- [Requirements](#requirements)
+- [Uninstall](#uninstall)
+- [Contributing](#contributing)
 
 ## Installation
 
@@ -178,7 +192,7 @@ New for 2026 - optimize for:
 ```
 ~/.claude/skills/seo/         # Main skill
 ~/.claude/skills/seo-*/       # Sub-skills (12 total)
-~/.claude/agents/seo-*.md     # Subagents (6 total)
+~/.claude/agents/seo-*.md     # Subagents (7 total)
 ```
 
 ### Video & Live Schema (New)
