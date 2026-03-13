@@ -102,7 +102,7 @@ This skill orchestrates 12 specialized sub-skills (+ 1 extension):
 
 1. **seo-audit** — Full website audit with parallel delegation
 2. **seo-page** — Deep single-page analysis
-3. **seo-technical** — Technical SEO (8 categories)
+3. **seo-technical** — Technical SEO (9 categories)
 4. **seo-content** — E-E-A-T and content quality
 5. **seo-schema** — Schema markup detection and generation
 6. **seo-images** — Image optimization
