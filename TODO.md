@@ -1,4 +1,4 @@
-# TODO — claude-seo
+# TODO: claude-seo
 
 ## Completed in v1.2.0
 

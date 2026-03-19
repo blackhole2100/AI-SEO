@@ -1,5 +1,5 @@
 # E-E-A-T Evaluation Framework
-## Updated per Google Quality Rater Guidelines — September 11, 2025
+## Updated per Google Quality Rater Guidelines: September 11, 2025
 ## Plus December 2025 Core Update Implications
 
 ## Overview
@@ -104,7 +104,7 @@ Recognition by others as a go-to source.
 
 ## Trustworthiness (Weight: 30%)
 
-The most important factor — overall reliability and transparency.
+The most important factor, overall reliability and transparency.
 
 ### Signals to Check
 - [ ] Clear contact information (physical address, phone, email)
@@ -174,11 +174,11 @@ The December 2025 update elevated the "Experience" dimension as a key differenti
 
 | Score | Description |
 |-------|-------------|
-| 90-100 | Exceptional E-E-A-T — authority site, recognized expert, full transparency |
-| 70-89 | Strong E-E-A-T — demonstrated expertise, good trust signals |
-| 50-69 | Moderate E-E-A-T — some signals, room for improvement |
-| 30-49 | Weak E-E-A-T — minimal signals, significant gaps |
-| 0-29 | Very low E-E-A-T — no visible signals, potential trust issues |
+| 90-100 | Exceptional E-E-A-T, authority site, recognized expert, full transparency |
+| 70-89 | Strong E-E-A-T, demonstrated expertise, good trust signals |
+| 50-69 | Moderate E-E-A-T, some signals, room for improvement |
+| 30-49 | Weak E-E-A-T, minimal signals, significant gaps |
+| 0-29 | Very low E-E-A-T, no visible signals, potential trust issues |
 
 ---
 

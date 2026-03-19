@@ -2,7 +2,7 @@
 
 ![Claude SEO](screenshots/cover-image.jpeg)
 
-# Claude SEO — SEO Audit Skill for Claude Code
+# Claude SEO v1.5.0 -- SEO Audit Skill for Claude Code
 
 Comprehensive SEO analysis skill for Claude Code. Covers technical SEO, on-page analysis, content quality (E-E-A-T), schema markup, image optimization, sitemap architecture, AI search optimization (GEO), and strategic planning.
 
@@ -92,7 +92,7 @@ claude
 ### Demo:
 [Watch the full demo on YouTube](https://www.youtube.com/watch?v=COMnNlUakQk)
 
-**`/seo audit` — full site audit with parallel subagents:**
+**`/seo audit`: full site audit with parallel subagents:**
 
 ![SEO Audit Demo](screenshots/seo-audit-demo.gif)
 
@@ -124,7 +124,7 @@ Build SEO pages at scale from data sources with quality safeguards.
 - Plan URL patterns and template structures for data-driven pages
 - Internal linking automation between generated pages
 - Canonical strategy and index bloat prevention
-- Quality gates: ⚠️ WARNING at 100+ pages, 🛑 HARD STOP at 500+ without audit
+- Quality gates: WARNING at 100+ pages, HARD STOP at 500+ without audit
 
 ### `/seo competitor-pages [url|generate]`
 **Competitor Comparison Page Generator**
@@ -198,11 +198,11 @@ New for 2026 - optimize for:
 
 ### Video & Live Schema (New)
 Additional schema types for video content, live streaming, and key moments:
-- VideoObject — Video page markup with thumbnails, duration, upload date
-- BroadcastEvent — LIVE badge support for live streaming content
-- Clip — Key moments / chapters within videos
-- SeekToAction — Enable seek functionality in video rich results
-- SoftwareSourceCode — Open source and code repository pages
+- VideoObject: Video page markup with thumbnails, duration, upload date
+- BroadcastEvent: LIVE badge support for live streaming content
+- Clip: Key moments / chapters within videos
+- SeekToAction: Enable seek functionality in video rich results
+- SoftwareSourceCode: Open source and code repository pages
 
 See `schema/templates.json` for ready-to-use JSON-LD snippets.
 
@@ -237,7 +237,7 @@ curl -fsSL https://raw.githubusercontent.com/AgriciDaniel/claude-seo/main/uninst
 
 ### MCP Integrations
 
-Integrates with MCP servers for live SEO data — including official servers from **Ahrefs** (`@ahrefs/mcp`) and **Semrush**, plus community servers for Google Search Console, PageSpeed Insights, and DataForSEO. See [MCP Integration Guide](docs/MCP-INTEGRATION.md) for setup.
+Integrates with MCP servers for live SEO data, including official servers from **Ahrefs** (`@ahrefs/mcp`) and **Semrush**, plus community servers for Google Search Console, PageSpeed Insights, and DataForSEO. See [MCP Integration Guide](docs/MCP-INTEGRATION.md) for setup.
 
 ## Extensions
 

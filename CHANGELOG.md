@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.0] - 2026-03-19
+
+### Added
+- **Frontmatter fields**: `user-invokable`, `argument-hint`, and `allowed-tools` added to all SKILL.md files per Anthropic best practices
+- **Error handling sections**: Added to all SKILL.md files with skill-specific guidance
+- **Plugin manifest**: `.claude-plugin/plugin.json` updated with all skills and agents registered
+- **Version tracking**: `pyproject.toml` with project metadata
+
+### Fixed
+- **Em dash elimination**: Replaced em dashes (U+2014) across files with appropriate punctuation (colons, commas, semicolons, periods) to reduce AI detection signals
+- **HTML comments before frontmatter**: Removed `<!-- Updated: ... -->` comments from SKILL.md files that preceded the YAML frontmatter delimiter
+- **Anthropic compliance audit**: Full audit against official skill-building guidelines, all checks now pass
+
+### Changed
+- **Technical SEO**: Updated from "8 categories" to "9 categories" in description (IndexNow added in prior update)
+
+---
+
 ## [1.4.0] - 2026-03-12
 
 ### Security
@@ -13,18 +31,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **PowerShell Invoke-External hardening**: Comprehensive `PSNativeCommandUseErrorActionPreference` handling in `Invoke-External` wrapper (fixes Windows git clone stderr false-positive termination, from PR #13 + PR #15).
 
 ### Added
-- **GEO agent deployed**: `agents/seo-geo.md` created — `/seo audit` now spawns 7 parallel agents (was 6). GEO analysis covers AI crawler access, llms.txt, passage-level citability, brand mention signals, platform-specific scoring (Google AI Overviews, ChatGPT, Perplexity, Bing Copilot).
+- **GEO agent deployed**: `agents/seo-geo.md` created -- `/seo audit` now spawns 7 parallel agents (was 6). GEO analysis covers AI crawler access, llms.txt, passage-level citability, brand mention signals, platform-specific scoring (Google AI Overviews, ChatGPT, Perplexity, Bing Copilot).
 - **`--googlebot` flag in `fetch_page.py`**: Detect prerender/dynamic rendering services by comparing response size with default UA vs Googlebot UA. First phase of SPA/CSR support (Issue #11).
 
 ### Fixed
-- **URL normalization**: `capture_screenshot.py` and `analyze_visual.py` now accept bare domains (`example.com` → `https://example.com`) via shared `normalize_url()` helper (from PR #16 by @shuofengzhang).
+- **URL normalization**: `capture_screenshot.py` and `analyze_visual.py` now accept bare domains (`example.com` -> `https://example.com`) via shared `normalize_url()` helper (from PR #16 by @shuofengzhang).
 - **GEO weight**: AI Search Readiness weight increased from 5% to 10% in overall SEO Health Score. Technical SEO adjusted to 22%, Content Quality to 23%.
-- **FAQPage guidance**: Blanket "remove FAQPage on commercial sites" updated to nuanced guidance — existing FAQPage → Info priority (not Critical), noting AI/LLM citation benefit. Adding new FAQPage → not recommended for Google, note AI benefit. Updated in `seo/SKILL.md`, `agents/seo-schema.md`, `seo/references/schema-types.md`.
+- **FAQPage guidance**: Blanket "remove FAQPage on commercial sites" updated to nuanced guidance -- existing FAQPage -> Info priority (not Critical), noting AI/LLM citation benefit. Adding new FAQPage -> not recommended for Google, note AI benefit. Updated in `seo/SKILL.md`, `agents/seo-schema.md`, `seo/references/schema-types.md`.
 - **Uninstall agents list**: Added `seo-geo` to `uninstall.sh` and `uninstall.ps1` removal lists.
 - **Python requirement**: Corrected from `3.8+` to `3.10+` in `README.md` and `docs/INSTALLATION.md`.
 
 ### Changed
-- Subagent count: 6 → 7 (added seo-geo to core audit pipeline)
+- Subagent count: 6 -> 7 (added seo-geo to core audit pipeline)
 - `.gitignore`: Added generated audit artifacts (charts/, PDFs, report.html, firebase-debug.log, generated-schema.json)
 
 ---
@@ -71,7 +89,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - **YAML frontmatter parsing**: Removed HTML comments before `---` delimiter in 8 files (skills: seo-content, seo-images, seo-programmatic, seo-schema, seo-technical; agents: seo-content, seo-performance, seo-technical). Thanks @kylewhirl for identifying this in the codex-seo fork.
-- **Windows installer**: Merged @kfrancis improvements — `python -m pip`, `py -3` launcher fallback, requirements.txt persistence, non-fatal subagent copy, better error diagnostics (PR #6)
+- **Windows installer**: Merged @kfrancis improvements -- `python -m pip`, `py -3` launcher fallback, requirements.txt persistence, non-fatal subagent copy, better error diagnostics (PR #6)
 - **requirements.txt missing after install**: Now copied to skill directory so users can retry (#1)
 
 ### Changed
@@ -84,15 +102,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.1.0] - 2026-02-07
 
 ### Security (CRITICAL)
-- **urllib3 ≥2.6.3**: Fixes CVE-2026-21441 (CVSS 8.9) - decompression bypass vulnerability
-- **lxml ≥6.0.2**: Updated from 5.3.2 for additional libxml2 security patches
-- **Pillow ≥12.1.0**: Fixes CVE-2025-48379
-- **playwright ≥1.55.1**: Fixes CVE-2025-59288 (macOS)
-- **requests ≥2.32.4**: Fixes CVE-2024-47081, CVE-2024-35195
+- **urllib3 >=2.6.3**: Fixes CVE-2026-21441 (CVSS 8.9) - decompression bypass vulnerability
+- **lxml >=6.0.2**: Updated from 5.3.2 for additional libxml2 security patches
+- **Pillow >=12.1.0**: Fixes CVE-2025-48379
+- **playwright >=1.55.1**: Fixes CVE-2025-59288 (macOS)
+- **requests >=2.32.4**: Fixes CVE-2024-47081, CVE-2024-35195
 
 ### Added
 - **GEO (Generative Engine Optimization) major enhancement**:
-  - Brand mention analysis (3× more important than backlinks for AI visibility)
+  - Brand mention analysis (3x more important than backlinks for AI visibility)
   - AI crawler detection (GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot, etc.)
   - llms.txt standard detection and recommendations
   - RSL 1.0 (Really Simple Licensing) detection

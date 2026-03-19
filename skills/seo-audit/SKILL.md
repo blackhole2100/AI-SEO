@@ -5,25 +5,27 @@ description: >
   pages, detects business type, delegates to 7 specialists, generates health
   score. Use when user says "audit", "full SEO check", "analyze my site",
   or "website health check".
+user-invokable: true
+argument-hint: "[url]"
 ---
 
 # Full Website SEO Audit
 
 ## Process
 
-1. **Fetch homepage** — use `scripts/fetch_page.py` to retrieve HTML
-2. **Detect business type** — analyze homepage signals per seo orchestrator
-3. **Crawl site** — follow internal links up to 500 pages, respect robots.txt
+1. **Fetch homepage**: use `scripts/fetch_page.py` to retrieve HTML
+2. **Detect business type**: analyze homepage signals per seo orchestrator
+3. **Crawl site**: follow internal links up to 500 pages, respect robots.txt
 4. **Delegate to subagents** (if available, otherwise run inline sequentially):
-   - `seo-technical` — robots.txt, sitemaps, canonicals, Core Web Vitals, security headers
-   - `seo-content` — E-E-A-T, readability, thin content, AI citation readiness
-   - `seo-schema` — detection, validation, generation recommendations
-   - `seo-sitemap` — structure analysis, quality gates, missing pages
-   - `seo-performance` — LCP, INP, CLS measurements
-   - `seo-visual` — screenshots, mobile testing, above-fold analysis
-   - `seo-geo` — AI crawler access, llms.txt, citability, brand mention signals
-5. **Score** — aggregate into SEO Health Score (0-100)
-6. **Report** — generate prioritized action plan
+   - `seo-technical` -- robots.txt, sitemaps, canonicals, Core Web Vitals, security headers
+   - `seo-content` -- E-E-A-T, readability, thin content, AI citation readiness
+   - `seo-schema` -- detection, validation, generation recommendations
+   - `seo-sitemap` -- structure analysis, quality gates, missing pages
+   - `seo-performance` -- LCP, INP, CLS measurements
+   - `seo-visual` -- screenshots, mobile testing, above-fold analysis
+   - `seo-geo` -- AI crawler access, llms.txt, citability, brand mention signals
+5. **Score** -- aggregate into SEO Health Score (0-100)
+6. **Report** -- generate prioritized action plan
 
 ## Crawl Configuration
 
@@ -38,9 +40,9 @@ Delay between requests: 1 second
 
 ## Output Files
 
-- `FULL-AUDIT-REPORT.md` — Comprehensive findings
-- `ACTION-PLAN.md` — Prioritized recommendations (Critical → High → Medium → Low)
-- `screenshots/` — Desktop + mobile captures (if Playwright available)
+- `FULL-AUDIT-REPORT.md`: Comprehensive findings
+- `ACTION-PLAN.md`: Prioritized recommendations (Critical > High > Medium > Low)
+- `screenshots/`: Desktop + mobile captures (if Playwright available)
 
 ## Scoring Weights
 
@@ -110,3 +112,12 @@ Delay between requests: 1 second
 ## DataForSEO Integration (Optional)
 
 If DataForSEO MCP tools are available, spawn the `seo-dataforseo` agent alongside existing subagents to enrich the audit with live data: real SERP positions, backlink profiles with spam scores, on-page analysis (Lighthouse), business listings, and AI visibility checks (ChatGPT scraper, LLM mentions).
+
+## Error Handling
+
+| Scenario | Action |
+|----------|--------|
+| URL unreachable (DNS failure, connection refused) | Report the error clearly. Do not guess site content. Suggest the user verify the URL and try again. |
+| robots.txt blocks crawling | Report which paths are blocked. Analyze only accessible pages and note the limitation in the report. |
+| Rate limiting (429 responses) | Back off and reduce concurrent requests. Report partial results with a note on which sections could not be completed. |
+| Timeout on large sites (500+ pages) | Cap the crawl at the timeout limit. Report findings for pages crawled and estimate total site scope. |

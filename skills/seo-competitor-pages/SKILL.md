@@ -5,6 +5,14 @@ description: >
   "X vs Y" layouts, "alternatives to X" pages, feature matrices, schema markup,
   and conversion optimization. Use when user says "comparison page", "vs page",
   "alternatives page", "competitor comparison", or "X vs Y".
+user-invokable: true
+argument-hint: "[url or generate] [competitor]"
+allowed-tools:
+  - Read
+  - Grep
+  - Glob
+  - Bash
+  - WebFetch
 ---
 
 # Competitor Comparison & Alternatives Pages
@@ -129,7 +137,7 @@ competitive intent keywords with accurate, structured content.
 ### Title Tag Formulas
 - X vs Y: `[A] vs [B]: [Key Differentiator] ([Year])`
 - Alternatives: `[N] Best [A] Alternatives in [Year] (Free & Paid)`
-- Roundup: `[N] Best [Category] Tools in [Year] — Compared & Ranked`
+- Roundup: `[N] Best [Category] Tools in [Year], Compared & Ranked`
 
 ### H1 Patterns
 - Match title tag intent
@@ -185,12 +193,12 @@ competitive intent keywords with accurate, structured content.
 ## Output
 
 ### Comparison Page Template
-- `COMPARISON-PAGE.md` — Ready-to-implement page structure with sections
+- `COMPARISON-PAGE.md`: Ready-to-implement page structure with sections
 - Feature matrix table
 - Content outline with word count targets (minimum 1,500 words)
 
 ### Schema Markup
-- `comparison-schema.json` — Product/SoftwareApplication/ItemList JSON-LD
+- `comparison-schema.json`: Product/SoftwareApplication/ItemList JSON-LD
 
 ### Keyword Strategy
 - Primary and secondary keywords
@@ -202,3 +210,11 @@ competitive intent keywords with accurate, structured content.
 - New comparison page opportunities
 - Schema markup additions
 - Conversion optimization suggestions
+
+## Error Handling
+
+| Scenario | Action |
+|----------|--------|
+| Competitor URL unreachable | Report which competitor URLs failed. Proceed with available data and note gaps in the comparison. |
+| Insufficient competitor data (pricing, features unavailable) | Flag missing data points clearly. Use "Not publicly available" in comparison tables rather than guessing. |
+| No product/service overlap found | Report that the products serve different markets. Suggest alternative competitors that share feature overlap, or pivot to a category roundup format. |

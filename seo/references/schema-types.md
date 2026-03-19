@@ -1,5 +1,5 @@
 <!-- Updated: 2026-02-07 -->
-# Schema.org Types — Status & Recommendations (February 2026)
+# Schema.org Types: Status & Recommendations (February 2026)
 
 **Schema.org Version:** 29.4 (December 8, 2025)
 
@@ -11,7 +11,7 @@ Google's documentation explicitly recommends JSON-LD over Microdata and RDFa.
 
 ---
 
-## Active — Recommend freely
+## Active: Recommend freely
 
 | Type | Use Case | Key Properties |
 |------|----------|----------------|
@@ -43,7 +43,7 @@ Google's documentation explicitly recommends JSON-LD over Microdata and RDFa.
 
 ---
 
-## Restricted — Only for specific site types
+## Restricted: Only for specific site types
 
 | Type | Restriction | Since |
 |------|------------|-------|
@@ -57,7 +57,7 @@ Google's documentation explicitly recommends JSON-LD over Microdata and RDFa.
 
 ---
 
-## Deprecated — Never recommend
+## Deprecated: Never recommend
 
 | Type | Status | Since | Notes |
 |------|--------|-------|-------|
@@ -68,7 +68,7 @@ Google's documentation explicitly recommends JSON-LD over Microdata and RDFa.
 | LearningVideo | Retired from rich results | June 2025 | Use VideoObject instead |
 | ClaimReview | Retired from rich results | June 2025 | Fact-check markup no longer generates rich results |
 | VehicleListing | Retired from rich results | June 2025 | Vehicle listing structured data discontinued |
-| Book Actions | Deprecated then REVERSED | June 2025 | **Still functional as of Feb 2026** — historical note only |
+| Book Actions | Deprecated then REVERSED | June 2025 | **Still functional as of Feb 2026**: historical note only |
 | Practice Problem | Retired from rich results | Late 2025 | Educational practice problems no longer displayed |
 | Dataset | Retired from rich results | Late 2025 | Dataset Search feature discontinued |
 
@@ -93,7 +93,7 @@ Google's documentation explicitly recommends JSON-LD over Microdata and RDFa.
 | Requirement | Status | Since |
 |-------------|--------|-------|
 | `returnPolicyCountry` in MerchantReturnPolicy | **Required** | March 2025 |
-| Product variant structured data | Expanded | 2025 — includes apparel, cosmetics, electronics |
+| Product variant structured data | Expanded | 2025, includes apparel, cosmetics, electronics |
 
 > **Note:** Content API for Shopping sunsets August 18, 2026. Migrate to Merchant API.
 

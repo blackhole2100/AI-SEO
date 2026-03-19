@@ -27,7 +27,7 @@ set -euo pipefail
 ERRORS=0
 WARNINGS=0
 
-# Check if there are staged changes — exit early if not
+# Check if there are staged changes: exit early if not
 if ! git diff --cached --quiet 2>/dev/null; then
     : # There are staged changes, proceed with checks
 else
@@ -40,7 +40,7 @@ echo "🔍 Running pre-commit SEO checks..."
 STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM 2>/dev/null | grep -E '\.(html|htm|php|jsx|tsx|vue|svelte)$' || true)
 
 if [ -z "${STAGED_FILES}" ]; then
-    echo "✓ No HTML files staged — skipping SEO checks"
+    echo "✓ No HTML files staged; skipping SEO checks"
     exit 0
 fi
 
@@ -79,7 +79,7 @@ for file in ${STAGED_FILES}; do
 
     # Check for FID references (should be INP)
     if grep -qi 'First Input Delay\|"FID"' "${file}" 2>/dev/null; then
-        echo "⚠️  ${file}: References FID — should use INP (Interaction to Next Paint)"
+        echo "⚠️  ${file}: References FID; should use INP (Interaction to Next Paint)"
         WARNINGS=$((WARNINGS + 1))
     fi
 
@@ -96,11 +96,11 @@ done
 
 echo ""
 if [ "${ERRORS}" -gt 0 ]; then
-    echo "🛑 ${ERRORS} critical error(s) found — commit blocked"
+    echo "🛑 ${ERRORS} critical error(s) found; commit blocked"
     echo "Fix the errors above and try again."
     exit 2
 elif [ "${WARNINGS}" -gt 0 ]; then
-    echo "⚠️  ${WARNINGS} warning(s) found — commit allowed"
+    echo "⚠️  ${WARNINGS} warning(s) found; commit allowed"
     exit 0
 else
     echo "✓ All SEO checks passed"

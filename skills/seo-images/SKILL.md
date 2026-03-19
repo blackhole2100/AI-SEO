@@ -5,6 +5,14 @@ description: >
   sizes, formats, responsive images, lazy loading, and CLS prevention. Use when
   user says "image optimization", "alt text", "image SEO", "image size",
   or "image audit".
+user-invokable: true
+argument-hint: "[url]"
+allowed-tools:
+  - Read
+  - Grep
+  - Glob
+  - Bash
+  - WebFetch
 ---
 
 # Image Optimization Analysis
@@ -64,7 +72,7 @@ Use progressive enhancement with the most efficient format first:
 
 The browser will use the first supported format. Current browser support: AVIF 93.8%, WebP 95.3%.
 
-#### JPEG XL — Emerging Format
+#### JPEG XL: Emerging Format
 
 In November 2025, Google's Chromium team reversed its 2022 decision and announced it will restore JPEG XL support in Chrome using a Rust-based decoder. The implementation is feature-complete but not yet in Chrome stable. JPEG XL offers lossless JPEG recompression (~20% savings with zero quality loss) and competitive lossy compression. Not yet practical for web deployment, but worth monitoring for future adoption.
 
@@ -166,3 +174,11 @@ Sorted by file size impact (largest savings first):
 3. Add dimensions to X images
 4. Enable lazy loading on X below-fold images
 5. Compress X oversized images
+
+## Error Handling
+
+| Scenario | Action |
+|----------|--------|
+| URL unreachable | Report connection error with status code. Suggest verifying URL and checking if site requires authentication. |
+| No images found on page | Report that no `<img>` elements were detected. Suggest checking if images are loaded via JavaScript or CSS background-image. |
+| Images behind CDN or authentication | Note that image files could not be directly accessed for size analysis. Report available metadata (alt text, dimensions, format from markup) and flag inaccessible resources. |
