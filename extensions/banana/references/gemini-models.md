@@ -10,7 +10,7 @@
 |----------|-------|
 | **Model ID** | `gemini-3.1-flash-image-preview` |
 | **Tier** | Nano Banana 2 (Flash) |
-| **Speed** | Fast — optimized for high-volume use |
+| **Speed** | Fast - optimized for high-volume use |
 | **Aspect Ratios** | All 14 ratios (see table below) |
 | **Max Resolution** | Up to 4096×4096 (4K tier) |
 | **Features** | Google Search grounding (web + image), thinking levels, image-only output, extreme aspect ratios |
@@ -32,7 +32,7 @@
 ## Deprecated Models (DO NOT USE)
 
 ### gemini-3-pro-image-preview
-- **Status:** Base model deprecated March 9, 2026. **Image generation variant may still be accessible** — use at your own discretion via `set_model`. Prefer 3.1 Flash.
+- **Status:** Base model deprecated March 9, 2026. **Image generation variant may still be accessible**. Use at your own discretion via `set_model`. Prefer 3.1 Flash.
 - **Was:** Nano Banana Pro tier (professional asset production, 4K output, 14 reference images)
 - **Migration:** Use `gemini-3.1-flash-image-preview` instead
 
@@ -133,8 +133,8 @@ Example: "Search for the latest SpaceX Starship design, analyze its proportions 
 
 ### Multi-Image Input
 Up to 14 reference images can be provided:
-- **10 object references** — for style, composition, or visual matching
-- **4 character references** — assign distinct names to preserve features across generations
+- **10 object references**: for style, composition, or visual matching
+- **4 character references**: assign distinct names to preserve features across generations
 
 Useful for character consistency, style transfer, and brand-aligned generation.
 
@@ -166,25 +166,25 @@ Research suggests NB2 pricing may be ~$0.067/img (vs documented $0.039). Verify 
 | **Format** | PNG |
 | **Max Resolution** | Up to 4096×4096 (4K tier, 3.1 Flash) |
 | **Color Space** | sRGB |
-| **Text Rendering** | Supported — best under 25 characters |
+| **Text Rendering** | Supported - best under 25 characters |
 | **Style Control** | Via prompt engineering |
 
 ## Safety Filters
 
 Gemini uses a two-layer safety architecture:
 
-1. **Input filters** — block prompts containing prohibited content before generation
-2. **Output filters** — analyze generated images and block unsafe results
+1. **Input filters**: block prompts containing prohibited content before generation
+2. **Output filters**: analyze generated images and block unsafe results
 
 | `finishReason` | Meaning | Retryable? |
 |----------------|---------|:----------:|
 | `STOP` | Successful generation | N/A |
 | `IMAGE_SAFETY` | Output blocked by safety filter | Rephrase prompt |
-| `PROHIBITED_CONTENT` | Content policy violation | No — topic is blocked |
+| `PROHIBITED_CONTENT` | Content policy violation | No - topic is blocked |
 | `SAFETY` | General safety block | Rephrase prompt |
 | `RECITATION` | Detected copyrighted content | Rephrase prompt |
 
-**Known issue:** Filters are known to be overly cautious — benign prompts may be blocked. Iterate with rephrased wording if this happens.
+**Known issue:** Filters are known to be overly cautious. Benign prompts may be blocked. Iterate with rephrased wording if this happens.
 
 ## Content Credentials
 
@@ -194,7 +194,7 @@ Gemini uses a two-layer safety architecture:
 ## Key Limitations
 - No video generation (image only)
 - No transparent backgrounds (PNG but always with background)
-- Text rendering quality varies — keep text under 25 characters for best results
-- Safety filters may block some prompts (violence, NSFW, public figures) — known to be overly cautious
+- Text rendering quality varies; keep text under 25 characters for best results
+- Safety filters may block some prompts (violence, NSFW, public figures), known to be overly cautious
 - Session context resets between Claude Code conversations
 - `imageSize` and thinking level depend on MCP package version support

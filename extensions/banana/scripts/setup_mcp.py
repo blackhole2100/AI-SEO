@@ -134,7 +134,7 @@ def main() -> None:
         api_key = os.environ.get("GOOGLE_AI_API_KEY")
 
     if not api_key:
-        print("Claude Banana — MCP Setup")
+        print("Claude Banana - MCP Setup")
         print("=" * 40)
         print(f"\nGet your free API key at: https://aistudio.google.com/apikey")
         print()

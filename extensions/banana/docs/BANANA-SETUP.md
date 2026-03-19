@@ -5,7 +5,7 @@
 1. Go to [aistudio.google.com/apikey](https://aistudio.google.com/apikey)
 2. Sign in with your Google account
 3. Click "Create API key"
-4. Copy the key — you'll need it during installation
+4. Copy the key. You'll need it during installation
 
 **Free tier limits:**
 - ~10 requests per minute (RPM)
@@ -39,9 +39,9 @@ python3 ~/.claude/skills/seo-image-gen/scripts/validate_setup.py
 ```
 
 Or check manually:
-1. `ls ~/.claude/skills/seo-image-gen/SKILL.md` — skill file exists
-2. `ls ~/.claude/agents/seo-image-gen.md` — agent file exists
-3. `grep nanobanana ~/.claude/settings.json` — MCP configured
+1. `ls ~/.claude/skills/seo-image-gen/SKILL.md`:skill file exists
+2. `ls ~/.claude/agents/seo-image-gen.md`:agent file exists
+3. `grep nanobanana ~/.claude/settings.json`:MCP configured
 
 ## Common Issues
 

@@ -23,7 +23,7 @@ When analyzing pages:
 
 ### Restricted Schema:
 - **FAQ**: Google rich results restricted to government and healthcare sites (August 2023).
-  - **Existing FAQPage on commercial sites**: Flag as Info priority (not Critical) — FAQPage still benefits AI/LLM citations even without Google rich results.
+  - **Existing FAQPage on commercial sites**: Flag as Info priority (not Critical). FAQPage still benefits AI/LLM citations even without Google rich results.
   - **Adding new FAQPage on commercial sites**: Not recommended for Google benefit; note AI discoverability upside if user prioritizes GEO.
 
 ### Always Prefer:

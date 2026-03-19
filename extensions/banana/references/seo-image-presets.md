@@ -5,7 +5,7 @@ preset format (see `references/presets.md` for schema details).
 
 ## Preset Templates
 
-### og-default — Standard OG/Social Preview
+### og-default:Standard OG/Social Preview
 
 ```json
 {
@@ -24,7 +24,7 @@ preset format (see `references/presets.md` for schema details).
 }
 ```
 
-### blog-hero — Widescreen Blog Hero Image
+### blog-hero:Widescreen Blog Hero Image
 
 ```json
 {
@@ -37,13 +37,13 @@ preset format (see `references/presets.md` for schema details).
     "colors": ["contextual"],
     "mood": "Dramatic, atmospheric, editorial",
     "lighting": "Golden hour or moody blue hour, directional",
-    "typography": "None — image only"
+    "typography": "None:image only"
   },
   "post_processing": "magick output.png -quality 85 output-hero.webp"
 }
 ```
 
-### product-white — E-commerce Product Shot
+### product-white:E-commerce Product Shot
 
 ```json
 {
@@ -63,7 +63,7 @@ preset format (see `references/presets.md` for schema details).
 }
 ```
 
-### social-square — Social Media Square
+### social-square:Social Media Square
 
 ```json
 {
@@ -81,7 +81,7 @@ preset format (see `references/presets.md` for schema details).
 }
 ```
 
-### infographic-vertical — Data-Heavy Infographic
+### infographic-vertical:Data-Heavy Infographic
 
 ```json
 {
@@ -94,13 +94,13 @@ preset format (see `references/presets.md` for schema details).
     "colors": ["brand-contextual", "data-visualization palette"],
     "mood": "Informative, structured, authoritative",
     "lighting": "Flat, even, no dramatic shadows",
-    "typography": "Clear hierarchy — headline, subheads, body, captions"
+    "typography": "Clear hierarchy:headline, subheads, body, captions"
   },
   "notes": "Use thinking: high for better text rendering accuracy"
 }
 ```
 
-### favicon-mark — Favicon / App Icon
+### favicon-mark:Favicon / App Icon
 
 ```json
 {

@@ -45,7 +45,7 @@ Optional block (training only): CCBot, anthropic-ai, cohere-ai
 | Wikipedia entity | High |
 | Domain Rating (backlinks) | ~0.266 (weak) |
 
-Only 11% of domains are cited by both ChatGPT and Google AI Overviews — platform optimization matters.
+Only 11% of domains are cited by both ChatGPT and Google AI Overviews, so platform optimization matters.
 
 ## DataForSEO Integration (Optional)
 

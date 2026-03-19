@@ -1,4 +1,4 @@
-# Claude SEO — Universal SEO Analysis Skill
+# Claude SEO: Universal SEO Analysis Skill
 
 ## Project Overview
 

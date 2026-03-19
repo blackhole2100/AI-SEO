@@ -1,10 +1,10 @@
 ---
 name: seo-image-gen
-description: "AI image generation for SEO assets — OG/social preview images, blog hero images, schema images, product photography, infographics. Powered by Gemini via nanobanana-mcp. Requires banana extension installed. Use when user says \"generate image\", \"OG image\", \"social preview\", \"hero image\", \"blog image\", \"product photo\", \"infographic\", \"seo image\", \"create visual\", \"image-gen\", \"favicon\", \"schema image\", \"pinterest pin\", \"generate visual\", \"banner\", or \"thumbnail\"."
+description: "AI image generation for SEO assets: OG/social preview images, blog hero images, schema images, product photography, infographics. Powered by Gemini via nanobanana-mcp. Requires banana extension installed. Use when user says \"generate image\", \"OG image\", \"social preview\", \"hero image\", \"blog image\", \"product photo\", \"infographic\", \"seo image\", \"create visual\", \"image-gen\", \"favicon\", \"schema image\", \"pinterest pin\", \"generate visual\", \"banner\", or \"thumbnail\"."
 argument-hint: "[og|hero|product|infographic|custom|batch] <description>"
 ---
 
-# SEO Image Gen — AI Image Generation for SEO Assets (Extension)
+# SEO Image Gen: AI Image Generation for SEO Assets (Extension)
 
 Generate production-ready images for SEO use cases using Gemini's image generation
 via the banana Creative Director pipeline. Maps SEO needs to optimized domain modes,
@@ -13,8 +13,8 @@ aspect ratios, and resolution defaults.
 ## Architecture Note
 
 This skill has two components with distinct roles:
-- **SKILL.md** (this file) — Handles interactive `/seo image-gen` commands for generating images
-- **Agent** (`agents/seo-image-gen.md`) — Audit-only analyst spawned during `/seo audit` to assess existing OG/social images and produce a generation plan (never auto-generates)
+- **SKILL.md** (this file): Handles interactive `/seo image-gen` commands for generating images
+- **Agent** (`agents/seo-image-gen.md`): Audit-only analyst spawned during `/seo audit` to assess existing OG/social images and produce a generation plan (never auto-generates)
 
 ## Prerequisites
 
@@ -64,7 +64,7 @@ For every generation request:
 4. **Construct Reasoning Brief** using the banana Creative Director pipeline:
    - Load `references/prompt-engineering.md` for the 6-component system
    - Apply domain mode emphasis (Subject 30%, Style 25%, Context 15%, etc.)
-   - Be SPECIFIC and VISCERAL — describe what the camera sees
+   - Be SPECIFIC and VISCERAL: describe what the camera sees
 5. **Generate** via `gemini_generate_image` MCP tool
 6. **Post-generation SEO checklist** (see below)
 
@@ -81,14 +81,14 @@ for SEO-specific preset templates.
 
 After every successful generation, guide the user on:
 
-1. **Alt text** — Write descriptive, keyword-rich alt text for the generated image
-2. **File naming** — Rename to SEO-friendly format: `keyword-description-widthxheight.webp`
-3. **WebP conversion** — Convert to WebP for optimal page speed:
+1. **Alt text**:Write descriptive, keyword-rich alt text for the generated image
+2. **File naming**:Rename to SEO-friendly format: `keyword-description-widthxheight.webp`
+3. **WebP conversion**:Convert to WebP for optimal page speed:
    ```bash
    magick output.png -quality 85 output.webp
    ```
-4. **File size** — Target under 200KB for hero images, under 100KB for thumbnails
-5. **Schema markup** — Suggest `ImageObject` schema for the generated image:
+4. **File size**:Target under 200KB for hero images, under 100KB for thumbnails
+5. **Schema markup**:Suggest `ImageObject` schema for the generated image:
    ```json
    {
      "@type": "ImageObject",
@@ -98,7 +98,7 @@ After every successful generation, guide the user on:
      "caption": "Descriptive caption with target keyword"
    }
    ```
-6. **OG meta tags** — For social preview images, remind about:
+6. **OG meta tags**:For social preview images, remind about:
    ```html
    <meta property="og:image" content="https://example.com/images/og-image.webp" />
    <meta property="og:image:width" content="1200" />
@@ -135,7 +135,7 @@ Approximate costs (gemini-3.1-flash):
 | MCP not configured | Run `./extensions/banana/install.sh` |
 | API key invalid | New key at https://aistudio.google.com/apikey |
 | Rate limited (429) | Wait 60s, retry. Free tier: ~10 RPM / ~500 RPD |
-| `IMAGE_SAFETY` | Rephrase prompt — see `references/prompt-engineering.md` Safety section |
+| `IMAGE_SAFETY` | Rephrase prompt - see `references/prompt-engineering.md` Safety section |
 | MCP unavailable | Fall back: `python3 ~/.claude/skills/seo-image-gen/scripts/generate.py --prompt "..." --aspect-ratio "16:9"` |
 | Extension not installed | Show install instructions: `./extensions/banana/install.sh` |
 
@@ -147,20 +147,20 @@ Approximate costs (gemini-3.1-flash):
 
 ## Reference Documentation
 
-Load on-demand — do NOT load all at startup:
-- `references/prompt-engineering.md` — 6-component system, domain modes, templates
-- `references/gemini-models.md` — Model specs, rate limits, capabilities
-- `references/mcp-tools.md` — MCP tool parameters and responses
-- `references/post-processing.md` — ImageMagick/FFmpeg pipeline recipes
-- `references/cost-tracking.md` — Pricing, usage tracking
-- `references/presets.md` — Brand preset management
-- `references/seo-image-presets.md` — SEO-specific preset templates
+Load on-demand. Do NOT load all at startup:
+- `references/prompt-engineering.md`:6-component system, domain modes, templates
+- `references/gemini-models.md`:Model specs, rate limits, capabilities
+- `references/mcp-tools.md`:MCP tool parameters and responses
+- `references/post-processing.md`:ImageMagick/FFmpeg pipeline recipes
+- `references/cost-tracking.md`:Pricing, usage tracking
+- `references/presets.md`:Brand preset management
+- `references/seo-image-presets.md`:SEO-specific preset templates
 
 ## Response Format
 
 After generating, always provide:
-1. **Image path** — where it was saved
-2. **Crafted prompt** — show what was sent to the API (educational)
-3. **Settings** — model, aspect ratio, resolution
-4. **SEO checklist** — alt text suggestion, file naming, WebP conversion
-5. **Schema snippet** — ImageObject or og:image markup if applicable
+1. **Image path**:where it was saved
+2. **Crafted prompt**:show what was sent to the API (educational)
+3. **Settings**:model, aspect ratio, resolution
+4. **SEO checklist**:alt text suggestion, file naming, WebP conversion
+5. **Schema snippet**:ImageObject or og:image markup if applicable

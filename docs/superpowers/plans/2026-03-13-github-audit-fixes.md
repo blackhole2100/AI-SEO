@@ -4,7 +4,7 @@
 
 **Goal:** Raise the GitHub repo health score from 70/100 by closing all audit gaps identified in the 2026-03-13 audit.
 
-**Architecture:** All changes are isolated file edits and net-new file creation — no refactoring, no dependency changes. GitHub settings are updated via `gh repo edit`. The `.github/` directory does not yet exist; all files in it are created from scratch with zero conflict risk.
+**Architecture:** All changes are isolated file edits and net-new file creation, with no refactoring and no dependency changes. GitHub settings are updated via `gh repo edit`. The `.github/` directory does not yet exist; all files in it are created from scratch with zero conflict risk.
 
 **Tech Stack:** Markdown, YAML, GitHub Actions, `gh` CLI
 
@@ -18,7 +18,7 @@
 - [ ] Confirm `.github/` does NOT exist: `ls .github/ 2>&1` → "No such file"
 - [ ] Confirm `plugin.json` version is `"1.3.2"` and agents array has 6 items (missing seo-geo)
 - [ ] Confirm README line 181 says `Subagents (6 total)`
-- [ ] Confirm CHANGELOG.md line 123 says "6 subagents" — **this is in the v1.0.0 historical entry, do NOT touch it**
+- [ ] Confirm CHANGELOG.md line 123 says "6 subagents" - **this is in the v1.0.0 historical entry, do NOT touch it**
 
 ---
 
@@ -28,7 +28,7 @@
 
 **What & Why:** Version is still `1.3.2` but the codebase is on v1.4.0. The `agents` array is missing `agents/seo-geo.md` which was added in v1.4.0.
 
-**Safe to change:** Purely additive — adding one entry to the array and bumping a string.
+**Safe to change:** Purely additive - adding one entry to the array and bumping a string.
 
 - [ ] Open `plugin.json`, verify current state:
   - `"version": "1.3.2"` ← stale
@@ -57,7 +57,7 @@
 **Safe to change:** All edits are in isolated sections. No cross-file references break.
 
 - [ ] Strengthen H1 (line 5):
-  - Change `# Claude SEO` → `# Claude SEO — SEO Audit Skill for Claude Code`
+  - Change `# Claude SEO` -> `# Claude SEO: SEO Audit Skill for Claude Code`
 - [ ] Add version badge after existing badges (line 12, after License badge):
   ```markdown
   [![Version](https://img.shields.io/github/v/release/AgriciDaniel/claude-seo)](https://github.com/AgriciDaniel/claude-seo/releases)
@@ -79,7 +79,7 @@
   - [Uninstall](#uninstall)
   - [Contributing](#contributing)
   ```
-- [ ] Fix architecture block (line 181 after ToC insertion — find by content):
+- [ ] Fix architecture block (line 181 after ToC insertion - find by content):
   - Change `~/.claude/agents/seo-*.md     # Subagents (6 total)` → `~/.claude/agents/seo-*.md     # Subagents (7 total)`
 - [ ] Verify no other "6 total" or "6 subagent" strings remain:
   `grep -n "6 total\|6 subagent" README.md`
@@ -95,7 +95,7 @@
 
 **Files:** Modify `SECURITY.md`
 
-**What & Why:** Missing acknowledgment and resolution timeline — required for full Community Standards score.
+**What & Why:** Missing acknowledgment and resolution timeline, required for full Community Standards score.
 
 **Safe to change:** Pure addition to existing section.
 
@@ -161,9 +161,9 @@
 
 **What & Why:** No `.github/` directory exists. This single gap zeros out: issue templates (20pts), PR template (10pts), devcontainer/Dependabot (15pts) in Community Health scoring. Creating these closes the biggest single scoring gap.
 
-**Safe to create:** Directory doesn't exist at all — zero conflict risk.
+**Safe to create:** Directory doesn't exist at all, so zero conflict risk.
 
-### 5a — Issue Templates
+### 5a: Issue Templates
 
 - [ ] Create `.github/ISSUE_TEMPLATE/bug_report.yml`:
   ```yaml
@@ -261,7 +261,7 @@
   git commit -m "ci: add YAML issue templates for bug reports and feature requests"
   ```
 
-### 5b — PR Template
+### 5b: PR Template
 
 - [ ] Create `.github/PULL_REQUEST_TEMPLATE.md`:
   ```markdown
@@ -292,9 +292,9 @@
   git commit -m "ci: add PR template with checklist"
   ```
 
-### 5c — GitHub Actions CI
+### 5c: GitHub Actions CI
 
-**What:** Python syntax validation for scripts in `scripts/`. No test suite exists, so this is the minimum viable CI — validates that all scripts are syntactically correct Python 3.10+.
+**What:** Python syntax validation for scripts in `scripts/`. No test suite exists, so this is the minimum viable CI. It validates that all scripts are syntactically correct Python 3.10+.
 
 - [ ] Create `.github/workflows/ci.yml`:
   ```yaml
@@ -332,7 +332,7 @@
   git commit -m "ci: add GitHub Actions workflow for Python syntax validation"
   ```
 
-### 5d — Dependabot
+### 5d: Dependabot
 
 - [ ] Create `.github/dependabot.yml`:
   ```yaml
@@ -358,7 +358,7 @@
   git commit -m "ci: add Dependabot for pip and GitHub Actions updates"
   ```
 
-### 5e — FUNDING and Release Config
+### 5e: FUNDING and Release Config
 
 - [ ] Create `.github/FUNDING.yml`:
   ```yaml
@@ -408,11 +408,11 @@
 
 ## Task 6: Update GitHub Repository Settings
 
-**What & Why:** These are GitHub UI settings that can be set via `gh repo edit`. Cannot be done via file commits — must use the CLI.
+**What & Why:** These are GitHub UI settings that can be set via `gh repo edit`. Cannot be done via file commits; must use the CLI.
 
 **Changes:**
 1. Enable Discussions (currently off, but CONTRIBUTING.md tells users to use it)
-2. Disable Wiki (currently on but unused — misleads visitors)
+2. Disable Wiki (currently on but unused, misleads visitors)
 3. Fix description ("6 subagents" → "7 subagents")
 4. Add topics: `python`, `skill`
 
@@ -476,7 +476,7 @@
   grep -rn "6 subagent\|subagents (6\|6 total" --include="*.md" --include="*.json" . \
     --exclude-dir=".git" --exclude-dir="claude-seo-main" --exclude-dir="claude-ads-main"
   ```
-  Expected: Only line 123 in CHANGELOG.md (v1.0.0 historical entry — correct, do not touch)
+  Expected: Only line 123 in CHANGELOG.md (v1.0.0 historical entry, correct, do not touch)
 
 - [ ] Confirm GitHub settings applied:
   ```bash
@@ -492,11 +492,11 @@
 
 ## Do NOT Change
 
-- `CHANGELOG.md` line 123 — "6 subagents" is in the v1.0.0 historical entry. It was accurate when written.
-- `seo/SKILL.md` — already correctly says "7 subagents"
-- `CLAUDE.md` — already correctly says "7 parallel subagents"
-- `docs/ARCHITECTURE.md`, `docs/COMMANDS.md` — no stale counts found
-- `scripts/mobile_analysis.py` — already in `.gitignore` as a generated file
+- `CHANGELOG.md` line 123: "6 subagents" is in the v1.0.0 historical entry. It was accurate when written.
+- `seo/SKILL.md`: already correctly says "7 subagents"
+- `CLAUDE.md`: already correctly says "7 parallel subagents"
+- `docs/ARCHITECTURE.md`, `docs/COMMANDS.md`: no stale counts found
+- `scripts/mobile_analysis.py`: already in `.gitignore` as a generated file
 
 ## Expected Score Impact
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Claude Banana — Brand/Style Presets
+"""Claude Banana - Brand/Style Presets
 
 Manage reusable brand and style presets for consistent image generation.
 
@@ -63,9 +63,9 @@ def cmd_list(args):
             with open(p, "r") as f:
                 data = json.load(f)
             desc = data.get("description", "No description")
-            print(f"  {p.stem:20s} — {desc}")
+            print(f"  {p.stem:20s} - {desc}")
         except (json.JSONDecodeError, KeyError):
-            print(f"  {p.stem:20s} — (invalid preset file)")
+            print(f"  {p.stem:20s} - (invalid preset file)")
 
 
 def cmd_show(args):

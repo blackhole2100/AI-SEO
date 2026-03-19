@@ -30,7 +30,7 @@ DEFAULT_USER_AGENT = (
 # Prerender services (Prerender.io, Rendertron) serve fully rendered HTML to
 # Googlebot but raw JS shells to other UAs. Comparing response sizes between
 # DEFAULT_USER_AGENT and GOOGLEBOT_USER_AGENT reveals whether a site uses
-# dynamic rendering — a key signal for SPA detection.
+# dynamic rendering, a key signal for SPA detection.
 GOOGLEBOT_USER_AGENT = (
     "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
 )

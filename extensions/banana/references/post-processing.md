@@ -62,7 +62,7 @@ magick input.png -background white -flatten -quality 90 output.jpg
 # PNG to AVIF (modern, smallest size)
 magick input.png -quality 80 output.avif
 
-# SVG trace (for logos — requires potrace)
+# SVG trace (for logos; requires potrace)
 potrace input.pbm -s -o output.svg
 ```
 
@@ -176,7 +176,7 @@ ffmpeg -i input.png -vf "colorkey=0x00FF00:0.3:0.1,despill=type=green" -pix_fmt 
 - `-fuzz 20%` handles slight color variations at edges; increase to 25% for softer edges
 - The white outline in the prompt helps prevent color spill on subject edges
 - For batch processing, the FFmpeg approach is faster and handles despill automatically
-- Always verify edges after conversion — may need manual touchup for hair/fur
+- Always verify edges after conversion; may need manual touchup for hair/fur
 
 ## Quality Assessment
 

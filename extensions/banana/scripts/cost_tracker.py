@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Claude Banana — Cost Tracker
+"""Claude Banana - Cost Tracker
 
 Track image generation costs, view summaries, and estimate batch costs.
 

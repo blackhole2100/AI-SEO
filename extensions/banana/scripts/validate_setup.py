@@ -26,13 +26,13 @@ def check(label: str, passed: bool, detail: str = "") -> bool:
     status = "PASS" if passed else "FAIL"
     msg = f"  [{status}] {label}"
     if detail:
-        msg += f" — {detail}"
+        msg += f": {detail}"
     print(msg)
     return passed
 
 
 def main() -> int:
-    print("Claude Banana — Setup Validation")
+    print("Claude Banana - Setup Validation")
     print("=" * 40)
     results = []
 

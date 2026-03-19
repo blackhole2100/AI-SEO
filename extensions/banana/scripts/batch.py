@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Claude Banana — CSV Batch Workflow
+"""Claude Banana - CSV Batch Workflow
 
 Parse a CSV file of image generation requests and output a structured plan.
 Claude then executes each row via MCP.

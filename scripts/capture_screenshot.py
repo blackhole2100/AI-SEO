@@ -136,7 +136,7 @@ def main():
 
     args = parser.parse_args()
 
-    # Sanitize output path — prevent directory traversal
+    # Sanitize output path - prevent directory traversal
     output_dir = os.path.realpath(args.output)
     cwd = os.getcwd()
     home = os.path.expanduser("~")

@@ -1,4 +1,4 @@
-# MCP Tools Reference — @ycse/nanobanana-mcp
+# MCP Tools Reference: @ycse/nanobanana-mcp
 
 > Package: `@ycse/nanobanana-mcp`
 > GitHub: https://github.com/YCSE/nanobanana-mcp
@@ -49,7 +49,7 @@ Multi-turn visual conversation maintaining session context.
 
 **Returns:** Text response + optional image
 
-**Key feature:** Session consistency — maintains style, characters, and context across turns. Great for iterative refinement.
+**Key feature:** Session consistency, which maintains style, characters, and context across turns. Great for iterative refinement.
 
 ### set_aspect_ratio
 Configure the aspect ratio for subsequent image generations.

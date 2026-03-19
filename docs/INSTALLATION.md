@@ -57,7 +57,7 @@ pip install playwright
 playwright install chromium
 ```
 
-Playwright is optional — without it, visual analysis uses WebFetch as a fallback.
+Playwright is optional. Without it, visual analysis uses WebFetch as a fallback.
 
 ## Installation Paths
 

@@ -1,6 +1,6 @@
 # Banana Image Generation Extension for Claude SEO
 
-Generate production-ready SEO images using AI — OG/social previews, blog heroes,
+Generate production-ready SEO images using AI: OG/social previews, blog heroes,
 product photography, infographics, and more. Powered by Google Gemini via the
 banana Creative Director pipeline.
 
@@ -47,16 +47,16 @@ The installer will:
 
 ## How It Works
 
-Claude acts as a **Creative Director** — it never passes raw text to the API.
+Claude acts as a **Creative Director**. It never passes raw text to the API.
 Instead, it analyzes your intent, selects the optimal domain mode, and constructs
 an optimized prompt using a proven 6-component Reasoning Brief system:
 
-1. **Subject** (30%) — Physical specificity and micro-details
-2. **Style** (25%) — Camera specs, film stock, brand references
-3. **Context** (15%) — Location, time, weather, supporting elements
-4. **Action** (10%) — Pose, gesture, movement, state
-5. **Composition** (10%) — Shot type, framing, focal length
-6. **Lighting** (10%) — Direction, quality, color temperature
+1. **Subject** (30%):Physical specificity and micro-details
+2. **Style** (25%):Camera specs, film stock, brand references
+3. **Context** (15%):Location, time, weather, supporting elements
+4. **Action** (10%):Pose, gesture, movement, state
+5. **Composition** (10%):Shot type, framing, focal length
+6. **Lighting** (10%):Direction, quality, color temperature
 
 ## Post-Generation SEO Checklist
 
@@ -75,7 +75,7 @@ During `/seo audit`, the extension optionally spawns an image analysis agent tha
 - Creates a prioritized generation plan with prompt suggestions
 - Estimates total cost for the generation plan
 
-The agent never auto-generates images — it produces a plan for your review.
+The agent never auto-generates images. It produces a plan for your review.
 
 ## Uninstallation
 

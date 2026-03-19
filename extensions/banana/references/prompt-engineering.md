@@ -1,4 +1,4 @@
-# Prompt Engineering Reference — Claude Banana
+# Prompt Engineering Reference: Claude Banana
 
 > Load this on-demand when constructing complex prompts or when the user
 > asks about prompt techniques. Do NOT load at startup.
@@ -8,7 +8,7 @@
 ## The 6-Component Reasoning Brief
 
 Every image prompt should contain these components, written as natural
-narrative paragraphs — NEVER as comma-separated keyword lists.
+narrative paragraphs, NEVER as comma-separated keyword lists.
 
 ### 1. Subject
 The main focus of the image. Describe with physical specificity.
@@ -146,12 +146,12 @@ mid-century modern typeface feel.
 
 ### Text Rendering Tips
 - Quote exact text: `with the text "OPEN DAILY" in bold condensed sans-serif`
-- **25 characters or less** — this is the practical limit for reliable rendering
-- **2-3 distinct phrases max** — more text fragments degrade quality
+- **25 characters or less**:this is the practical limit for reliable rendering
+- **2-3 distinct phrases max**:more text fragments degrade quality
 - Describe font characteristics, not font names
 - Specify placement: "centered at the top third", "along the bottom edge"
 - High contrast: light text on dark, or vice versa
-- **Text-first hack:** Establish the text concept conversationally first ("I need a sign that says FRESH BREAD"), then generate — the model anchors on text mentioned early
+- **Text-first hack:** Establish the text concept conversationally first ("I need a sign that says FRESH BREAD"), then generate. The model anchors on text mentioned early
 - Expect creative font interpretations, not exact replication of described styles
 
 ### Positive Framing (No Negative Prompts)
@@ -167,9 +167,9 @@ Gemini can use Google Search grounding to incorporate live information.
 Useful for infographics with current data.
 
 **Three-part formula for search-grounded prompts:**
-1. `[Source/Search request]` — What to look up
-2. `[Analytical task]` — What to analyze or extract
-3. `[Visual translation]` — How to render it as an image
+1. `[Source/Search request`:What to look up
+2. `[Analytical task`:What to analyze or extract
+3. `[Visual translation`:How to render it as an image
 
 **Example:** "Search for the current top 5 programming languages by GitHub usage in 2026, analyze their relative popularity percentages, then generate a clean infographic bar chart with the language logos and percentages in a modern dark theme."
 
@@ -181,26 +181,26 @@ to Gemini's natural language format:
 | Source Syntax | Gemini Equivalent |
 |---------------|-------------------|
 | `--ar 16:9` | Call `set_aspect_ratio("16:9")` separately |
-| `--v 6`, `--style raw` | Remove — Gemini has no version/style flags |
+| `--v 6`, `--style raw` | Remove - Gemini has no version/style flags |
 | `--chaos 50` | Describe variety: "unexpected, surreal composition" |
 | `--no trees` | Positive framing: "open clearing with no vegetation" |
 | `(word:1.5)` weight | Descriptive emphasis: "prominently featuring [word]" |
 | `8K, masterpiece, ultra-detailed` | Keep only "ultra-realistic, high resolution"; remove the rest |
 | Comma-separated tags | Expand into descriptive narrative paragraphs |
-| `shot on Hasselblad` | Keep — camera specs work well in Gemini |
+| `shot on Hasselblad` | Keep - camera specs work well in Gemini |
 
 ## Common Prompt Mistakes
 
-1. **Keyword stuffing** — stacking generic quality terms ("8K, masterpiece, best quality") adds nothing. Use only "ultra-realistic, high resolution" at the end
-2. **Tag lists** — Gemini wants prose, not "red car, sunset, mountain, cinematic"
-3. **Missing lighting** — The single biggest quality differentiator
-4. **No composition direction** — Results in generic centered framing
-5. **Vague style** — "make it look cool" vs specific art direction
-6. **Ignoring aspect ratio** — Always set before generating
-7. **Overlong prompts** — Diminishing returns past ~200 words; be precise, not verbose
-8. **Text longer than ~25 characters** — Rendering degrades rapidly past this limit
-9. **Burying key details at the end** — In long prompts, details placed last may be deprioritized; put critical specifics (exact text, key constraints) in the first third of the prompt
-10. **Not iterating with follow-up prompts** — Use `gemini_chat` for progressive refinement instead of trying to get everything right in one generation
+1. **Keyword stuffing**:stacking generic quality terms ("8K, masterpiece, best quality") adds nothing. Use only "ultra-realistic, high resolution" at the end
+2. **Tag lists**:Gemini wants prose, not "red car, sunset, mountain, cinematic"
+3. **Missing lighting**:The single biggest quality differentiator
+4. **No composition direction**:Results in generic centered framing
+5. **Vague style**:"make it look cool" vs specific art direction
+6. **Ignoring aspect ratio**:Always set before generating
+7. **Overlong prompts**:Diminishing returns past ~200 words; be precise, not verbose
+8. **Text longer than ~25 characters**:Rendering degrades rapidly past this limit
+9. **Burying key details at the end**:In long prompts, details placed last may be deprioritized; put critical specifics (exact text, key constraints) in the first third of the prompt
+10. **Not iterating with follow-up prompts**:Use `gemini_chat` for progressive refinement instead of trying to get everything right in one generation
 
 ## Proven Prompt Templates
 
@@ -281,7 +281,7 @@ high level of detail, vibrant complementary colors.
 ```
 A 24-year-old female AI influencer posing confidently in an urban cityscape
 during golden hour. Flawless sun-kissed skin, long wavy brown hair, deep
-green eyes. Wearing a chic streetwear outfit — oversized beige blazer,
+green eyes. Wearing a chic streetwear outfit: oversized beige blazer,
 white top, high-waisted jeans. Captured with Sony A7R IV at 85mm f/1.4,
 shallow depth of field with warm golden bokeh.
 ```
@@ -351,24 +351,24 @@ branding, high resolution, dramatic contrast.
 
 ### Key Tactics That Make Prompts Work
 
-1. **Name real cameras** — "Sony A7R IV", "Canon EOS R5", "iPhone 16 Pro Max" anchor realism
-2. **Specify exact lens** — "85mm f/1.4" gives the model precise depth-of-field information
-3. **Use age + ethnicity + features** — "24yo with olive skin, hazel eyes" beats "a person"
-4. **Name brands for styling** — "Lululemon mat", "Tom Ford suit" triggers specific visual associations
-5. **Include micro-details** — "sweat droplets on collarbones", "baby hairs stuck to neck"
-6. **Add platform context** — "Instagram aesthetic", "commercial photography for advertising"
-7. **Describe textures** — "crinkle-textured", "metallic silver", "frosted glass"
-8. **Use action verbs** — "mid-run", "posing confidently", "captured mid-stride"
-9. **End with "ultra-realistic, high resolution"** — these two specific anchors help on Gemini. Avoid generic stacking like "8K, masterpiece, best quality" which adds no value
-10. **For products, say "prominently displayed"** — ensures the product/logo isn't hidden
+1. **Name real cameras**:"Sony A7R IV", "Canon EOS R5", "iPhone 16 Pro Max" anchor realism
+2. **Specify exact lens**:"85mm f/1.4" gives the model precise depth-of-field information
+3. **Use age + ethnicity + features**:"24yo with olive skin, hazel eyes" beats "a person"
+4. **Name brands for styling**:"Lululemon mat", "Tom Ford suit" triggers specific visual associations
+5. **Include micro-details**:"sweat droplets on collarbones", "baby hairs stuck to neck"
+6. **Add platform context**:"Instagram aesthetic", "commercial photography for advertising"
+7. **Describe textures**:"crinkle-textured", "metallic silver", "frosted glass"
+8. **Use action verbs**:"mid-run", "posing confidently", "captured mid-stride"
+9. **End with "ultra-realistic, high resolution"**:these two specific anchors help on Gemini. Avoid generic stacking like "8K, masterpiece, best quality" which adds no value
+10. **For products, say "prominently displayed"**:ensures the product/logo isn't hidden
 
 ### Anti-Patterns (What NOT to Do)
 
-- **"A dark-themed Instagram ad showing..."** — too meta, describes the concept not the image
-- **"A sleek SaaS dashboard visualization..."** — abstract, no visual anchors
-- **"Modern, clean, professional..."** — vague adjectives that mean nothing to the model
-- **"A bold call to action with..."** — describes marketing intent, not visual content
-- **Describing what the viewer should feel** — instead, describe what creates that feeling
+- **"A dark-themed Instagram ad showing..."**:too meta, describes the concept not the image
+- **"A sleek SaaS dashboard visualization..."**:abstract, no visual anchors
+- **"Modern, clean, professional..."**:vague adjectives that mean nothing to the model
+- **"A bold call to action with..."**:describes marketing intent, not visual content
+- **Describing what the viewer should feel**:instead, describe what creates that feeling
 
 ## Safety Filter Rephrase Strategies
 
@@ -387,11 +387,11 @@ When a prompt is blocked, the only path forward is rephrasing.
 
 ### Rephrase Patterns
 
-1. **Abstraction** — Replace specific dangerous elements with abstract concepts
-2. **Artistic framing** — Frame content as art, editorial, or documentary
-3. **Metaphor** — Use symbolic language instead of literal descriptions
-4. **Positive emphasis** — Describe what IS present, not what's dangerous
-5. **Context shift** — Move from threatening to educational/professional context
+1. **Abstraction**:Replace specific dangerous elements with abstract concepts
+2. **Artistic framing**:Frame content as art, editorial, or documentary
+3. **Metaphor**:Use symbolic language instead of literal descriptions
+4. **Positive emphasis**:Describe what IS present, not what's dangerous
+5. **Context shift**:Move from threatening to educational/professional context
 
 ### Example Rephrases
 

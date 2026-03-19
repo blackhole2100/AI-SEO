@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Claude Banana — Direct API Fallback: Image Generation
+"""Claude Banana - Direct API Fallback: Image Generation
 
 Generate images via Gemini REST API when MCP is unavailable.
 Uses only Python stdlib (no pip dependencies).
