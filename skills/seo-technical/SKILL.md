@@ -7,6 +7,12 @@ description: >
   "robots.txt", "Core Web Vitals", "site speed", or "security headers".
 user-invokable: true
 argument-hint: "[url]"
+allowed-tools:
+  - Read
+  - Grep
+  - Glob
+  - Bash
+  - WebFetch
 ---
 
 # Technical SEO Audit

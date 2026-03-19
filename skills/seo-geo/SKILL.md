@@ -10,6 +10,12 @@ description: >
   "ChatGPT search", or "AI visibility".
 user-invokable: true
 argument-hint: "[url]"
+allowed-tools:
+  - Read
+  - Grep
+  - Glob
+  - Bash
+  - WebFetch
 ---
 
 # AI Search / GEO Optimization (February 2026)

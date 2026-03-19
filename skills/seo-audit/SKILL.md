@@ -7,6 +7,13 @@ description: >
   or "website health check".
 user-invokable: true
 argument-hint: "[url]"
+allowed-tools:
+  - Read
+  - Grep
+  - Glob
+  - Bash
+  - WebFetch
+  - Agent
 ---
 
 # Full Website SEO Audit

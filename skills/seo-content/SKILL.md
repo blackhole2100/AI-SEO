@@ -6,6 +6,12 @@ description: >
   "readability check", "thin content", or "content audit".
 user-invokable: true
 argument-hint: "[url]"
+allowed-tools:
+  - Read
+  - Grep
+  - Glob
+  - Bash
+  - WebFetch
 ---
 
 # Content Quality & E-E-A-T Analysis

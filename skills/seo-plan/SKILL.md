@@ -7,6 +7,13 @@ description: >
   "site architecture", or "SEO roadmap".
 user-invokable: true
 argument-hint: "[business-type]"
+allowed-tools:
+  - Read
+  - Grep
+  - Glob
+  - Bash
+  - WebFetch
+  - Write
 ---
 
 # Strategic SEO Planning

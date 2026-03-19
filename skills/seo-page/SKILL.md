@@ -6,6 +6,12 @@ description: >
   "analyze this page", "check page SEO", or provides a single URL for review.
 user-invokable: true
 argument-hint: "[url]"
+allowed-tools:
+  - Read
+  - Grep
+  - Glob
+  - Bash
+  - WebFetch
 ---
 
 # Single Page Analysis

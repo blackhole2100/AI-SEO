@@ -9,6 +9,15 @@ description: >
   installed. Use when user says "dataforseo", "live SERP", "keyword volume",
   "backlink data", "competitor data", "AI visibility check", "LLM mentions",
   or "real search data".
+user-invokable: true
+argument-hint: "[command] [query]"
+allowed-tools:
+  - Read
+  - Grep
+  - Glob
+  - Bash
+  - WebFetch
+  - Write
 ---
 
 # DataForSEO: Live SEO Data (Extension)
@@ -366,6 +375,14 @@ When DataForSEO MCP tools are available, other claude-seo skills can leverage li
 - **seo-page**:Use `serp_organic_live_advanced` for real SERP positions, `backlinks_summary` for link data
 - **seo-geo**:Use `ai_optimization_chat_gpt_scraper` for real ChatGPT visibility, `ai_opt_llm_ment_search` for LLM mention tracking
 - **seo-plan**:Use `dataforseo_labs_google_competitors_domain`, `dataforseo_labs_google_domain_intersection`, `dataforseo_labs_bulk_traffic_estimation` for real competitive intelligence
+
+## Error Handling
+
+- **MCP server not connected**: Report that DataForSEO extension is not installed or MCP server is unreachable. Suggest running `./extensions/dataforseo/install.sh`
+- **API authentication failed**: Report invalid credentials. Suggest checking DataForSEO API login/password in MCP config
+- **Rate limit exceeded**: Report the limit hit and suggest waiting before retrying
+- **No results returned**: Report "no data found" for the query rather than guessing. Suggest broadening the query or checking location/language codes
+- **Invalid location code**: Report the error and suggest using the locations lookup tool to find the correct code
 
 ## Output Formatting
 
