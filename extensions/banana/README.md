@@ -6,6 +6,9 @@ banana Creative Director pipeline.
 
 ## Prerequisites
 
+> This extension wraps [Claude Banana](https://github.com/AgriciDaniel/banana-claude)
+> for SEO-specific use cases. Install the standalone skill for general-purpose image generation.
+
 - **Claude SEO** installed (`~/.claude/skills/seo/`)
 - **Node.js 18+** with npx
 - **Google AI API key** (free at [aistudio.google.com/apikey](https://aistudio.google.com/apikey))
@@ -83,7 +86,7 @@ The agent never auto-generates images. It produces a plan for your review.
 ./extensions/banana/uninstall.sh
 ```
 
-This removes the skill and agent. If you also use the standalone banana skill,
+This removes the skill and agent. If you also use [Claude Banana](https://github.com/AgriciDaniel/banana-claude),
 the MCP server config is preserved.
 
 ## Troubleshooting

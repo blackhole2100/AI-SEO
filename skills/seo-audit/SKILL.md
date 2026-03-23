@@ -31,6 +31,7 @@ allowed-tools:
    - `seo-performance` -- LCP, INP, CLS measurements
    - `seo-visual` -- screenshots, mobile testing, above-fold analysis
    - `seo-geo` -- AI crawler access, llms.txt, citability, brand mention signals
+   - `seo-local` -- GBP signals, NAP consistency, reviews, local schema, industry-specific local factors (spawn when Local Service industry detected: brick-and-mortar, SAB, or hybrid business type)
 5. **Score** -- aggregate into SEO Health Score (0-100)
 6. **Report** -- generate prioritized action plan
 

@@ -19,7 +19,7 @@ argument-hint: "[command] [url]"
 # SEO: Universal SEO Analysis Skill
 
 Comprehensive SEO analysis across all industries (SaaS, local services,
-e-commerce, publishers, agencies). Orchestrates 12 specialized sub-skills and 7 subagents
+e-commerce, publishers, agencies). Orchestrates 13 specialized sub-skills and 8 subagents
 (+ optional extension sub-skills like seo-dataforseo).
 
 ## Quick Reference
@@ -37,6 +37,7 @@ e-commerce, publishers, agencies). Orchestrates 12 specialized sub-skills and 7 
 | `/seo plan <business-type>` | Strategic SEO planning |
 | `/seo programmatic [url\|plan]` | Programmatic SEO analysis and planning |
 | `/seo competitor-pages [url\|generate]` | Competitor comparison page generation |
+| `/seo local <url>` | Local SEO analysis (GBP, citations, reviews, map pack) |
 | `/seo hreflang [url]` | Hreflang/i18n SEO audit and generation |
 | `/seo dataforseo [command]` | Live SEO data via DataForSEO (extension) |
 | `/seo image-gen [use-case] <description>` | AI image generation for SEO assets (extension) |
@@ -55,7 +56,7 @@ For individual commands, load the relevant sub-skill directly.
 
 Detect business type from homepage signals:
 - **SaaS**: pricing page, /features, /integrations, /docs, "free trial", "sign up"
-- **Local Service**: phone number, address, service area, "serving [city]", Google Maps embed
+- **Local Service**: phone number, address, service area, "serving [city]", Google Maps embed --> auto-suggest `/seo local` for deeper analysis
 - **E-commerce**: /products, /collections, /cart, "add to cart", product schema
 - **Publisher**: /blog, /articles, /topics, article schema, author pages, publication dates
 - **Agency**: /case-studies, /portfolio, /industries, "our work", client logos
@@ -77,6 +78,8 @@ Load these on-demand as needed (do NOT load all at startup):
 - `references/schema-types.md`: All supported schema types with deprecation status
 - `references/eeat-framework.md`: E-E-A-T evaluation criteria (Sept 2025 QRG update)
 - `references/quality-gates.md`: Content length minimums, uniqueness thresholds
+- `references/local-seo-signals.md`: Local ranking factors, review benchmarks, citation tiers, GBP status
+- `references/local-schema-types.md`: LocalBusiness subtypes, industry-specific schema and citation sources
 
 ## Scoring Methodology
 
@@ -101,7 +104,7 @@ Weighted aggregate of all categories:
 
 ## Sub-Skills
 
-This skill orchestrates 12 specialized sub-skills (+ 2 extensions):
+This skill orchestrates 13 specialized sub-skills (+ 2 extensions):
 
 1. **seo-audit** -- Full website audit with parallel delegation
 2. **seo-page** -- Deep single-page analysis
@@ -115,8 +118,9 @@ This skill orchestrates 12 specialized sub-skills (+ 2 extensions):
 10. **seo-programmatic** -- Programmatic SEO analysis and planning
 11. **seo-competitor-pages** -- Competitor comparison page generation
 12. **seo-hreflang** -- Hreflang/i18n SEO audit and generation
-13. **seo-dataforseo** -- Live SEO data via DataForSEO MCP (extension)
-14. **seo-image-gen** -- AI image generation for SEO assets via Gemini (extension)
+13. **seo-local** -- Local SEO (GBP, NAP, citations, reviews, local schema, multi-location)
+14. **seo-dataforseo** -- Live SEO data via DataForSEO MCP (extension)
+15. **seo-image-gen** -- AI image generation for SEO assets via Gemini (extension)
 
 ## Subagents
 
@@ -128,6 +132,7 @@ For parallel analysis during audits:
 - `seo-performance` -- Core Web Vitals measurement
 - `seo-visual` -- Screenshots, mobile testing, above-fold
 - `seo-geo` -- AI crawler access, llms.txt, citability, brand mention signals
+- `seo-local` -- GBP signals, NAP consistency, reviews, local schema, industry-specific local factors (conditional: spawned when Local Service detected)
 - `seo-dataforseo` -- Live SERP, keyword, backlink, local SEO data (extension, optional)
 - `seo-image-gen` -- SEO image audit and generation plan (extension, optional)
 

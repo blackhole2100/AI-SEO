@@ -4,9 +4,10 @@
 
 This repository contains **Claude SEO**, a Tier 4 Claude Code skill for comprehensive
 SEO analysis across all industries. It follows the Agent Skills open standard and the
-3-layer architecture (directive, orchestration, execution). 13 sub-skills, 7 parallel
+3-layer architecture (directive, orchestration, execution). 13 sub-skills, 8 parallel
 subagents, and an extensible reference system cover technical SEO, content quality,
-schema markup, image optimization, sitemap architecture, and AI search optimization.
+schema markup, image optimization, sitemap architecture, AI search optimization,
+and local SEO (GBP, citations, reviews, map pack).
 
 ## Architecture
 
@@ -20,7 +21,7 @@ claude-seo/
   scripts/                           # Python execution scripts
   hooks/                             # Quality gate hooks
   schema/                            # Schema.org JSON-LD templates
-  skills/                            # 12 specialized sub-skills
+  skills/                            # 13 specialized sub-skills
     seo-audit/SKILL.md              # Full site audit with parallel agents
     seo-page/SKILL.md              # Deep single-page analysis
     seo-technical/SKILL.md         # Technical SEO (9 categories)
@@ -29,11 +30,12 @@ claude-seo/
     seo-sitemap/SKILL.md           # XML sitemap analysis/generation
     seo-images/SKILL.md            # Image optimization analysis
     seo-geo/SKILL.md               # AI search / GEO optimization
+    seo-local/SKILL.md             # Local SEO (GBP, citations, reviews, map pack)
     seo-plan/SKILL.md              # Strategic SEO planning
     seo-programmatic/SKILL.md      # Programmatic SEO at scale
     seo-competitor-pages/SKILL.md  # Competitor comparison pages
     seo-hreflang/SKILL.md         # International SEO / hreflang
-  agents/                            # 7 parallel subagents
+  agents/                            # 8 parallel subagents
     seo-technical.md               # Crawlability, indexability, security
     seo-content.md                 # E-E-A-T, readability, thin content
     seo-schema.md                  # Structured data validation
@@ -41,9 +43,10 @@ claude-seo/
     seo-performance.md             # Core Web Vitals, page speed
     seo-visual.md                  # Screenshots, mobile rendering
     seo-geo.md                     # AI crawler access, GEO, citability
+    seo-local.md                   # GBP, NAP, citations, reviews, local schema
   extensions/                          # Optional add-on capabilities
     dataforseo/                    # Live SEO data via DataForSEO MCP
-    banana/                        # AI image generation via Gemini MCP
+    banana/                        # AI image generation via Gemini MCP (see github.com/AgriciDaniel/banana-claude)
   docs/                              # Extended documentation
     ARCHITECTURE.md                # System design overview
     COMMANDS.md                    # Full command reference
@@ -56,7 +59,7 @@ claude-seo/
 
 | Command | Purpose |
 |---------|---------|
-| `/seo audit <url>` | Full site audit with 7 parallel subagents |
+| `/seo audit <url>` | Full site audit with 8 parallel subagents |
 | `/seo page <url>` | Deep single-page analysis |
 | `/seo technical <url>` | Technical SEO audit (9 categories) |
 | `/seo content <url>` | E-E-A-T and content quality analysis |
@@ -67,6 +70,7 @@ claude-seo/
 | `/seo plan <type>` | Strategic SEO planning by industry |
 | `/seo programmatic` | Programmatic SEO analysis and planning |
 | `/seo competitor-pages` | Competitor comparison page generation |
+| `/seo local <url>` | Local SEO analysis (GBP, citations, reviews, map pack) |
 | `/seo hreflang <url>` | International SEO / hreflang audit |
 | `/seo image-gen [use-case] <desc>` | AI image generation for SEO assets (extension) |
 
@@ -80,9 +84,15 @@ claude-seo/
 - Python dependencies install into `~/.claude/skills/seo/.venv/`
 - Test with `python -m pytest tests/` after changes (if applicable)
 
+## Ecosystem
+
+Part of the Claude Code skill family:
+- [Claude Banana](https://github.com/AgriciDaniel/banana-claude) -- standalone image gen (bundled as extension here)
+- [Claude Blog](https://github.com/AgriciDaniel/claude-blog) -- companion blog engine, consumes SEO findings
+
 ## Key Principles
 
 1. **Progressive Disclosure**: Metadata always loaded, instructions on activation, resources on demand
 2. **Industry Detection**: Auto-detect SaaS, e-commerce, local, publisher, agency
-3. **Parallel Execution**: Full audits spawn 7 subagents simultaneously
+3. **Parallel Execution**: Full audits spawn 8 subagents simultaneously
 4. **Extension System**: DataForSEO MCP for live data, Banana MCP for AI image generation

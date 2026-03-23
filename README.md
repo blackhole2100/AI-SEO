@@ -2,7 +2,7 @@
 
 ![Claude SEO](screenshots/cover-image.jpeg)
 
-# Claude SEO v1.5.0 -- SEO Audit Skill for Claude Code
+# Claude SEO v1.6.0 -- SEO Audit Skill for Claude Code
 
 Comprehensive SEO analysis skill for Claude Code. Covers technical SEO, on-page analysis, content quality (E-E-A-T), schema markup, image optimization, sitemap architecture, AI search optimization (GEO), and strategic planning.
 
@@ -21,6 +21,7 @@ Comprehensive SEO analysis skill for Claude Code. Covers technical SEO, on-page 
 - [Features](#features)
 - [Architecture](#architecture)
 - [Extensions](#extensions)
+- [Ecosystem](#ecosystem)
 - [Documentation](#documentation)
 - [Requirements](#requirements)
 - [Uninstall](#uninstall)
@@ -262,6 +263,42 @@ Live SERP data, keyword research, backlinks, on-page analysis, content analysis,
 ```
 
 See [DataForSEO Extension](extensions/dataforseo/README.md) for full documentation.
+
+### Banana (AI Image Generation)
+
+Generate SEO images (OG previews, blog heroes, product photos, infographics) using the
+[Claude Banana](https://github.com/AgriciDaniel/banana-claude) Creative Director pipeline.
+
+```bash
+# Install extension
+./extensions/banana/install.sh
+```
+
+```bash
+# Example commands
+/seo image-gen og "Professional SaaS dashboard"
+/seo image-gen hero "AI-powered content creation"
+/seo image-gen batch "Product photography" 3
+```
+
+See [Banana Extension](extensions/banana/README.md) for full documentation.
+Already using standalone Claude Banana? The extension reuses your existing nanobanana-mcp setup.
+
+## Ecosystem
+
+Claude SEO is part of a family of Claude Code skills that work together:
+
+| Skill | What it does | How it connects |
+|-------|-------------|-----------------|
+| [Claude SEO](https://github.com/AgriciDaniel/claude-seo) | SEO analysis, audits, schema, GEO | Core -- analyzes sites, generates action plans |
+| [Claude Blog](https://github.com/AgriciDaniel/claude-blog) | Blog writing, optimization, scoring | Companion -- write content optimized by SEO findings |
+| [Claude Banana](https://github.com/AgriciDaniel/banana-claude) | AI image generation via Gemini | Shared -- generates images for SEO assets and blog posts |
+
+**Workflow example:**
+1. `/seo audit https://example.com` -- identify content gaps and image issues
+2. `/blog write "target keyword"` -- create SEO-optimized blog posts
+3. `/seo image-gen hero "blog topic"` -- generate hero images (banana extension)
+4. `/seo geo https://example.com/blog/post` -- optimize for AI citations
 
 ## Documentation
 
