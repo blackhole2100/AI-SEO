@@ -6,13 +6,12 @@ description: >
   "generate sitemap", "sitemap issues", or "XML sitemap".
 user-invokable: true
 argument-hint: "[url or generate]"
-allowed-tools:
-  - Read
-  - Grep
-  - Glob
-  - Bash
-  - WebFetch
-  - Write
+license: MIT
+allowed-tools: Read, Grep, Glob, Bash, WebFetch, Write
+metadata:
+  author: AgriciDaniel
+  version: "1.6.1"
+  category: seo
 ---
 
 # Sitemap Analysis & Generation

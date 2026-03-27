@@ -14,13 +14,23 @@ description: >
   "technical SEO", "content quality", "page speed", "structured data".
 user-invokable: true
 argument-hint: "[command] [url]"
+license: MIT
+allowed-tools: Read, Grep, Glob, Bash, WebFetch, Agent
+metadata:
+  author: AgriciDaniel
+  version: "1.6.1"
+  category: seo
 ---
 
 # SEO: Universal SEO Analysis Skill
 
+**Invocation:** `/seo $1 $2` where `$1` is the command and `$2` is the URL or argument.
+
+**Scripts:** Located at the plugin root `scripts/` directory.
+
 Comprehensive SEO analysis across all industries (SaaS, local services,
-e-commerce, publishers, agencies). Orchestrates 13 specialized sub-skills and 8 subagents
-(+ optional extension sub-skills like seo-dataforseo).
+e-commerce, publishers, agencies). Orchestrates 14 specialized sub-skills and 9 subagents
+(+ 2 optional extension sub-skills: seo-dataforseo and seo-image-gen).
 
 ## Quick Reference
 
@@ -38,6 +48,7 @@ e-commerce, publishers, agencies). Orchestrates 13 specialized sub-skills and 8 
 | `/seo programmatic [url\|plan]` | Programmatic SEO analysis and planning |
 | `/seo competitor-pages [url\|generate]` | Competitor comparison page generation |
 | `/seo local <url>` | Local SEO analysis (GBP, citations, reviews, map pack) |
+| `/seo maps [command] [args]` | Maps intelligence (geo-grid, GBP audit, reviews, competitors) |
 | `/seo hreflang [url]` | Hreflang/i18n SEO audit and generation |
 | `/seo dataforseo [command]` | Live SEO data via DataForSEO (extension) |
 | `/seo image-gen [use-case] <description>` | AI image generation for SEO assets (extension) |
@@ -47,8 +58,10 @@ e-commerce, publishers, agencies). Orchestrates 13 specialized sub-skills and 8 
 When the user invokes `/seo audit`, delegate to subagents in parallel:
 1. Detect business type (SaaS, local, ecommerce, publisher, agency, other)
 2. Spawn subagents: seo-technical, seo-content, seo-schema, seo-sitemap, seo-performance, seo-visual, seo-geo
-3. Collect results and generate unified report with SEO Health Score (0-100)
-4. Create prioritized action plan (Critical -> High -> Medium -> Low)
+3. If local business detected, also spawn seo-local agent
+4. If local business detected AND DataForSEO MCP available, also spawn seo-maps agent
+5. Collect results and generate unified report with SEO Health Score (0-100)
+6. Create prioritized action plan (Critical -> High -> Medium -> Low)
 
 For individual commands, load the relevant sub-skill directly.
 
@@ -81,6 +94,9 @@ Load these on-demand as needed (do NOT load all at startup):
 - `references/local-seo-signals.md`: Local ranking factors, review benchmarks, citation tiers, GBP status
 - `references/local-schema-types.md`: LocalBusiness subtypes, industry-specific schema and citation sources
 
+Maps-specific references (loaded by seo-maps skill, not at startup):
+- `references/maps-geo-grid.md`, `references/maps-gbp-checklist.md`, `references/maps-api-endpoints.md`, `references/maps-free-apis.md`
+
 ## Scoring Methodology
 
 ### SEO Health Score (0-100)
@@ -104,7 +120,7 @@ Weighted aggregate of all categories:
 
 ## Sub-Skills
 
-This skill orchestrates 13 specialized sub-skills (+ 2 extensions):
+This skill orchestrates 14 specialized sub-skills (+ 2 extensions):
 
 1. **seo-audit** -- Full website audit with parallel delegation
 2. **seo-page** -- Deep single-page analysis
@@ -119,8 +135,9 @@ This skill orchestrates 13 specialized sub-skills (+ 2 extensions):
 11. **seo-competitor-pages** -- Competitor comparison page generation
 12. **seo-hreflang** -- Hreflang/i18n SEO audit and generation
 13. **seo-local** -- Local SEO (GBP, NAP, citations, reviews, local schema, multi-location)
-14. **seo-dataforseo** -- Live SEO data via DataForSEO MCP (extension)
-15. **seo-image-gen** -- AI image generation for SEO assets via Gemini (extension)
+14. **seo-maps** -- Maps intelligence (geo-grid, GBP audit, reviews, competitor radius)
+15. **seo-dataforseo** -- Live SEO data via DataForSEO MCP (extension)
+16. **seo-image-gen** -- AI image generation for SEO assets via Gemini (extension)
 
 ## Subagents
 
@@ -133,6 +150,7 @@ For parallel analysis during audits:
 - `seo-visual` -- Screenshots, mobile testing, above-fold
 - `seo-geo` -- AI crawler access, llms.txt, citability, brand mention signals
 - `seo-local` -- GBP signals, NAP consistency, reviews, local schema, industry-specific local factors (conditional: spawned when Local Service detected)
+- `seo-maps` -- Geo-grid rank tracking, GBP audit, review intelligence, competitor radius mapping (conditional: spawned when Local Service detected AND DataForSEO MCP available)
 - `seo-dataforseo` -- Live SERP, keyword, backlink, local SEO data (extension, optional)
 - `seo-image-gen` -- SEO image audit and generation plan (extension, optional)
 

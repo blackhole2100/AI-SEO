@@ -60,7 +60,7 @@ Remaining phases (deferred):
 
 - [ ] **Phase 3: Screenshot DOM export** (Priority: Medium):Add `--export-html` flag to `capture_screenshot.py` so rendered DOM is available to other agents without a second browser launch.
 
-- [ ] **Phase 4: Orchestrator SPA detection** (Priority: High):Add 6 SPA detection signals to `seo/SKILL.md` (empty root div, minimal body, prerenderReady, framework markers, large JS bundles, React/Vue/Angular attributes). Route agents to raw vs rendered HTML based on detection result.
+- [ ] **Phase 4: Orchestrator SPA detection** (Priority: High):Add 6 SPA detection signals to `skills/seo/SKILL.md` (empty root div, minimal body, prerenderReady, framework markers, large JS bundles, React/Vue/Angular attributes). Route agents to raw vs rendered HTML based on detection result.
 
 - [ ] **Phase 5: Agent updates** (Priority: High):Update seo-technical, seo-content, seo-schema, seo-performance, seo-visual to use rendered DOM when SPA detected. Add WRS (Web Rendering Service) dependency risk deductions.
 

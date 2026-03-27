@@ -1,6 +1,8 @@
 ---
 name: seo-performance
 description: Performance analyzer. Measures and evaluates Core Web Vitals and page load performance.
+model: sonnet
+maxTurns: 15
 tools: Read, Bash, Write
 ---
 
@@ -57,7 +59,7 @@ Google evaluates the **75th percentile** of page visits, 75% of visits must meet
 
 **CrUX Vis** replaced the CrUX Dashboard (November 2025). The old Looker Studio dashboard was deprecated. Use [CrUX Vis](https://cruxvis.withgoogle.com) or the CrUX API directly.
 
-**LCP subparts** (TTFB, resource load delay, resource load time, element render delay) are now available in CrUX data (February 2025). See `seo/references/cwv-thresholds.md` for details.
+**LCP subparts** (TTFB, resource load delay, resource load time, element render delay) are now available in CrUX data (February 2025). See `skills/seo/references/cwv-thresholds.md` for details.
 
 ## Tools
 

@@ -2,18 +2,17 @@
 name: seo-audit
 description: >
   Full website SEO audit with parallel subagent delegation. Crawls up to 500
-  pages, detects business type, delegates to 7 specialists, generates health
-  score. Use when user says "audit", "full SEO check", "analyze my site",
-  or "website health check".
+  pages, detects business type, delegates to 9 specialists (7 core + 2
+  conditional local), generates health score. Use when user says "audit",
+  "full SEO check", "analyze my site", or "website health check".
 user-invokable: true
 argument-hint: "[url]"
-allowed-tools:
-  - Read
-  - Grep
-  - Glob
-  - Bash
-  - WebFetch
-  - Agent
+license: MIT
+allowed-tools: Read, Grep, Glob, Bash, WebFetch, Agent
+metadata:
+  author: AgriciDaniel
+  version: "1.6.1"
+  category: seo
 ---
 
 # Full Website SEO Audit
@@ -32,6 +31,7 @@ allowed-tools:
    - `seo-visual` -- screenshots, mobile testing, above-fold analysis
    - `seo-geo` -- AI crawler access, llms.txt, citability, brand mention signals
    - `seo-local` -- GBP signals, NAP consistency, reviews, local schema, industry-specific local factors (spawn when Local Service industry detected: brick-and-mortar, SAB, or hybrid business type)
+   - `seo-maps` -- Geo-grid rank tracking, GBP audit, review intelligence, competitor radius mapping (spawn when Local Service detected AND DataForSEO MCP available)
 5. **Score** -- aggregate into SEO Health Score (0-100)
 6. **Report** -- generate prioritized action plan
 

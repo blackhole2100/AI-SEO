@@ -6,19 +6,19 @@ description: >
   "readability check", "thin content", or "content audit".
 user-invokable: true
 argument-hint: "[url]"
-allowed-tools:
-  - Read
-  - Grep
-  - Glob
-  - Bash
-  - WebFetch
+license: MIT
+allowed-tools: Read, Grep, Glob, Bash, WebFetch
+metadata:
+  author: AgriciDaniel
+  version: "1.6.1"
+  category: seo
 ---
 
 # Content Quality & E-E-A-T Analysis
 
 ## E-E-A-T Framework (updated Sept 2025 QRG)
 
-Read `seo/references/eeat-framework.md` for full criteria.
+Read `skills/seo/references/eeat-framework.md` for full criteria.
 
 ### Experience (first-hand signals)
 - Original research, case studies, before/after results

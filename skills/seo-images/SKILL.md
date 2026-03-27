@@ -7,12 +7,12 @@ description: >
   or "image audit".
 user-invokable: true
 argument-hint: "[url]"
-allowed-tools:
-  - Read
-  - Grep
-  - Glob
-  - Bash
-  - WebFetch
+license: MIT
+allowed-tools: Read, Grep, Glob, Bash, WebFetch
+metadata:
+  author: AgriciDaniel
+  version: "1.6.1"
+  category: seo
 ---
 
 # Image Optimization Analysis

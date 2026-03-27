@@ -1,6 +1,8 @@
 ---
 name: seo-visual
 description: Visual analyzer. Captures screenshots, tests mobile rendering, and analyzes above-the-fold content using Playwright.
+model: sonnet
+maxTurns: 15
 tools: Read, Bash, Write
 ---
 

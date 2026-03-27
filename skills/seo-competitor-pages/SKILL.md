@@ -4,15 +4,16 @@ description: >
   Generate SEO-optimized competitor comparison and alternatives pages. Covers
   "X vs Y" layouts, "alternatives to X" pages, feature matrices, schema markup,
   and conversion optimization. Use when user says "comparison page", "vs page",
-  "alternatives page", "competitor comparison", or "X vs Y".
+  "alternatives page", "competitor comparison", "X vs Y", "versus",
+  "compare competitors", or "alternative to".
 user-invokable: true
 argument-hint: "[url or generate] [competitor]"
-allowed-tools:
-  - Read
-  - Grep
-  - Glob
-  - Bash
-  - WebFetch
+license: MIT
+allowed-tools: Read, Grep, Glob, Bash, WebFetch
+metadata:
+  author: AgriciDaniel
+  version: "1.6.1"
+  category: seo
 ---
 
 # Competitor Comparison & Alternatives Pages

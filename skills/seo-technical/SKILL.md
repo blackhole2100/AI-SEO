@@ -7,12 +7,12 @@ description: >
   "robots.txt", "Core Web Vitals", "site speed", or "security headers".
 user-invokable: true
 argument-hint: "[url]"
-allowed-tools:
-  - Read
-  - Grep
-  - Glob
-  - Bash
-  - WebFetch
+license: MIT
+allowed-tools: Read, Grep, Glob, Bash, WebFetch
+metadata:
+  author: AgriciDaniel
+  version: "1.6.1"
+  category: seo
 ---
 
 # Technical SEO Audit

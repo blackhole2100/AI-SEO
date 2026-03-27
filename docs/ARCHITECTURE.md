@@ -178,7 +178,7 @@ User Request (e.g., /seo page)
 1. Create `skills/seo-newskill/SKILL.md`
 2. Add YAML frontmatter with name and description
 3. Write skill instructions
-4. Update main `seo/SKILL.md` to route to new skill
+4. Update main `skills/seo/SKILL.md` to route to new skill
 
 ### Adding a New Subagent
 

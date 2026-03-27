@@ -1,0 +1,24 @@
+{
+  "name": "claude-seo-marketplace",
+  "owner": {
+    "name": "AgriciDaniel",
+    "email": "agricidaniel@users.noreply.github.com"
+  },
+  "metadata": {
+    "description": "SEO analysis tools for Claude Code",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "claude-seo",
+      "source": "./",
+      "description": "Comprehensive SEO analysis skill for Claude Code. Covers technical SEO, content quality (E-E-A-T), schema markup, image optimization, sitemap architecture, AI search optimization (GEO), local SEO, maps intelligence, and strategic planning across all industries.",
+      "homepage": "https://github.com/AgriciDaniel/claude-seo",
+      "repository": "https://github.com/AgriciDaniel/claude-seo",
+      "license": "MIT",
+      "keywords": ["seo", "technical-seo", "e-e-a-t", "schema-markup", "local-seo", "geo", "ai-search"],
+      "category": "seo",
+      "tags": ["seo", "audit", "technical", "content", "schema", "local", "geo"]
+    }
+  ]
+}

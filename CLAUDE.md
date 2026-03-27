@@ -4,62 +4,70 @@
 
 This repository contains **Claude SEO**, a Tier 4 Claude Code skill for comprehensive
 SEO analysis across all industries. It follows the Agent Skills open standard and the
-3-layer architecture (directive, orchestration, execution). 13 sub-skills, 8 parallel
-subagents, and an extensible reference system cover technical SEO, content quality,
+3-layer architecture (directive, orchestration, execution). 14 core sub-skills (+ 2
+extensions), 9 core subagents (+ 2 extension agents), and an extensible reference
+system cover technical SEO, content quality,
 schema markup, image optimization, sitemap architecture, AI search optimization,
-and local SEO (GBP, citations, reviews, map pack).
+local SEO (GBP, citations, reviews, map pack), and maps intelligence (geo-grid
+rank tracking, GBP auditing, review intelligence, competitor radius mapping).
 
 ## Architecture
 
 ```
 claude-seo/
   CLAUDE.md                          # Project instructions (this file)
-  .claude-plugin/plugin.json         # Plugin manifest v1.5.0
-  seo/                               # Main orchestrator skill
-    SKILL.md                         # Entry point, routing table, core rules
-    references/                      # On-demand knowledge files
-  scripts/                           # Python execution scripts
-  hooks/                             # Quality gate hooks
-  schema/                            # Schema.org JSON-LD templates
-  skills/                            # 13 specialized sub-skills
-    seo-audit/SKILL.md              # Full site audit with parallel agents
-    seo-page/SKILL.md              # Deep single-page analysis
-    seo-technical/SKILL.md         # Technical SEO (9 categories)
-    seo-content/SKILL.md           # E-E-A-T and content quality
-    seo-schema/SKILL.md            # Schema.org markup detection/generation
-    seo-sitemap/SKILL.md           # XML sitemap analysis/generation
-    seo-images/SKILL.md            # Image optimization analysis
-    seo-geo/SKILL.md               # AI search / GEO optimization
-    seo-local/SKILL.md             # Local SEO (GBP, citations, reviews, map pack)
-    seo-plan/SKILL.md              # Strategic SEO planning
-    seo-programmatic/SKILL.md      # Programmatic SEO at scale
-    seo-competitor-pages/SKILL.md  # Competitor comparison pages
-    seo-hreflang/SKILL.md         # International SEO / hreflang
-  agents/                            # 8 parallel subagents
-    seo-technical.md               # Crawlability, indexability, security
-    seo-content.md                 # E-E-A-T, readability, thin content
-    seo-schema.md                  # Structured data validation
-    seo-sitemap.md                 # Sitemap quality gates
-    seo-performance.md             # Core Web Vitals, page speed
-    seo-visual.md                  # Screenshots, mobile rendering
-    seo-geo.md                     # AI crawler access, GEO, citability
-    seo-local.md                   # GBP, NAP, citations, reviews, local schema
-  extensions/                          # Optional add-on capabilities
-    dataforseo/                    # Live SEO data via DataForSEO MCP
-    banana/                        # AI image generation via Gemini MCP (see github.com/AgriciDaniel/banana-claude)
-  docs/                              # Extended documentation
-    ARCHITECTURE.md                # System design overview
-    COMMANDS.md                    # Full command reference
-    INSTALLATION.md                # Install guide
-    MCP-INTEGRATION.md            # DataForSEO MCP setup
-    TROUBLESHOOTING.md            # Common issues
+  .claude-plugin/
+    plugin.json                    # Plugin manifest (v1.7.0)
+    marketplace.json               # Marketplace catalog for distribution
+  skills/                            # 17 skills (auto-discovered)
+    seo/                           # Main orchestrator skill
+      SKILL.md                     # Entry point, routing table, core rules
+      references/                  # On-demand knowledge files (10 files)
+    seo-audit/SKILL.md            # Full site audit with parallel agents
+    seo-page/SKILL.md            # Deep single-page analysis
+    seo-technical/SKILL.md       # Technical SEO (9 categories)
+    seo-content/SKILL.md         # E-E-A-T and content quality
+    seo-schema/SKILL.md          # Schema.org markup detection/generation
+    seo-sitemap/SKILL.md         # XML sitemap analysis/generation
+    seo-images/SKILL.md          # Image optimization analysis
+    seo-geo/SKILL.md             # AI search / GEO optimization
+    seo-local/SKILL.md           # Local SEO (GBP, citations, reviews, map pack)
+    seo-maps/SKILL.md            # Maps intelligence (geo-grid, GBP audit, reviews, competitors)
+    seo-plan/SKILL.md            # Strategic SEO planning
+    seo-programmatic/SKILL.md    # Programmatic SEO at scale
+    seo-competitor-pages/SKILL.md # Competitor comparison pages
+    seo-hreflang/SKILL.md       # International SEO / hreflang
+    seo-dataforseo/SKILL.md     # Live SEO data via DataForSEO MCP
+    seo-image-gen/              # AI image generation for SEO assets
+      SKILL.md
+      references/                # Image gen reference files (7 files)
+  agents/                          # 11 subagents (auto-discovered)
+    seo-technical.md             # Crawlability, indexability, security
+    seo-content.md               # E-E-A-T, readability, thin content
+    seo-schema.md                # Structured data validation
+    seo-sitemap.md               # Sitemap quality gates
+    seo-performance.md           # Core Web Vitals, page speed
+    seo-visual.md                # Screenshots, mobile rendering
+    seo-geo.md                   # AI crawler access, GEO, citability
+    seo-local.md                 # GBP, NAP, citations, reviews, local schema
+    seo-maps.md                  # Geo-grid, GBP audit, reviews, competitor radius
+    seo-dataforseo.md            # DataForSEO data analyst
+    seo-image-gen.md             # SEO image audit analyst
+  hooks/                           # Quality gate hooks
+    hooks.json                   # PostToolUse schema validation
+  scripts/                         # Python execution scripts
+  schema/                          # Schema.org JSON-LD templates
+  extensions/                      # Optional add-on install helpers
+    dataforseo/                  # DataForSEO MCP install scripts
+    banana/                      # Banana MCP install scripts
+  docs/                            # Extended documentation
 ```
 
 ## Commands
 
 | Command | Purpose |
 |---------|---------|
-| `/seo audit <url>` | Full site audit with 8 parallel subagents |
+| `/seo audit <url>` | Full site audit with 9 parallel subagents |
 | `/seo page <url>` | Deep single-page analysis |
 | `/seo technical <url>` | Technical SEO audit (9 categories) |
 | `/seo content <url>` | E-E-A-T and content quality analysis |
@@ -71,6 +79,7 @@ claude-seo/
 | `/seo programmatic` | Programmatic SEO analysis and planning |
 | `/seo competitor-pages` | Competitor comparison page generation |
 | `/seo local <url>` | Local SEO analysis (GBP, citations, reviews, map pack) |
+| `/seo maps [command] [args]` | Maps intelligence (geo-grid, GBP audit, reviews, competitors) |
 | `/seo hreflang <url>` | International SEO / hreflang audit |
 | `/seo image-gen [use-case] <desc>` | AI image generation for SEO assets (extension) |
 
@@ -80,7 +89,7 @@ claude-seo/
 - Reference files should be focused and under 200 lines
 - Scripts must have docstrings, CLI interface, and JSON output
 - Follow kebab-case naming for all skill directories
-- Agents invoked via Task tool with `context: fork`, never via Bash
+- Agents invoked via Agent tool, never via Bash
 - Python dependencies install into `~/.claude/skills/seo/.venv/`
 - Test with `python -m pytest tests/` after changes (if applicable)
 
@@ -94,5 +103,5 @@ Part of the Claude Code skill family:
 
 1. **Progressive Disclosure**: Metadata always loaded, instructions on activation, resources on demand
 2. **Industry Detection**: Auto-detect SaaS, e-commerce, local, publisher, agency
-3. **Parallel Execution**: Full audits spawn 8 subagents simultaneously
+3. **Parallel Execution**: Full audits spawn up to 11 subagents simultaneously
 4. **Extension System**: DataForSEO MCP for live data, Banana MCP for AI image generation

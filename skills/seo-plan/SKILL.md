@@ -3,17 +3,17 @@ name: seo-plan
 description: >
   Strategic SEO planning for new or existing websites. Industry-specific
   templates, competitive analysis, content strategy, and implementation
-  roadmap. Use when user says "SEO plan", "SEO strategy", "content strategy",
+  roadmap. Use when user says "SEO plan", "SEO strategy", "SEO planning",
+  "content strategy", "keyword strategy", "content calendar",
   "site architecture", or "SEO roadmap".
 user-invokable: true
 argument-hint: "[business-type]"
-allowed-tools:
-  - Read
-  - Grep
-  - Glob
-  - Bash
-  - WebFetch
-  - Write
+license: MIT
+allowed-tools: Read, Grep, Glob, Bash, WebFetch, Write
+metadata:
+  author: AgriciDaniel
+  version: "1.6.1"
+  category: seo
 ---
 
 # Strategic SEO Planning

@@ -10,12 +10,12 @@ description: >
   "ChatGPT search", or "AI visibility".
 user-invokable: true
 argument-hint: "[url]"
-allowed-tools:
-  - Read
-  - Grep
-  - Glob
-  - Bash
-  - WebFetch
+license: MIT
+allowed-tools: Read, Grep, Glob, Bash, WebFetch
+metadata:
+  author: AgriciDaniel
+  version: "1.6.1"
+  category: seo
 ---
 
 # AI Search / GEO Optimization (February 2026)
