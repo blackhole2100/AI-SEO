@@ -17,7 +17,7 @@ rank tracking, GBP auditing, review intelligence, competitor radius mapping).
 claude-seo/
   CLAUDE.md                          # Project instructions (this file)
   .claude-plugin/
-    plugin.json                    # Plugin manifest (v1.7.0)
+    plugin.json                    # Plugin manifest (v1.6.1)
     marketplace.json               # Marketplace catalog for distribution
   skills/                            # 17 skills (auto-discovered)
     seo/                           # Main orchestrator skill

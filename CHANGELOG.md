@@ -5,6 +5,43 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.6.1] - 2026-03-27
+
+### Added
+- **Marketplace distribution**: Created `.claude-plugin/marketplace.json` for plugin marketplace submission. Users can now install via `/plugin marketplace add AgriciDaniel/claude-seo`
+- **Agent model and turn limits**: All 11 subagents now specify `model: sonnet` and `maxTurns` (15-25) for predictable cost and behavior
+- **Plugin keywords**: Added 12 discovery keywords to `plugin.json` for marketplace searchability
+
+### Changed
+- **Standard directory structure**: Moved `seo/` orchestrator to `skills/seo/` for auto-discovery compliance. Extension skills (seo-dataforseo, seo-image-gen) and agents copied to standard `skills/` and `agents/` directories
+- **plugin.json rewrite**: Removed non-standard `entry_point` field and individual file-path arrays for `skills`/`agents`. All 17 skills and 11 agents now rely on directory auto-discovery per Anthropic plugin spec
+- **allowed-tools format**: Converted from YAML arrays to comma-separated strings across all 17 SKILL.md files
+- **Metadata standardized**: Added `license: MIT` and `metadata:` block (author, version, category) to all SKILL.md frontmatters
+- **Cross-references**: Updated all agent and skill files referencing `seo/references/` to `skills/seo/references/`
+- **CLAUDE.md**: Architecture tree updated to reflect new structure
+
+### Fixed
+- **Plugin validation**: `claude plugin validate .` now passes cleanly (previously would fail on non-standard fields)
+
+---
+
+## [1.6.0] - 2026-03-23
+
+### Added
+- **Local SEO skill**: `skills/seo-local/SKILL.md` for GBP, NAP, citations, reviews, and map pack analysis
+- **Maps intelligence skill**: `skills/seo-maps/SKILL.md` for geo-grid rank tracking, GBP auditing, review intelligence, competitor radius mapping
+- **Maps subagent**: `agents/seo-maps.md` for parallel maps analysis during audits
+- **Local subagent**: `agents/seo-local.md` for parallel local SEO analysis
+- **Maps reference files**: 4 new reference files (maps-geo-grid.md, maps-gbp-checklist.md, maps-api-endpoints.md, maps-free-apis.md)
+- **Local reference files**: 2 new reference files (local-seo-signals.md, local-schema-types.md)
+- **Installer fixes**: Cross-platform install script improvements
+
+### Changed
+- Subagent count: 7 -> 9 core (+ 2 extension) with conditional local/maps spawning
+- Sub-skill count: 12 -> 14 core (+ 2 extension)
+
+---
+
 ## [1.5.0] - 2026-03-19
 
 ### Added
