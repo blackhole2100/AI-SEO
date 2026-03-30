@@ -4,7 +4,7 @@
 
 This repository contains **Claude SEO**, a Tier 4 Claude Code skill for comprehensive
 SEO analysis across all industries. It follows the Agent Skills open standard and the
-3-layer architecture (directive, orchestration, execution). 16 core sub-skills (+ 3
+3-layer architecture (directive, orchestration, execution). 17 core sub-skills (+ 3
 extensions), 10 core subagents (+ 2 extension agents), and an extensible reference
 system cover technical SEO, content quality,
 schema markup, image optimization, sitemap architecture, AI search optimization,
@@ -17,7 +17,7 @@ rank tracking, GBP auditing, review intelligence, competitor radius mapping).
 claude-seo/
   CLAUDE.md                          # Project instructions (this file)
   .claude-plugin/
-    plugin.json                    # Plugin manifest (v1.7.0)
+    plugin.json                    # Plugin manifest (v1.7.2)
     marketplace.json               # Marketplace catalog for distribution
   skills/                            # 19 skills (auto-discovered)
     seo/                           # Main orchestrator skill
@@ -41,9 +41,8 @@ claude-seo/
       SKILL.md
       references/                # API reference files (10 files)
     seo-backlinks/SKILL.md      # Backlink profile analysis
-    seo-dataforseo/SKILL.md     # Live SEO data via DataForSEO MCP
-    seo-firecrawl/SKILL.md      # Full-site crawling via Firecrawl MCP
-    seo-image-gen/              # AI image generation for SEO assets
+    seo-dataforseo/SKILL.md     # Live SEO data via DataForSEO MCP (extension mirror)
+    seo-image-gen/              # AI image generation for SEO assets (extension mirror)
       SKILL.md
       references/                # Image gen reference files (7 files)
   agents/                          # 12 subagents (auto-discovered)
@@ -61,7 +60,7 @@ claude-seo/
     seo-image-gen.md             # SEO image audit analyst
   hooks/                           # Quality gate hooks
     hooks.json                   # PostToolUse schema validation
-  scripts/                         # Python execution scripts (16 total)
+  scripts/                         # Python execution scripts (15 tracked + 1 dev-only)
     google_auth.py               # Credential management (OAuth, SA, API key, 4-tier detection)
     pagespeed_check.py           # PSI v5 + CrUX API
     crux_history.py              # CrUX History API (25-week trends)
@@ -81,6 +80,7 @@ claude-seo/
   schema/                          # Schema.org JSON-LD templates
   extensions/                      # Optional add-on install helpers
     dataforseo/                  # DataForSEO MCP install scripts
+    firecrawl/                   # Firecrawl MCP install scripts
     banana/                      # Banana MCP install scripts
   docs/                            # Extended documentation
 ```
@@ -104,6 +104,9 @@ claude-seo/
 | `/seo maps [command] [args]` | Maps intelligence (geo-grid, GBP audit, reviews, competitors) |
 | `/seo hreflang <url>` | International SEO / hreflang audit |
 | `/seo google [command] [url]` | Google SEO APIs (GSC, PageSpeed, CrUX, Indexing, GA4) |
+| `/seo backlinks <url>` | Backlink profile analysis (requires DataForSEO extension) |
+| `/seo firecrawl [command] <url>` | Full-site crawling and site mapping (extension) |
+| `/seo dataforseo [command]` | Live SEO data via DataForSEO MCP (extension) |
 | `/seo image-gen [use-case] <desc>` | AI image generation for SEO assets (extension) |
 
 ## Development Rules
