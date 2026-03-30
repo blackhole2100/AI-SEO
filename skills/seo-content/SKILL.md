@@ -7,7 +7,6 @@ description: >
 user-invokable: true
 argument-hint: "[url]"
 license: MIT
-allowed-tools: Read, Grep, Glob, Bash, WebFetch
 metadata:
   author: AgriciDaniel
   version: "1.7.0"

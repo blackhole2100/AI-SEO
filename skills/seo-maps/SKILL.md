@@ -13,7 +13,6 @@ description: >
 user-invokable: true
 argument-hint: "[command] [url|keyword|location]"
 license: MIT
-allowed-tools: Read, Grep, Glob, Bash, WebFetch, Write
 compatibility: "DataForSEO MCP for Tier 1+, Google Maps API for Tier 2"
 metadata:
   author: AgriciDaniel

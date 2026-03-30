@@ -89,7 +89,7 @@ claude-seo/
 
 | Command | Purpose |
 |---------|---------|
-| `/seo audit <url>` | Full site audit with 10 parallel subagents |
+| `/seo audit <url>` | Full site audit with 12 parallel subagents |
 | `/seo page <url>` | Deep single-page analysis |
 | `/seo technical <url>` | Technical SEO audit (9 categories) |
 | `/seo content <url>` | E-E-A-T and content quality analysis |
@@ -150,5 +150,5 @@ Part of the Claude Code skill family:
 
 1. **Progressive Disclosure**: Metadata always loaded, instructions on activation, resources on demand
 2. **Industry Detection**: Auto-detect SaaS, e-commerce, local, publisher, agency
-3. **Parallel Execution**: Full audits spawn up to 11 subagents simultaneously
+3. **Parallel Execution**: Full audits spawn up to 12 subagents simultaneously
 4. **Extension System**: DataForSEO MCP for live data, Firecrawl MCP for site crawling, Banana MCP for AI image generation

@@ -9,7 +9,6 @@ description: >
 user-invokable: true
 argument-hint: "<url>"
 license: MIT
-allowed-tools: Read, Grep, Glob, Bash, WebFetch, Write
 compatibility: "Requires DataForSEO MCP server (extension)"
 metadata:
   author: AgriciDaniel

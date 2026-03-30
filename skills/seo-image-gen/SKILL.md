@@ -4,7 +4,6 @@ description: "AI image generation for SEO assets: OG/social preview images, blog
 argument-hint: "[og|hero|product|infographic|custom|batch] <description>"
 user-invokable: true
 license: MIT
-allowed-tools: Read, Grep, Glob, Bash, WebFetch, Write
 compatibility: "Requires nanobanana MCP server"
 metadata:
   author: AgriciDaniel

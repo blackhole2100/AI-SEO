@@ -9,7 +9,6 @@ description: >
 user-invokable: true
 argument-hint: "[business-type]"
 license: MIT
-allowed-tools: Read, Grep, Glob, Bash, WebFetch, Write
 metadata:
   author: AgriciDaniel
   version: "1.7.0"
