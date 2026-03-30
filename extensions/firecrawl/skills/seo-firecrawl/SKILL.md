@@ -8,17 +8,11 @@ description: >
 user-invokable: true
 argument-hint: "[command] <url>"
 license: MIT
-allowed-tools:
-  - Read
-  - Grep
-  - Glob
-  - Bash
-  - WebFetch
-  - Write
+allowed-tools: Read, Grep, Glob, Bash, WebFetch, Write
 compatibility: "Requires Firecrawl MCP server"
 metadata:
   author: AgriciDaniel
-  version: "1.8.0"
+  version: "1.7.2"
   category: seo
 ---
 
