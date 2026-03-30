@@ -320,12 +320,14 @@ Claude SEO is part of a family of Claude Code skills that work together:
 | [Claude SEO](https://github.com/AgriciDaniel/claude-seo) | SEO analysis, audits, schema, GEO | Core -- analyzes sites, generates action plans |
 | [Claude Blog](https://github.com/AgriciDaniel/claude-blog) | Blog writing, optimization, scoring | Companion -- write content optimized by SEO findings |
 | [Claude Banana](https://github.com/AgriciDaniel/banana-claude) | AI image generation via Gemini | Shared -- generates images for SEO assets and blog posts |
+| [AI Marketing Claude](https://github.com/zubair-trabzada/ai-marketing-claude) | Copywriting, emails, social, ads, funnels, CRO | Community -- post-audit marketing action from SEO findings |
 
 **Workflow example:**
-1. `/seo audit https://example.com` -- identify content gaps and image issues
-2. `/blog write "target keyword"` -- create SEO-optimized blog posts
-3. `/seo image-gen hero "blog topic"` -- generate hero images (banana extension)
-4. `/seo geo https://example.com/blog/post` -- optimize for AI citations
+1. `/seo audit https://example.com` -- identify content gaps and technical issues
+2. `/seo backlinks https://example.com` -- analyze link profile and competitor gaps
+3. `/blog write "target keyword"` -- create SEO-optimized blog posts
+4. `/seo image-gen hero "blog topic"` -- generate hero images (banana extension)
+5. `/seo geo https://example.com/blog/post` -- optimize for AI citations
 
 ## Documentation
 

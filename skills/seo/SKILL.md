@@ -51,6 +51,8 @@ e-commerce, publishers, agencies). Orchestrates 15 specialized sub-skills and 10
 | `/seo maps [command] [args]` | Maps intelligence (geo-grid, GBP audit, reviews, competitors) |
 | `/seo hreflang [url]` | Hreflang/i18n SEO audit and generation |
 | `/seo google [command] [url]` | Google SEO APIs (GSC, PageSpeed, CrUX, Indexing, GA4) |
+| `/seo backlinks <url>` | Backlink profile analysis (requires DataForSEO extension) |
+| `/seo firecrawl [command] <url>` | Full-site crawling and site mapping (extension) |
 | `/seo dataforseo [command]` | Live SEO data via DataForSEO (extension) |
 | `/seo image-gen [use-case] <description>` | AI image generation for SEO assets (extension) |
 
@@ -62,6 +64,7 @@ When the user invokes `/seo audit`, delegate to subagents in parallel:
 3. If Google API credentials detected (`python scripts/google_auth.py --check`), also spawn seo-google agent
 4. If local business detected, also spawn seo-local agent
 5. If local business detected AND DataForSEO MCP available, also spawn seo-maps agent
+6. If Firecrawl MCP available, use `firecrawl_map` to discover all site URLs before analysis
 6. Collect results and generate unified report with SEO Health Score (0-100)
 7. Create prioritized action plan (Critical -> High -> Medium -> Low)
 8. **Offer PDF report**: "Generate a professional PDF report? Use `/seo google report full`"
@@ -141,8 +144,10 @@ This skill orchestrates 15 specialized sub-skills (+ 2 extensions):
 13. **seo-local** -- Local SEO (GBP, NAP, citations, reviews, local schema, multi-location)
 14. **seo-maps** -- Maps intelligence (geo-grid, GBP audit, reviews, competitor radius)
 15. **seo-google** -- Google SEO APIs (GSC, PageSpeed, CrUX, Indexing API, GA4)
-16. **seo-dataforseo** -- Live SEO data via DataForSEO MCP (extension)
-17. **seo-image-gen** -- AI image generation for SEO assets via Gemini (extension)
+16. **seo-backlinks** -- Backlink profile analysis (requires DataForSEO extension)
+17. **seo-firecrawl** -- Full-site crawling and site mapping via Firecrawl MCP (extension)
+18. **seo-dataforseo** -- Live SEO data via DataForSEO MCP (extension)
+19. **seo-image-gen** -- AI image generation for SEO assets via Gemini (extension)
 
 ## Subagents
 
@@ -159,6 +164,7 @@ For parallel analysis during audits:
 - `seo-google` -- CWV field data, URL indexation status, organic traffic trends (conditional: spawned when Google API credentials detected)
 - `seo-dataforseo` -- Live SERP, keyword, backlink, local SEO data (extension, optional)
 - `seo-image-gen` -- SEO image audit and generation plan (extension, optional)
+- `seo-firecrawl` -- Full-site crawl and site mapping (extension, optional; used by audit for URL discovery)
 
 ## Error Handling
 

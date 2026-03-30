@@ -2136,13 +2136,13 @@ def generate_report(report_type, data, domain, output_dir, output_format="pdf"):
     safe_domain = domain.replace(":", "_").replace("/", "_")
     base_name = f"Google-SEO-Report-{safe_domain}-{report_type}"
 
-    if output_format in ("html", "both"):
+    if output_format in ("html", "both", "all"):
         html_path = output_dir / f"{base_name}.html"
         with open(html_path, "w", encoding="utf-8") as f:
             f.write(html_content)
         result["files"].append(str(html_path))
 
-    if output_format in ("pdf", "both"):
+    if output_format in ("pdf", "both", "all"):
         pdf_path = output_dir / f"{base_name}.pdf"
         try:
             HTML(string=html_content).write_pdf(str(pdf_path))
@@ -2153,6 +2153,11 @@ def generate_report(report_type, data, domain, output_dir, output_format="pdf"):
                 result["review"] = review
         except Exception as e:
             result["error"] = f"PDF generation failed: {e}"
+
+    if output_format in ("xlsx", "all"):
+        xlsx_path = generate_xlsx(data, domain, report_type, output_dir)
+        if xlsx_path:
+            result["files"].append(xlsx_path)
 
     return result
 
@@ -2208,6 +2213,189 @@ def _review_pdf(pdf_path: str, html_content: str) -> dict:
     return review
 
 
+# ─── XLSX Export ──────────────────────────────────────────────────────────────
+
+def generate_xlsx(data, domain, report_type, output_dir):
+    """Generate Excel workbook from audit data.
+
+    Returns path to generated .xlsx file, or None if openpyxl unavailable.
+    """
+    try:
+        from openpyxl import Workbook
+        from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
+        from openpyxl.utils import get_column_letter
+    except ImportError:
+        print("Warning: openpyxl not installed. Skipping xlsx. Install: pip install openpyxl", file=sys.stderr)
+        return None
+
+    wb = Workbook()
+    output_dir = Path(output_dir)
+
+    # Brand colors for Excel
+    navy_fill = PatternFill(start_color="1E3A5F", end_color="1E3A5F", fill_type="solid")
+    cream_fill = PatternFill(start_color="FAF9F7", end_color="FAF9F7", fill_type="solid")
+    green_fill = PatternFill(start_color="D4EDDA", end_color="D4EDDA", fill_type="solid")
+    amber_fill = PatternFill(start_color="FFF3CD", end_color="FFF3CD", fill_type="solid")
+    red_fill = PatternFill(start_color="F8D7DA", end_color="F8D7DA", fill_type="solid")
+    header_font = Font(name="Calibri", bold=True, color="FFFFFF", size=11)
+    body_font = Font(name="Calibri", size=10)
+    thin_border = Border(
+        left=Side(style="thin", color="D6D3CC"),
+        right=Side(style="thin", color="D6D3CC"),
+        top=Side(style="thin", color="D6D3CC"),
+        bottom=Side(style="thin", color="D6D3CC"),
+    )
+
+    def _style_header(ws, row=1):
+        """Apply navy header styling to the first row."""
+        for cell in ws[row]:
+            cell.font = header_font
+            cell.fill = navy_fill
+            cell.alignment = Alignment(horizontal="center", vertical="center")
+            cell.border = thin_border
+
+    def _auto_width(ws):
+        """Auto-fit column widths based on content."""
+        for col_cells in ws.columns:
+            max_len = 0
+            col_letter = get_column_letter(col_cells[0].column)
+            for cell in col_cells:
+                if cell.value:
+                    max_len = max(max_len, len(str(cell.value)))
+            ws.column_dimensions[col_letter].width = min(max_len + 4, 60)
+
+    def _severity_fill(severity):
+        """Return fill color based on severity string."""
+        s = str(severity).lower()
+        if s in ("critical", "fail", "high"):
+            return red_fill
+        if s in ("warning", "warn", "medium"):
+            return amber_fill
+        if s in ("pass", "good", "low"):
+            return green_fill
+        return cream_fill
+
+    # ── Summary Sheet ─────────────────────────────────────────────────────────
+    ws = wb.active
+    ws.title = "Summary"
+    ws.append(["Google SEO Report", "", ""])
+    ws.append(["Domain", domain])
+    ws.append(["Report Type", report_type])
+    ws.append(["Generated", datetime.now().strftime("%Y-%m-%d %H:%M")])
+    ws.append([])
+
+    # Add scores if available
+    if report_type in ("cwv-audit", "full"):
+        psi = data.get("psi", data)
+        mobile = psi.get("psi", {}).get("mobile", psi) if isinstance(psi, dict) else {}
+        scores = mobile.get("lighthouse_scores", {}) if isinstance(mobile, dict) else {}
+        if scores:
+            ws.append(["Lighthouse Scores", ""])
+            ws.append(["Category", "Score"])
+            _style_header(ws, ws.max_row)
+            for cat in ["performance", "accessibility", "best_practices", "seo"]:
+                val = scores.get(cat)
+                if val is not None:
+                    row_num = ws.max_row + 1
+                    ws.append([cat.replace("_", " ").title(), int(val * 100) if val <= 1 else val])
+                    ws.cell(row=row_num, column=2).fill = _severity_fill(
+                        "pass" if (val * 100 if val <= 1 else val) >= 90
+                        else "warning" if (val * 100 if val <= 1 else val) >= 50
+                        else "fail"
+                    )
+            ws.append([])
+
+    # CWV metrics
+    if report_type in ("cwv-audit", "full"):
+        crux = data.get("crux", {})
+        metrics = crux.get("metrics", {}) if isinstance(crux, dict) else {}
+        if metrics:
+            ws.append(["Core Web Vitals (Field Data)", ""])
+            ws.append(["Metric", "Value", "Rating"])
+            _style_header(ws, ws.max_row)
+            for metric_name, metric_data in metrics.items():
+                if isinstance(metric_data, dict):
+                    p75 = metric_data.get("percentile_p75", metric_data.get("p75", ""))
+                    rating = metric_data.get("category", "")
+                    ws.append([metric_name, p75, rating])
+            ws.append([])
+
+    _auto_width(ws)
+
+    # ── GSC Queries Sheet ─────────────────────────────────────────────────────
+    gsc = data.get("gsc", {})
+    queries = gsc.get("queries", gsc.get("rows", []))
+    if queries and isinstance(queries, list):
+        ws2 = wb.create_sheet("Queries")
+        ws2.append(["Query", "Clicks", "Impressions", "CTR", "Position"])
+        _style_header(ws2)
+        for row_data in queries[:500]:
+            if isinstance(row_data, dict):
+                keys = row_data.get("keys", [])
+                query = keys[0] if keys else row_data.get("query", "")
+                ws2.append([
+                    query,
+                    row_data.get("clicks", 0),
+                    row_data.get("impressions", 0),
+                    f"{row_data.get('ctr', 0):.2%}" if isinstance(row_data.get("ctr"), (int, float)) else str(row_data.get("ctr", "")),
+                    round(row_data.get("position", 0), 1) if isinstance(row_data.get("position"), (int, float)) else row_data.get("position", ""),
+                ])
+        ws2.auto_filter.ref = f"A1:E{ws2.max_row}"
+        ws2.freeze_panes = "A2"
+        _auto_width(ws2)
+
+    # ── GSC Pages Sheet ───────────────────────────────────────────────────────
+    pages = gsc.get("pages", [])
+    if pages and isinstance(pages, list):
+        ws3 = wb.create_sheet("Pages")
+        ws3.append(["Page", "Clicks", "Impressions", "CTR", "Position"])
+        _style_header(ws3)
+        for row_data in pages[:500]:
+            if isinstance(row_data, dict):
+                keys = row_data.get("keys", [])
+                page = keys[0] if keys else row_data.get("page", "")
+                ws3.append([
+                    page,
+                    row_data.get("clicks", 0),
+                    row_data.get("impressions", 0),
+                    f"{row_data.get('ctr', 0):.2%}" if isinstance(row_data.get("ctr"), (int, float)) else str(row_data.get("ctr", "")),
+                    round(row_data.get("position", 0), 1) if isinstance(row_data.get("position"), (int, float)) else row_data.get("position", ""),
+                ])
+        ws3.auto_filter.ref = f"A1:E{ws3.max_row}"
+        ws3.freeze_panes = "A2"
+        _auto_width(ws3)
+
+    # ── Indexation Sheet ──────────────────────────────────────────────────────
+    inspection = data.get("inspection", {})
+    results = inspection.get("results", [])
+    if results and isinstance(results, list):
+        ws4 = wb.create_sheet("Indexation")
+        ws4.append(["URL", "Verdict", "Coverage State", "Indexing State", "Crawled As", "Last Crawl"])
+        _style_header(ws4)
+        for item in results[:500]:
+            if isinstance(item, dict):
+                result_data = item.get("inspectionResult", item)
+                idx = result_data.get("indexStatusResult", {})
+                ws4.append([
+                    item.get("url", result_data.get("inspectedUrl", "")),
+                    idx.get("verdict", ""),
+                    idx.get("coverageState", ""),
+                    idx.get("indexingState", ""),
+                    idx.get("crawledAs", ""),
+                    idx.get("lastCrawlTime", ""),
+                ])
+        ws4.auto_filter.ref = f"A1:F{ws4.max_row}"
+        ws4.freeze_panes = "A2"
+        _auto_width(ws4)
+
+    # ── Save ──────────────────────────────────────────────────────────────────
+    timestamp = datetime.now().strftime("%Y%m%d-%H%M")
+    filename = f"Google-SEO-Report-{domain}-{timestamp}.xlsx"
+    filepath = output_dir / filename
+    wb.save(filepath)
+    return str(filepath)
+
+
 # ─── CLI ─────────────────────────────────────────────────────────────────────
 
 def main():
@@ -2225,9 +2413,9 @@ def main():
     parser.add_argument("--output-dir", "-o", default=".", help="Output directory (default: current)")
     parser.add_argument(
         "--format", "-f",
-        choices=["pdf", "html", "both"],
+        choices=["pdf", "html", "xlsx", "both", "all"],
         default="pdf",
-        help="Output format (default: pdf)",
+        help="Output format: pdf, html, xlsx, both (pdf+html), all (pdf+html+xlsx)",
     )
     parser.add_argument("--json", "-j", action="store_true", help="Output metadata as JSON")
 

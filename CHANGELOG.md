@@ -5,6 +5,33 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.8.0] - 2026-03-30
+
+### Added
+- **Firecrawl extension**: Full-site crawling, scraping, and site mapping via Firecrawl MCP (`extensions/firecrawl/`)
+  - 4 commands: crawl, map, scrape, search
+  - JS rendering support for SPA/CSR sites (addresses #11)
+  - Cross-skill integration with audit, technical, sitemap, and content skills
+  - Self-contained install/uninstall scripts (Bash + PowerShell)
+- **Backlink analysis skill**: `skills/seo-backlinks/SKILL.md` with `/seo backlinks` command
+  - 7-section analysis: profile overview, anchor text, referring domain quality, toxic links, top pages, competitor gap, new/lost links
+  - Backlink health score (0-100) with weighted factors
+  - Disavow recommendations with export format
+  - Requires DataForSEO extension for live data
+- **Backlink quality reference**: `skills/seo/references/backlink-quality.md` with 30 toxic link patterns, anchor text benchmarks by industry
+- **Excel export**: `--format xlsx` option in `scripts/google_report.py`
+  - Sheets: Summary, Queries, Pages, Indexation (conditional on data available)
+  - Navy header styling matching PDF palette, auto-column-width, frozen headers, auto-filter
+  - New format options: `xlsx`, `all` (pdf+html+xlsx)
+- **Ecosystem cross-links**: AI Marketing Claude added to README and CLAUDE.md ecosystem sections
+
+### Changed
+- Sub-skill count: 18 -> 19 (added seo-backlinks)
+- Extension count: 2 -> 3 (added Firecrawl)
+- Orchestrator routing table updated with `/seo backlinks` and `/seo firecrawl` commands
+- Audit orchestration: Firecrawl `map` used for URL discovery when available
+- `requirements.txt`: added `openpyxl>=3.1.0` for Excel export
+
 ## [1.7.1] - 2026-03-30
 
 ### Fixed
