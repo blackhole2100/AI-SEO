@@ -29,7 +29,13 @@ Comprehensive SEO analysis skill for Claude Code. Covers technical SEO, on-page 
 
 ## Installation
 
-### Recommended Install (Unix/macOS/Linux)
+### Plugin Install (Claude Code 1.0.33+)
+
+```bash
+claude plugin install claude-seo@claude-seo-marketplace
+```
+
+### Manual Install (Unix/macOS/Linux)
 
 ```bash
 git clone --depth 1 https://github.com/AgriciDaniel/claude-seo.git
