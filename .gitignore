@@ -111,5 +111,9 @@ dirigo-seo-images-review.html
 # Site-specific scripts
 indexnow-submit.sh
 
+# Generated setup guides
+Google-API-Setup-Guide-*.html
+scripts/generate_setup_guide.py
+
 # Generated site builds
 site/

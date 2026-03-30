@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.7.1] - 2026-03-30
+
+### Fixed
+- install.sh: broken skill copy path `seo/` corrected to `skills/seo/` (h/t @hieu-e via #39)
+- install.sh: version tag pinned to v1.7.1 (was stuck at v1.6.0)
+- install.ps1: version tag pinned to v1.7.1 (was stuck at v1.6.0)
+- install.ps1: removed unnecessary `seo/` fallback path, uses `skills\seo` directly
+
+### Changed
+- CI: syntax check expanded from 4 to 15 Python scripts (all v1.7.0 Google API scripts now covered)
+
 ## [1.7.0] - 2026-03-28
 
 ### Added

@@ -39,7 +39,7 @@ claude-seo/
     seo-hreflang/SKILL.md       # International SEO / hreflang
     seo-google/                  # Google SEO APIs
       SKILL.md
-      references/                # API reference files (7 files)
+      references/                # API reference files (10 files)
     seo-dataforseo/SKILL.md     # Live SEO data via DataForSEO MCP
     seo-image-gen/              # AI image generation for SEO assets
       SKILL.md
@@ -59,7 +59,23 @@ claude-seo/
     seo-image-gen.md             # SEO image audit analyst
   hooks/                           # Quality gate hooks
     hooks.json                   # PostToolUse schema validation
-  scripts/                         # Python execution scripts
+  scripts/                         # Python execution scripts (16 total)
+    google_auth.py               # Credential management (OAuth, SA, API key, 4-tier detection)
+    pagespeed_check.py           # PSI v5 + CrUX API
+    crux_history.py              # CrUX History API (25-week trends)
+    gsc_query.py                 # Search Console (queries, pages, sitemaps, sites)
+    gsc_inspect.py               # URL Inspection (single + batch)
+    indexing_notify.py           # Indexing API v3 (URL_UPDATED/URL_DELETED)
+    ga4_report.py                # GA4 organic traffic reports
+    google_report.py             # PDF/HTML report generator (WeasyPrint + matplotlib)
+    youtube_search.py            # YouTube Data API v3
+    nlp_analyze.py               # Cloud Natural Language API
+    keyword_planner.py           # Google Ads Keyword Planner
+    fetch_page.py                # Page fetcher with UA rotation
+    parse_html.py                # HTML parser for SEO elements
+    capture_screenshot.py        # Playwright screenshots
+    analyze_visual.py            # Visual analysis helper
+    mobile_analysis.py           # Mobile rendering analysis (gitignored, dev-only)
   schema/                          # Schema.org JSON-LD templates
   extensions/                      # Optional add-on install helpers
     dataforseo/                  # DataForSEO MCP install scripts
@@ -97,6 +113,14 @@ claude-seo/
 - Agents invoked via Agent tool, never via Bash
 - Python dependencies install into `~/.claude/skills/seo/.venv/`
 - Test with `python -m pytest tests/` after changes (if applicable)
+
+## Security Rules
+
+- **Never commit credentials**: `.env`, `client_secret*.json`, `oauth-token.json`, `service_account*.json` are all in `.gitignore`
+- **URL validation**: All scripts that accept user URLs must call `validate_url()` from `google_auth.py` before making API calls. This blocks private IPs, loopback, and GCP metadata endpoints (SSRF protection).
+- **OAuth tokens**: Never store `client_secret` in the token file. Read it from the client_secret.json file at runtime.
+- **No hardcoded paths**: Use `os.path.dirname(os.path.abspath(__file__))` for relative paths, never `/home/username/...`
+- **Config location**: `~/.config/claude-seo/google-api.json` (user-space, not in repo)
 
 ## Report Generation Rules
 
