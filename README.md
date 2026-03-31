@@ -225,7 +225,7 @@ Direct integration with Google's SEO data:
 
 ```
 ~/.claude/skills/seo/         # Main orchestrator skill
-~/.claude/skills/seo-*/       # Sub-skills (15 + 2 extensions)
+~/.claude/skills/seo-*/       # Sub-skills (16 + 2 extensions)
 ~/.claude/agents/seo-*.md     # Subagents (10 + 2 extensions)
 ```
 
