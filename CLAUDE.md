@@ -5,7 +5,7 @@
 This repository contains **Claude SEO**, a Tier 4 Claude Code skill for comprehensive
 SEO analysis across all industries. It follows the Agent Skills open standard and the
 3-layer architecture (directive, orchestration, execution). 17 core sub-skills (+ 3
-extensions), 10 core subagents (+ 2 extension agents), and an extensible reference
+extensions), 11 core subagents (+ 2 extension agents, 13 total), and an extensible reference
 system cover technical SEO, content quality,
 schema markup, image optimization, sitemap architecture, AI search optimization,
 local SEO (GBP, citations, reviews, map pack), and maps intelligence (geo-grid
@@ -17,12 +17,12 @@ rank tracking, GBP auditing, review intelligence, competitor radius mapping).
 claude-seo/
   CLAUDE.md                          # Project instructions (this file)
   .claude-plugin/
-    plugin.json                    # Plugin manifest (v1.7.2)
+    plugin.json                    # Plugin manifest (v1.8.0)
     marketplace.json               # Marketplace catalog for distribution
   skills/                            # 19 skills (auto-discovered)
     seo/                           # Main orchestrator skill
       SKILL.md                     # Entry point, routing table, core rules
-      references/                  # On-demand knowledge files (10 files)
+      references/                  # On-demand knowledge files (12 files)
     seo-audit/SKILL.md            # Full site audit with parallel agents
     seo-page/SKILL.md            # Deep single-page analysis
     seo-technical/SKILL.md       # Technical SEO (9 categories)
@@ -45,7 +45,7 @@ claude-seo/
     seo-image-gen/              # AI image generation for SEO assets (extension mirror)
       SKILL.md
       references/                # Image gen reference files (7 files)
-  agents/                          # 12 subagents (auto-discovered)
+  agents/                          # 13 subagents (auto-discovered)
     seo-technical.md             # Crawlability, indexability, security
     seo-content.md               # E-E-A-T, readability, thin content
     seo-schema.md                # Structured data validation
@@ -56,12 +56,18 @@ claude-seo/
     seo-local.md                 # GBP, NAP, citations, reviews, local schema
     seo-maps.md                  # Geo-grid, GBP audit, reviews, competitor radius
     seo-google.md                # Google API analyst (CrUX, GSC, GA4)
+    seo-backlinks.md             # Backlink profile analyst (Moz, Bing, CC, verify)
     seo-dataforseo.md            # DataForSEO data analyst
     seo-image-gen.md             # SEO image audit analyst
   hooks/                           # Quality gate hooks
     hooks.json                   # PostToolUse schema validation
-  scripts/                         # Python execution scripts (15 tracked + 1 dev-only)
+  scripts/                         # Python execution scripts (20 tracked + 2 dev-only)
     google_auth.py               # Credential management (OAuth, SA, API key, 4-tier detection)
+    backlinks_auth.py            # Backlink API credential management (Moz, Bing)
+    moz_api.py                   # Moz Link Explorer API (DA/PA, spam, domains, anchors)
+    bing_webmaster.py            # Bing Webmaster Tools API (links, competitor comparison)
+    commoncrawl_graph.py         # Common Crawl web graph parser (PageRank, in-degree)
+    verify_backlinks.py          # Backlink existence verification crawler
     pagespeed_check.py           # PSI v5 + CrUX API
     crux_history.py              # CrUX History API (25-week trends)
     gsc_query.py                 # Search Console (queries, pages, sitemaps, sites)
@@ -104,7 +110,9 @@ claude-seo/
 | `/seo maps [command] [args]` | Maps intelligence (geo-grid, GBP audit, reviews, competitors) |
 | `/seo hreflang <url>` | International SEO / hreflang audit |
 | `/seo google [command] [url]` | Google SEO APIs (GSC, PageSpeed, CrUX, Indexing, GA4) |
-| `/seo backlinks <url>` | Backlink profile analysis (requires DataForSEO extension) |
+| `/seo backlinks <url>` | Backlink profile analysis (free: Moz, Bing, CC; premium: DataForSEO) |
+| `/seo backlinks setup` | Setup instructions for free backlink APIs |
+| `/seo backlinks verify <url>` | Verify known backlinks still exist |
 | `/seo firecrawl [command] <url>` | Full-site crawling and site mapping (extension) |
 | `/seo dataforseo [command]` | Live SEO data via DataForSEO MCP (extension) |
 | `/seo image-gen [use-case] <desc>` | AI image generation for SEO assets (extension) |
@@ -125,7 +133,7 @@ claude-seo/
 - **URL validation**: All scripts that accept user URLs must call `validate_url()` from `google_auth.py` before making API calls. This blocks private IPs, loopback, and GCP metadata endpoints (SSRF protection).
 - **OAuth tokens**: Never store `client_secret` in the token file. Read it from the client_secret.json file at runtime.
 - **No hardcoded paths**: Use `os.path.dirname(os.path.abspath(__file__))` for relative paths, never `/home/username/...`
-- **Config location**: `~/.config/claude-seo/google-api.json` (user-space, not in repo)
+- **Config location**: `~/.config/claude-seo/google-api.json` and `~/.config/claude-seo/backlinks-api.json` (user-space, not in repo)
 
 ## Report Generation Rules
 
