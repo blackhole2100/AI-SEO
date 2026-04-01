@@ -1,5 +1,6 @@
 {
-  "name": "claude-seo-marketplace",
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "agricidaniel-seo",
   "owner": {
     "name": "AgriciDaniel"
   },
