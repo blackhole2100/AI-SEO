@@ -34,7 +34,11 @@ Comprehensive SEO analysis skill for Claude Code. Covers technical SEO, on-page 
 ### Plugin Install (Claude Code 1.0.33+)
 
 ```bash
-claude plugin install claude-seo@agricidaniel-seo
+# Add marketplace (one-time)
+/plugin marketplace add AgriciDaniel/claude-seo
+
+# Install plugin
+/plugin install claude-seo@AgriciDaniel-claude-seo
 ```
 
 ### Manual Install (Unix/macOS/Linux)
