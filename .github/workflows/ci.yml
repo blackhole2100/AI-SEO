@@ -41,4 +41,11 @@ jobs:
           python3 -m py_compile scripts/commoncrawl_graph.py
           python3 -m py_compile scripts/verify_backlinks.py
           python3 -m py_compile scripts/validate_backlink_report.py
-          echo "All 21 scripts passed syntax check"
+          python3 -m py_compile scripts/dataforseo_costs.py
+          python3 -m py_compile scripts/dataforseo_merchant.py
+          python3 -m py_compile scripts/dataforseo_normalize.py
+          python3 -m py_compile scripts/drift_baseline.py
+          python3 -m py_compile scripts/drift_compare.py
+          python3 -m py_compile scripts/drift_report.py
+          python3 -m py_compile scripts/drift_history.py
+          echo "All 28 scripts passed syntax check"

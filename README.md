@@ -1,10 +1,10 @@
-<!-- Updated: 2026-04-10 -->
+<!-- Updated: 2026-04-14 -->
 
 ![Claude SEO](screenshots/cover-image.jpeg)
 
 # Claude SEO - SEO Audit Skill for Claude Code
 
-Comprehensive SEO analysis skill for Claude Code. Covers technical SEO, on-page analysis, content quality (E-E-A-T), schema markup, image optimization, sitemap architecture, AI search optimization (GEO), local SEO, maps intelligence, Google SEO APIs (Search Console, PageSpeed, CrUX, GA4), PDF report generation, and strategic planning.
+Comprehensive SEO analysis skill for Claude Code. 20 core sub-skills covering technical SEO, on-page analysis, content quality (E-E-A-T), schema markup, image optimization, sitemap architecture, AI search optimization (GEO), local SEO, maps intelligence, semantic topic clustering, search experience optimization (SXO), SEO drift monitoring, e-commerce SEO, international SEO with cultural profiles, Google SEO APIs (Search Console, PageSpeed, CrUX, GA4), PDF report generation, and strategic planning.
 
 ![SEO Command Demo](screenshots/seo-command-demo.gif)
 
@@ -129,6 +129,12 @@ claude
 | `/seo google [command] [url]` | Google SEO APIs (GSC, PageSpeed, CrUX, Indexing, GA4) |
 | `/seo google report [type]` | Generate PDF/HTML report with charts (cwv-audit, gsc-performance, full) |
 | `/seo backlinks <url>` | Backlink profile analysis (free: Moz, Bing, Common Crawl) |
+| `/seo cluster <seed-keyword>` | SERP-based semantic clustering and content architecture |
+| `/seo sxo <url>` | Search Experience Optimization: page-type, user stories, personas |
+| `/seo drift baseline <url>` | Capture SEO baseline for change monitoring |
+| `/seo drift compare <url>` | Compare current state to stored baseline |
+| `/seo drift history <url>` | Show drift history over time |
+| `/seo ecommerce <url>` | E-commerce SEO: product schema, marketplace intelligence |
 | `/seo firecrawl [command] <url>` | Full-site crawling and site mapping (extension) |
 | `/seo dataforseo [command]` | Live SEO data via DataForSEO (extension) |
 | `/seo image-gen [use-case] <desc>` | AI image generation for SEO assets (extension) |
@@ -233,8 +239,8 @@ Direct integration with Google's SEO data:
 
 ```
 ~/.claude/skills/seo/         # Main orchestrator skill
-~/.claude/skills/seo-*/       # Sub-skills (16 + 3 extensions)
-~/.claude/agents/seo-*.md     # Subagents (11 + 2 extensions)
+~/.claude/skills/seo-*/       # Sub-skills (20 + 3 extensions)
+~/.claude/agents/seo-*.md     # Subagents (15 + 2 extensions)
 ```
 
 ### Video & Live Schema (New)
@@ -367,6 +373,20 @@ Claude SEO is part of a family of Claude Code skills that work together:
 - [Architecture](docs/ARCHITECTURE.md)
 - [MCP Integration](docs/MCP-INTEGRATION.md)
 - [Troubleshooting](docs/TROUBLESHOOTING.md)
+
+## Community Contributors
+
+v1.9.0 includes contributions from the [AI Marketing Hub](https://www.skool.com/ai-marketing-hub) Pro Hub Challenge:
+
+| Contributor | Contribution |
+|------------|-------------|
+| **Lutfiya Miller** (Winner) | Semantic Cluster Engine → `seo-cluster` |
+| **Florian Schmitz** | SXO Skill → `seo-sxo` |
+| **Dan Colta** | SEO Drift Monitor → `seo-drift` |
+| **Chris Muller** | Multi-lingual SEO → `seo-hreflang` enhancements |
+| **Matej Marjanovic** | E-commerce + DataForSEO Cost Config → `seo-ecommerce` + cost guardrails |
+
+See [CONTRIBUTORS.md](CONTRIBUTORS.md) for full details and original repo links.
 
 ## License
 
