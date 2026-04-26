@@ -188,3 +188,17 @@ def test_sha256_is_deterministic():
     digest = sf._sha256("test")
     assert len(digest) == 64
     assert all(c in "0123456789abcdef" for c in digest)
+
+
+# ── Task 5 tests ──────────────────────────────────────────────────────────────
+
+def test_prompts_readme_has_cc_attribution():
+    """references/prompts/README.md must contain the CC BY 4.0 attribution header (INFO-A14)."""
+    readme = REPO_ROOT / "skills" / "seo-flow" / "references" / "prompts" / "README.md"
+    content = readme.read_text(encoding="utf-8")
+    assert "CC BY 4.0" in content, (
+        "Missing CC BY 4.0 attribution in skills/seo-flow/references/prompts/README.md"
+    )
+    assert "github.com/AgriciDaniel/flow" in content, (
+        "Missing source URL in prompts README attribution"
+    )

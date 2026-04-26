@@ -1,3 +1,10 @@
+<!--
+FLOW Framework — Operational Prompt Library
+© Daniel Agrici | License: CC BY 4.0
+Source: github.com/AgriciDaniel/flow
+Attribution required when reproducing or adapting these prompts.
+-->
+
 # Flow Prompt Index
 
 | Stage | Filename | Title | Description |
