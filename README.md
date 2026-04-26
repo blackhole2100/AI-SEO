@@ -382,7 +382,7 @@ Claude SEO is part of a family of Claude Code skills that work together:
 | [Claude Blog](https://github.com/AgriciDaniel/claude-blog) | Blog writing, optimization, scoring | Companion -- write content optimized by SEO findings |
 | [Claude Banana](https://github.com/AgriciDaniel/banana-claude) | AI image generation via Gemini | Shared -- generates images for SEO assets and blog posts |
 | [AI Marketing Claude](https://github.com/zubair-trabzada/ai-marketing-claude) | Copywriting, emails, social, ads, funnels, CRO | Community -- post-audit marketing action from SEO findings |
-| [FLOW](https://github.com/AgriciDaniel/flow) | Evidence-led SEO framework (42 AI prompts, CC BY 4.0) | Knowledge base — powers `seo-flow` prompts |
+| [FLOW](https://github.com/AgriciDaniel/flow) | Evidence-led SEO framework (41 AI prompts, CC BY 4.0) | Knowledge base — powers `seo-flow` prompts |
 
 **Workflow example:**
 1. `/seo audit https://example.com` -- identify content gaps and technical issues

@@ -25,7 +25,7 @@ into v1.9.0 with the contributors' permission.
 
 | Source | Type | License | Integrated As |
 |--------|------|---------|--------------|
-| **[FLOW](https://github.com/AgriciDaniel/flow)** — Daniel Agrici | 42 AI prompts + framework doc + bibliography | CC BY 4.0 | `seo-flow` skill + `skills/seo-flow/references/` |
+| **[FLOW](https://github.com/AgriciDaniel/flow)** — Daniel Agrici | 41 AI prompts + framework doc + bibliography | CC BY 4.0 | `seo-flow` skill + `skills/seo-flow/references/` |
 
 Attribution header on every bundled prompt file (automated by `scripts/sync_flow.py`).
 

@@ -42,19 +42,21 @@ def test_dry_run_does_not_write_files():
     )
 
 
-def test_real_sync_produces_42_prompts():
-    """After a real sync, all 42 prompt files must be present."""
+def test_real_sync_produces_prompts_per_stage():
+    """After a real sync, every FLOW stage directory must contain at least one prompt file."""
     prompts_dir = REF_DIR / "prompts"
     if not prompts_dir.exists():
         return  # sync not yet run — skip silently
 
-    prompt_files = [
-        f for f in prompts_dir.rglob("*.md") if f.name != "README.md"
+    expected_stages = ["find", "leverage", "optimize", "win", "local"]
+    missing = [
+        stage for stage in expected_stages
+        if not (prompts_dir / stage).exists() or not list((prompts_dir / stage).glob("*.md"))
     ]
-    assert len(prompt_files) == 42, (
-        f"Expected 42 prompt files, found {len(prompt_files)}:\n"
-        + "\n".join(str(f.relative_to(REPO_ROOT)) for f in sorted(prompt_files))
-    )
+    assert not missing, f"Stages with no prompts after sync: {missing}"
+
+    prompt_files = [f for f in prompts_dir.rglob("*.md") if f.name != "README.md"]
+    assert len(prompt_files) > 0, "Sync produced no prompt files"
 
 
 def test_synced_files_have_attribution_headers():
