@@ -4,8 +4,8 @@
 
 This repository contains **Claude SEO**, a Tier 4 Claude Code skill for comprehensive
 SEO analysis across all industries. It follows the Agent Skills open standard and the
-3-layer architecture (directive, orchestration, execution). 20 core sub-skills (+ 3
-extensions), 15 core subagents (+ 2 extension agents, 17 total), and an extensible reference
+3-layer architecture (directive, orchestration, execution). 21 core sub-skills (+ 3
+extensions), 16 core subagents (+ 2 extension agents, 18 total), and an extensible reference
 system cover technical SEO, content quality,
 schema markup, image optimization, sitemap architecture, AI search optimization,
 local SEO (GBP, citations, reviews, map pack), maps intelligence, semantic topic
@@ -22,7 +22,7 @@ claude-seo/
   .claude-plugin/
     plugin.json                    # Plugin manifest (v1.9.0)
     marketplace.json               # Marketplace catalog for distribution
-  skills/                            # 23 skills (auto-discovered)
+  skills/                            # 24 skills (auto-discovered)
     seo/                           # Main orchestrator skill
       SKILL.md                     # Entry point, routing table, core rules
       references/                  # On-demand knowledge files (12 files)
@@ -61,7 +61,7 @@ claude-seo/
     seo-image-gen/              # AI image generation for SEO assets (extension mirror)
       SKILL.md
       references/                # Image gen reference files (7 files)
-  agents/                          # 17 subagents (auto-discovered)
+  agents/                          # 18 subagents (auto-discovered)
     seo-technical.md             # Crawlability, indexability, security
     seo-content.md               # E-E-A-T, readability, thin content
     seo-schema.md                # Structured data validation
