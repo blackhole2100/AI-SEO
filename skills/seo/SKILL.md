@@ -49,6 +49,7 @@ e-commerce, publishers, agencies). Orchestrates 20 specialized sub-skills and 15
 | `/seo firecrawl [command] <url>` | Full-site crawling and site mapping (extension) |
 | `/seo dataforseo [command]` | Live SEO data via DataForSEO (extension) |
 | `/seo image-gen [use-case] <description>` | AI image generation for SEO assets (extension) |
+| `/seo flow [stage] [url\|topic]` | FLOW framework: evidence-led prompts for Find, Leverage, Optimize, Win, or Local stages |
 
 ## Orchestration Logic
 
@@ -195,6 +196,7 @@ This skill orchestrates 20 specialized sub-skills (+ 3 extensions):
 21. **seo-firecrawl** -- Full-site crawling and site mapping via Firecrawl MCP (extension)
 22. **seo-dataforseo** -- Live SEO data via DataForSEO MCP (extension)
 23. **seo-image-gen** -- AI image generation for SEO assets via Gemini (extension)
+24. **seo-flow** -- FLOW framework integration (Find → Leverage → Optimize → Win, 42 AI prompts, CC BY 4.0)
 
 ## Subagents
 
