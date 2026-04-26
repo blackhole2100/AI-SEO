@@ -45,5 +45,5 @@ When given a URL and a FLOW stage (find, leverage, optimize, win, or local):
 
 - Always output the attribution line before any analysis output
 - Apply at most 5 prompts per call (context window constraint)
-- For optimize stage: never load all 18 at once; select based on page signals
+- For optimize stage: never load all optimize prompts at once; select based on page signals
 - If the URL is unreachable, report the error then list the prompts you would have applied

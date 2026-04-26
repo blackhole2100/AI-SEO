@@ -39,7 +39,12 @@ def parse_args():
 
 
 def github_headers():
-    result = subprocess.run(["gh", "auth", "token"], capture_output=True, text=True)
+    try:
+        result = subprocess.run(["gh", "auth", "token"], capture_output=True, text=True)
+    except FileNotFoundError:
+        sys.exit("sync_flow: 'gh' CLI not found on PATH. Install: https://cli.github.com")
+    if result.returncode != 0 or not result.stdout.strip():
+        sys.exit("sync_flow: 'gh auth token' returned no token. Run: gh auth login")
     token = result.stdout.strip()
     return {
         "Authorization": f"Bearer {token}",

@@ -314,4 +314,4 @@ If DataForSEO MCP tools are available, use `local_business_data` for live GBP da
 
 ## FLOW Framework Integration
 
-For prompt-guided local optimization, use `/seo flow local <url>` — FLOW's 8 local-stage prompts cover GBP optimization, meta descriptions, title tags, and structured local audit workflows.
+For prompt-guided local optimization, use `/seo flow local <url>` — FLOW's 11 local-stage prompts cover GBP optimization, meta descriptions, title tags, and structured local audit workflows.
