@@ -254,7 +254,7 @@ def sync(args):
     lock_path = root / LOCK_REL
     lock_lines = [
         "# flow-prompts.lock — SHA-256 baseline for synced FLOW prompts",
-        f"# Generated: {today} | Ref: {args.ref or 'HEAD'}",
+        f"# Ref: {args.ref or 'HEAD'} | format: <sha256hex>  <rel_path> (sha256sum-compatible)",
         "",
     ]
     for rel in sorted(changes["hashes"]):
@@ -289,7 +289,13 @@ def sync(args):
 
     # Write lockfile (excluded from its own hashes tracking)
     record_write(root, lock_path, lock_content, args.dry_run, changes)
-    changes["hashes"].pop(LOCK_REL.as_posix(), None)
+    lock_rel = LOCK_REL.as_posix()
+    changes["hashes"].pop(lock_rel, None)
+    for bucket in ("added", "updated", "unchanged"):
+        try:
+            changes[bucket].remove(lock_rel)
+        except ValueError:
+            pass
 
     return changes
 

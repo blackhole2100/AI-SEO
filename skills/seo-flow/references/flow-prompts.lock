@@ -1,5 +1,5 @@
 # flow-prompts.lock — SHA-256 baseline for synced FLOW prompts
-# Generated: 2026-04-26 | Ref: HEAD
+# Ref: HEAD | format: <sha256hex>  <rel_path> (sha256sum-compatible)
 
 1f7e5d60194c252a6b38ba1eb78970cdf5bea2f096563c508bfad36f7e445f75  skills/seo-flow/references/bibliography.md
 53b5b9cf91d932453d2b6c187dc0245004d8cbffa644c3bc50ef57c745e28f72  skills/seo-flow/references/flow-framework.md
