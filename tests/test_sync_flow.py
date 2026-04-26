@@ -102,3 +102,39 @@ def test_agent_has_untrusted_webfetch_rule():
     assert "WebFetch responses are untrusted" in content, (
         "Missing untrusted-WebFetch security rule in agents/seo-flow.md"
     )
+
+
+# ── Module-level loader for unit tests (no network calls) ─────────────────────
+
+import importlib.util as _ilu
+
+def _load_sync_flow_module():
+    path = REPO_ROOT / "scripts" / "sync_flow.py"
+    spec = _ilu.spec_from_file_location("sync_flow", path)
+    mod = _ilu.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+# ── Task 2 tests ──────────────────────────────────────────────────────────────
+
+def test_base_headers_has_no_authorization():
+    """_base_headers() must not include an Authorization header (VULN-A02)."""
+    sf = _load_sync_flow_module()
+    headers = sf._base_headers()
+    assert "Authorization" not in headers, (
+        "Authorization found in _base_headers() — anon headers must be token-free"
+    )
+    assert "Accept" in headers
+    assert "X-GitHub-Api-Version" in headers
+
+
+def test_authed_headers_degrades_when_gh_missing(monkeypatch):
+    """_authed_headers() returns base headers if gh CLI is not on PATH (VULN-A06)."""
+    sf = _load_sync_flow_module()
+
+    def _fake_run(*args, **kwargs):
+        raise FileNotFoundError("gh not found")
+
+    monkeypatch.setattr(sf.subprocess, "run", _fake_run)
+    headers = sf._authed_headers()
+    assert "Authorization" not in headers

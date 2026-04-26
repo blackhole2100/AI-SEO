@@ -3,15 +3,21 @@
 import argparse
 import base64
 import datetime
+import hashlib
 import json
 import os
 import pathlib
+import shutil
 import subprocess
 import sys
+import tempfile
+import urllib.parse
 import urllib.request
 
 
 API_ROOT = "https://api.github.com/repos/AgriciDaniel/flow/contents"
+_ALLOWED_HOST = "api.github.com"
+_SIZE_LIMIT = 5 * 1024 * 1024  # 5 MB
 PROMPT_STAGES = ["find", "leverage", "optimize", "win", "local"]
 STATIC_FILES = [
     ("docs/01-framework/flow-framework.md", "flow-framework.md"),
@@ -38,19 +44,23 @@ def parse_args():
     return parser.parse_args()
 
 
-def github_headers():
-    try:
-        result = subprocess.run(["gh", "auth", "token"], capture_output=True, text=True)
-    except FileNotFoundError:
-        sys.exit("sync_flow: 'gh' CLI not found on PATH. Install: https://cli.github.com")
-    if result.returncode != 0 or not result.stdout.strip():
-        sys.exit("sync_flow: 'gh auth token' returned no token. Run: gh auth login")
-    token = result.stdout.strip()
+def _base_headers():
     return {
-        "Authorization": f"Bearer {token}",
         "Accept": "application/vnd.github+json",
         "X-GitHub-Api-Version": "2022-11-28",
     }
+
+
+def _authed_headers():
+    """Returns authenticated headers, or base headers if gh CLI is absent or unauthed."""
+    try:
+        result = subprocess.run(["gh", "auth", "token"], capture_output=True, text=True)
+    except FileNotFoundError:
+        return _base_headers()
+    token = result.stdout.strip()
+    if not token or result.returncode != 0:
+        return _base_headers()
+    return {**_base_headers(), "Authorization": f"Bearer {token}"}
 
 
 def content_url(path, ref):
@@ -58,9 +68,18 @@ def content_url(path, ref):
 
 
 def api_get(path, ref, headers):
-    request = urllib.request.Request(content_url(path, ref), headers=headers)
-    with urllib.request.urlopen(request) as response:
-        return json.loads(response.read().decode("utf-8"))
+    url = content_url(path, ref)
+    request = urllib.request.Request(url, headers=headers)
+    try:
+        with urllib.request.urlopen(request, timeout=15) as response:
+            data = response.read(_SIZE_LIMIT + 1)
+            if len(data) > _SIZE_LIMIT:
+                raise ValueError(f"Response for {path!r} exceeds {_SIZE_LIMIT} bytes")
+            return json.loads(data)
+    except urllib.error.HTTPError as exc:
+        if exc.code == 403 and "Authorization" not in headers:
+            return api_get(path, ref, _authed_headers())
+        raise
 
 
 def fetch_file(path, ref, headers):
@@ -171,7 +190,7 @@ def sync(args):
     root = script_root()
     refs = root / "skills" / "seo-flow" / "references"
     today = datetime.date.today().isoformat()
-    headers = github_headers()
+    headers = _base_headers()
     changes = {"added": [], "updated": [], "unchanged": []}
     prompt_rows = []
 
