@@ -21,6 +21,7 @@ Comprehensive SEO analysis skill for Claude Code. 20 core sub-skills covering te
 - [Features](#features)
 - [Architecture](#architecture)
 - [Extensions](#extensions)
+- [Showcase](#showcase)
 - [Ecosystem](#ecosystem)
 - [Documentation](#documentation)
 - [Requirements](#requirements)
@@ -347,6 +348,29 @@ Full-site crawling and URL discovery using the [Firecrawl](https://www.firecrawl
 ```
 
 See [Firecrawl Extension](extensions/firecrawl/README.md) for full documentation.
+
+## Showcase
+
+Community projects built on top of Claude SEO:
+
+<table>
+<tr>
+<td width="40%">
+  <a href="https://github.com/avalonreset/claude-seo-dungeon">
+    <img src="https://raw.githubusercontent.com/avalonreset/claude-seo-dungeon/main/screenshots/battle-scene.webp" alt="Claude SEO Dungeon - turn-based SEO battle scene with Guild Ledger">
+  </a>
+</td>
+<td width="60%">
+
+**[Claude SEO Dungeon](https://github.com/avalonreset/claude-seo-dungeon)** -- a 16-bit gamified dungeon crawler that turns SEO audits into boss battles. Built on Claude SEO v1.9.0 with Phaser 3, every detected issue becomes a demon and every fix becomes a real commit to your codebase. The Guild Ledger streams Claude's tool calls in real time as you fight.
+
+Built by [@avalonreset](https://github.com/avalonreset) -- live at [seodungeon.com](https://seodungeon.com).
+
+</td>
+</tr>
+</table>
+
+Want your project featured here? [Open an issue](https://github.com/AgriciDaniel/claude-seo/issues/new) with a link.
 
 ## Ecosystem
 
