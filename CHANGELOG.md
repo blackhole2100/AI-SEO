@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.9.5] - 2026-04-26
+
+### Added
+- **seo-flow**: FLOW framework integration — Find → Leverage → Optimize → Win. 42 evidence-led AI prompts (CC BY 4.0) bundled as `skills/seo-flow/references/prompts/`. Commands: `/seo flow [find|leverage|optimize|win|local|prompts|sync]`.
+- **Context-matching orchestration**: `/seo flow optimize` selects 2-3 most relevant prompts from 18 based on URL industry signals and prior skill output — not a full dump.
+- **`scripts/sync_flow.py`**: GitHub API sync script — pulls latest FLOW prompts, framework doc, and bibliography from AgriciDaniel/flow. Supports `--dry-run` and `--ref <sha>` pinning. Outputs JSON summary.
+- **`agents/seo-flow.md`**: FLOW subagent — applies stage prompts to target URLs, returns structured evidence-tagged findings.
+- **FLOW cross-references**: Integration notes added to seo-geo, seo-local, seo-content, and seo-cluster skills.
+
+### License
+- FLOW content bundled under CC BY 4.0. Attribution header on every prompt file (automated by `sync_flow.py`). Claude SEO's MIT license unchanged — applies to skill code only.
+
 ## [1.9.0] - 2026-04-14
 
 ### Added
