@@ -81,7 +81,7 @@ claude-seo/
     seo-ecommerce.md             # E-commerce SEO analysis
   hooks/                           # Quality gate hooks
     hooks.json                   # PostToolUse schema validation
-  scripts/                         # Python execution scripts (28 tracked + 2 dev-only)
+  scripts/                         # Python execution scripts (29 tracked + 2 dev-only)
     google_auth.py               # Credential management (OAuth, SA, API key, 4-tier detection)
     backlinks_auth.py            # Backlink API credential management (Moz, Bing)
     moz_api.py                   # Moz Link Explorer API (DA/PA, spam, domains, anchors)
@@ -109,6 +109,7 @@ claude-seo/
     dataforseo_costs.py          # DataForSEO cost estimation and budget tracking
     dataforseo_merchant.py       # Google Shopping / Amazon data fetching
     dataforseo_normalize.py      # DataForSEO response normalization utility
+    sync_flow.py                 # FLOW prompt library sync (GitHub API, CC BY 4.0 headers, --dry-run, --ref)
     mobile_analysis.py           # Mobile rendering analysis (gitignored, dev-only)
   schema/                          # Schema.org JSON-LD templates
   extensions/                      # Optional add-on install helpers
