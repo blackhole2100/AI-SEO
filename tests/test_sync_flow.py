@@ -150,6 +150,14 @@ def test_validate_github_url_blocks_non_github_host():
         sf._validate_github_url("https://evil.example.com/repos/AgriciDaniel/flow/contents/file.md")
 
 
+def test_validate_github_url_blocks_userinfo_ssrf():
+    """_validate_github_url must block @evil.com userinfo bypass (VULN-A10)."""
+    sf = _load_sync_flow_module()
+    import pytest
+    with pytest.raises(ValueError, match="Blocked"):
+        sf._validate_github_url("https://api.github.com@evil.com/repos/AgriciDaniel/flow/contents/file.md")
+
+
 def test_validate_github_url_allows_github_api():
     """_validate_github_url must not raise for api.github.com URLs (VULN-A10)."""
     sf = _load_sync_flow_module()

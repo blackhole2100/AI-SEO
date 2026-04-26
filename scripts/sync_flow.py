@@ -21,10 +21,10 @@ _SIZE_LIMIT = 5 * 1024 * 1024  # 5 MB
 
 
 def _validate_github_url(url):
-    """Abort if url does not target the expected GitHub API host."""
+    """Abort if url does not use HTTPS or does not target the expected GitHub API host."""
     parsed = urllib.parse.urlparse(url)
-    if parsed.netloc != _ALLOWED_HOST:
-        raise ValueError(f"Blocked request to unexpected host: {parsed.netloc!r}")
+    if parsed.scheme != "https" or parsed.netloc != _ALLOWED_HOST:
+        raise ValueError(f"Blocked request to unexpected host: {parsed.netloc!r} (scheme: {parsed.scheme!r})")
 PROMPT_STAGES = ["find", "leverage", "optimize", "win", "local"]
 STATIC_FILES = [
     ("docs/01-framework/flow-framework.md", "flow-framework.md"),
