@@ -39,7 +39,7 @@ Comprehensive SEO analysis plugin for Claude Code. 24 sub-skills (20 core + 1 or
 /plugin marketplace add AgriciDaniel/claude-seo
 
 # Install plugin
-/plugin install claude-seo@AgriciDaniel-claude-seo
+/plugin install claude-seo@agricidaniel-seo
 ```
 
 ### Manual Install (Unix/macOS/Linux)
