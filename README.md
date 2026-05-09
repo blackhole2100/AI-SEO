@@ -20,6 +20,7 @@ SEO analysis plugin for Claude Code. 25 sub-skills (21 core + 1 orchestrator + 1
 - [Commands](#commands)
 - [Features](#features)
 - [Architecture](#architecture)
+- [Limitations](#limitations)
 - [Requirements](#requirements)
 - [Uninstall](#uninstall)
 - [Extensions](#extensions)
@@ -243,6 +244,14 @@ Additional schema types for video content, live streaming, and key moments:
 - SoftwareSourceCode: Open source and code repository pages
 
 See `schema/templates.json` for ready-to-use JSON-LD snippets. Full release history in [CHANGELOG.md](CHANGELOG.md).
+
+## Limitations
+
+Sites that render content client-side without server-side rendering will produce false-negative findings on content, schema, headings, and meta in most subagents. The orchestrator and most subagents fetch raw HTML rather than executing JavaScript, so a single-page application that hydrates content in the browser will appear empty to the auditor.
+
+If your target site is an SPA without SSR (typical patterns: Vite/CRA React without prerender, client-only Vue/Angular, frameworks where the initial HTML response is largely an empty shell), use a tool that performs browser-rendered fetching for the audit. The `seo-visual` subagent does use Playwright when available and can verify that visible content matches what the raw-HTML subagents see; expect divergence on SPA targets.
+
+Tracked as the v2.0 epic in [#11](https://github.com/AgriciDaniel/claude-seo/issues/11).
 
 ## Requirements
 
