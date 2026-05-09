@@ -141,3 +141,13 @@ site/
 
 # Git worktrees (isolated workspaces for parallel branch work)
 .worktrees/
+
+# Marketing / promo artifacts (don't ship with the repo)
+claude-seo-slides/
+claude-seo-v*-release.html
+video-script-*.md
+youtube-shorts-*.md
+youtube-description*.md
+
+# Internal implementation plans / specs (working notes, not user docs)
+docs/superpowers/
