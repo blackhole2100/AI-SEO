@@ -5,6 +5,38 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.9.7] - 2026-05-09
+
+### Fixed
+- **Skill-count drift across 5 manifests** — `plugin.json` ("20 core sub-skills"),
+  `marketplace.json` ("21 core sub-skills"), `CLAUDE.md` line 7 ("21 core sub-skills"),
+  `AGENTS.md` line 8 ("20 core sub-skills") + line 84 ("23 skills"), and `README.md`
+  line 7 ("21 core sub-skills") all contradicted each other. Reconciled to canonical
+  phrasing: "24 sub-skills (20 core + 1 orchestrator + 1 framework integration +
+  2 extension mirrors)".
+- **Sub-agent count drift** — `CLAUDE.md` claimed "16 core subagents (+ 2 extension
+  agents, 18 total)" while `AGENTS.md` claimed "15 core subagents (+ 2 extension
+  agents, 17 total)". Reconciled to: "18 sub-agents (15 core + 1 framework integration +
+  2 extension mirrors)".
+- **`CLAUDE.md` self-contradiction** — line 23 stated `plugin.json (v1.9.0)`; updated
+  to current `v1.9.7`.
+- **`marketplace.json` description fields** — both `metadata.description` (top-level)
+  and `plugins[0].description` now use canonical phrasing.
+- **`CITATION.cff` version drift** — was stuck at `1.8.2` (six minor versions behind);
+  bumped to match `plugin.json` at `1.9.7` with current release date.
+
+### Added
+- **`.github/dependabot.yml`** — weekly Dependabot updates for pip and GitHub Actions
+  ecosystems (closes supply-chain hygiene gap).
+- **`CODE_OF_CONDUCT.md`** — Contributor Covenant 2.1, closing GitHub Community
+  Standards gap.
+- **`.github/workflows/ci.yml` `permissions:` block** — restricts `GITHUB_TOKEN` to
+  `contents: read` at workflow root (least-privilege; was previously default scope).
+
+### Changed
+- Patch release driven by repository hygiene + marketplace-readiness preparation.
+  No skill behavior changes, no breaking changes, no script changes.
+
 ## [1.9.6] - 2026-04-26
 
 ### Security
