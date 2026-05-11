@@ -5,39 +5,140 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.9.9] - 2026-05-11
+
+Final 1.x patch release. v2 is in design; this release leaves the v1.x
+branch in a clean, well-documented, dependency-current state.
+
+Independently verified across 5 rounds of GPT-5.5 xhigh code review via
+the Codex CLI before each PR push. Issue #92 + issue #41 closed.
+
+### Highlights
+- Five top-level versions, 24 in-tree skills, 3 extension SKILL.md files,
+  and both install scripts triangulate to `1.9.9` atomically. CI guard
+  extended from 9 to 13 assertions covering the orchestrator SKILL.md,
+  per-skill `metadata.version`, marketplace.json metadata.description + author
+  parity, and Sub-Skills/Subagents list consistency with disk.
+- Five Dependabot dependency floor bumps merged as one batched PR after
+  isolated-venv smoke-testing of the full API surface we actually use.
+- Image audit now correctly detects JS lazy-loaders (Perfmatters, EWWW,
+  generic) rather than reporting "not lazy-loaded" on heavily-optimized
+  WordPress sites.
 
 ### Fixed
-- **`install.sh` and `install.ps1` default tag pinned to `v1.9.0`**, four
-  releases stale (v1.9.5/.6/.7/.8 all missed the bump). Anyone running
-  `curl -fsSL .../install.sh | bash` got the April 14 release, missing the
-  FLOW framework integration, the security audit pass, the doc reconciliation,
-  and the manifest CI guard plus all v1.9.8 Phase B bug fixes (Windows hook,
-  OAuth refresh, missing imports, None guards). Bumped both to `v1.9.8`.
-  Plugin-install users (`/plugin install claude-seo@agricidaniel-seo`) were
-  unaffected because that path reads plugin.json directly.
-- **`pyproject.toml` version stuck at `1.9.6`** while plugin.json and
-  CITATION.cff shipped at 1.9.8. The v1.9.8 manifest CI guard's
-  `test_version_triangulation` only covered plugin.json ↔ CITATION.cff;
-  pyproject.toml was outside scope so the drift slipped through. Bumped to
-  1.9.8 and extended the CI guard to cover it.
+
+- **Orchestrator drift in `skills/seo/SKILL.md`** (issue #92): line 9
+  `metadata.version: "1.9.6"` was stale; descriptive headline at lines 19-21
+  still claimed "21 specialized sub-skills"; Sub-Skills numbered list at
+  176-199 included `seo-firecrawl` (which is an extension, not in `skills/`)
+  and was missing `seo-content-brief` (the PR #56 contribution). Subagents
+  bullet list had the same drift pattern (included `seo-firecrawl`, no agent
+  file on disk; missing `seo-flow`, file exists). Reconciled. Numbered list
+  now reaches 24 (the orchestrator itself is the 25th in `skills/` but does
+  not orchestrate itself), `seo-firecrawl` moved to a new "Optional
+  Extensions" subsection, Subagents list now matches `agents/seo-*.md` set
+  exactly.
+- **`marketplace.json` drift** (issue #92): `metadata.description` was
+  missing the "sub-agents" count claim that `plugins[0].description` carried;
+  plugin entry had no `author` object despite v1.9.8 release notes claiming
+  one was added in commit `8514999` (verification showed it was not). Both
+  fixed. v1.9.8 entry in this CHANGELOG corrected to reflect what actually
+  shipped.
+- **`AGENTS.md:109`** said "17 subagents"; disk has 18. Fixed.
+- **`install.sh` and `install.ps1` default tag pinned to `v1.9.0`** across 4
+  missed release bumps (v1.9.5/.6/.7/.8). Anyone running
+  `curl -fsSL .../install.sh | bash` got the April 14 release, missing FLOW
+  integration, the security audit pass, doc reconciliation, the manifest CI
+  guard plus v1.9.8 Phase B bug fixes (Windows hook, OAuth refresh, missing
+  imports, None guards). Bumped to `v1.9.9` atomically with this release.
+- **`pyproject.toml`** had drifted to `1.9.6` while plugin.json + CITATION
+  shipped at 1.9.8. Bumped to 1.9.9 with the release.
+- **23 in-tree skill `metadata.version` fields** were stuck at `1.9.6`; 3
+  extension SKILL.md files were at `1.9.0`/`1.7.2`. All bumped to `1.9.9`.
+  `seo-content-brief` deliberately stays at `1.0.0` (community contribution,
+  CI allowlist).
+- **Image audit (issue #41)**: `scripts/parse_html.py` now classifies each
+  image's lazy-loading mechanism in a `lazy_method` field with five values:
+  `native | perfmatters | ewww | js-generic | none`. Sites running Perfmatters,
+  EWWW Image Optimizer, lazysizes, vanilla-lazyload, or jQuery lazy-loaders
+  are no longer mis-reported as "not lazy-loaded". `skills/seo-page/SKILL.md`
+  and `skills/seo-images/SKILL.md` are updated to consume the new field.
 
 ### Added
-- **`tests/test_manifest_consistency.py`** gains two new assertions:
-  - `test_pyproject_version_matches_plugin_json`: pyproject.toml version
-    must equal plugin.json version on every release.
-  - `test_install_scripts_default_tag_matches_plugin_version`: install.sh
-    `REPO_TAG` and install.ps1 `$RepoTag` defaults must equal
-    `v{plugin.json version}` on every release.
-  - Both tests verified with negative-case smoke tests (revert the value,
-    confirm the assertion fires with a clear actionable error message).
-  - Total assertions in the manifest consistency suite: 7 → 9.
+
+- **CI guard extension (9 -> 13 assertions)** in
+  `tests/test_manifest_consistency.py`:
+  - `test_orchestrator_sub_skills_list_matches_disk`: Sub-Skills list must
+    equal `set(skills/*) - {seo}`; no duplicates. Regex scoped to the
+    `## Sub-Skills` section via a new `_extract_section()` helper.
+  - `test_orchestrator_subagents_list_matches_disk`: Subagents bullet list
+    must equal `set(agents/seo-*.md)`; no duplicates. Bullet-anchored regex.
+  - `test_skill_metadata_versions_match_plugin_json`: every
+    `skills/*/SKILL.md` and `extensions/*/skills/*/SKILL.md` `metadata.version`
+    must equal `plugin.json` version, with `COMMUNITY_OVERRIDES` allowlist
+    `{"seo-content-brief": "1.0.0"}`. Scoped to YAML frontmatter only via
+    a new `_extract_frontmatter()` helper, so a fenced code example showing
+    `version: "..."` cannot satisfy the check.
+  - `test_marketplace_metadata_and_author_parity`: marketplace.json
+    `metadata.description` includes both counts and they match plugin.json;
+    plugin entry `author` parities plugin.json author for `name`, `email`,
+    AND `url`.
+- **`tests/test_lazy_detection.py`** (new): 11 unit tests covering all
+  `_detect_lazy_method()` branches plus an integration check on `parse_html()`.
+- **CI workflow** (`.github/workflows/ci.yml`): test job now installs
+  `beautifulsoup4` alongside `pytest`, required by the new lazy-detection
+  test that exercises real BeautifulSoup parsing.
 
 ### Changed
-- Inline comments in `install.sh:13` and `install.ps1:90` now state that the
-  default tag MUST be bumped on every release and reference the CI guard that
-  enforces it. This makes the release-checklist requirement obvious to anyone
-  reading the file.
+
+- **5 Python dependency floor bumps** (batched as a single PR after isolated-
+  venv smoke testing — see [PR #94]):
+
+  | Package | Floor before | Floor after | Source PR |
+  |---|---|---|---|
+  | `playwright` | 1.56.0 | 1.59.0 | #80 |
+  | `weasyprint` | 61.0 | 68.1 | #78 |
+  | `openpyxl` | 3.1.0 | 3.1.5 | #76 |
+  | `google-api-python-client` | 2.100.0 | 2.196.0 | #77 |
+  | `google-auth-oauthlib` | 1.0.0 | 1.4.0 | #79 |
+
+  All five upper bounds preserved. No CVE-driven escalations.
+
+  **Caveat**: `google-auth-oauthlib` 1.4.0 drops Python 3.9 support. This
+  repo's `pyproject.toml` requires Python `>=3.10` already, so no impact for
+  the declared support matrix. External consumers still on 3.9 should pin
+  `google-auth-oauthlib<1.4.0` themselves.
+
+### Deferred to v2
+
+The following items are out of scope for v1.9.9 to keep this a clean patch
+release. v2 will be a separate design conversation:
+
+- **#11** SPA / CSR audit support (7-phase implementation; PR #90 Limitations
+  section remains the patch-appropriate response)
+- **#51** Subagent research persistence (changes documented output contract
+  across 15 agent files; v2 will define a persistence convention shared by
+  `seo-audit`, `seo-drift`, `seo-cluster`)
+- **#61** `google_report.py --type full` audit-schema handling (no regression
+  baseline fixture corpus exists; v2 will ship one with the bug fix)
+- **#89** uv adoption (issue itself labels v2.x candidate; preserves
+  `requirements.txt` format as migration headroom)
+- **#53** seo-notebooklm skill (depends on unofficial wrapper, 536 lines of
+  unreviewed credential code; v2 will define an "experimental skills" tier)
+- **PR #46** path resolution + macOS SSL: `pip-system-certs` is a new
+  dependency that violates v1.9.9's no-new-deps non-goal. v2 will land the
+  full macOS support story.
+
+### Compatibility / migration
+
+- No breaking changes. Patch release per SemVer.
+- The orchestrator's Sub-Skills numbered list was renumbered (insertion of
+  `seo-content-brief`, removal of `seo-firecrawl`). Any downstream consumer
+  that referenced sub-skills by **index** rather than **name** would break;
+  grep found no such consumer in this repo, but third-party docs that
+  hard-coded "skill 21 is seo-firecrawl" would need updating.
+- `/seo audit` still does NOT persist subagent research/findings between
+  runs (this is the intentional v1.x contract; v2 will revisit per #51).
 
 ## [1.9.8] - 2026-05-09
 
