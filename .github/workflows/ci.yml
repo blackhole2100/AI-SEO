@@ -71,8 +71,10 @@ jobs:
         with:
           python-version: "3.10"
 
-      - name: Install pytest
-        run: pip install pytest
+      - name: Install pytest + test deps
+        # beautifulsoup4 is required by tests/test_lazy_detection.py which
+        # exercises parse_html.py via real BeautifulSoup parsing.
+        run: pip install pytest beautifulsoup4
 
       - name: Run pytest
         run: pytest tests/ -v
