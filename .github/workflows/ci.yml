@@ -55,7 +55,9 @@ jobs:
           python3 -m py_compile scripts/drift_history.py
           python3 -m py_compile scripts/sync_flow.py
           python3 -m py_compile scripts/release_report.py
-          echo "All 32 scripts passed syntax check"
+          python3 -m py_compile scripts/release_sign.py
+          python3 -m py_compile scripts/verify_release.py
+          echo "All 34 scripts passed syntax check"
 
   test:
     name: Test suite (manifests + sync_flow)
