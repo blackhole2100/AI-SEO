@@ -69,7 +69,8 @@ jobs:
           python3 -m py_compile scripts/schema_generate.py
           python3 -m py_compile scripts/schema_ecommerce_validate.py
           python3 -m py_compile scripts/parasite_risk.py
-          echo "All 46 scripts passed syntax check"
+          python3 -m py_compile scripts/gbp_deprecation_lint.py
+          echo "All 47 scripts passed syntax check"
 
   test:
     name: Test suite (manifests + sync_flow)
