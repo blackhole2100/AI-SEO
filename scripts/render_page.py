@@ -66,11 +66,9 @@ import argparse
 import json
 import os
 import re
-import socket
 import sys
 import time
 from typing import Optional
-from urllib.parse import urlparse
 
 # Optional native dependencies. Each is checked lazily so callers that
 # only need raw-mode (mode='never') don't pay the import cost.
@@ -99,7 +97,7 @@ if _SCRIPTS_DIR not in sys.path:
     sys.path.insert(0, _SCRIPTS_DIR)
 from url_safety import (  # noqa: E402  (sys.path massage above is intentional)
     URLSafetyError,
-    is_safe_ip,
+    make_safe_playwright_route_handler,
     safe_requests_get,
     validate_url_strict,
 )
@@ -155,52 +153,6 @@ def _is_spa(raw_html: Optional[str]) -> bool:
         if len(text) < 100:
             return True
     return False
-
-
-def _make_route_handler(blocked_resource_types: set[str]):
-    """
-    Build a Playwright route() callback that:
-      (1) refuses subresource requests resolving to non-public IPs
-          (defence in depth against DNS rebinding inside Chromium),
-      (2) blocks resource types in ``blocked_resource_types`` for faster
-          renders when the caller doesn't need images/fonts/etc.
-    """
-
-    def handler(route, request):  # type: ignore[no-untyped-def]
-        try:
-            if blocked_resource_types and request.resource_type in blocked_resource_types:
-                route.abort()
-                return
-
-            parsed = urlparse(request.url)
-            if parsed.scheme not in ("http", "https"):
-                # data:, blob:, chrome-extension:, etc. — no DNS, allow.
-                route.continue_()
-                return
-            host = parsed.hostname
-            if not host:
-                route.abort()
-                return
-
-            try:
-                addrinfo = socket.getaddrinfo(
-                    host, None, family=socket.AF_INET, type=socket.SOCK_STREAM
-                )
-            except socket.gaierror:
-                route.abort()
-                return
-            ips = {info[4][0] for info in addrinfo}
-            if any(not is_safe_ip(ip) for ip in ips):
-                route.abort()
-                return
-            route.continue_()
-        except Exception:  # pragma: no cover - fail-closed on any handler error
-            try:
-                route.abort()
-            except Exception:
-                pass
-
-    return handler
 
 
 def render_page(
@@ -282,7 +234,7 @@ def render_page(
 
         vp = VIEWPORTS[viewport]
         blocked = set(block_resources or [])
-        route_handler = _make_route_handler(blocked)
+        route_handler = make_safe_playwright_route_handler(blocked)
         start = time.monotonic()
 
         try:

@@ -159,10 +159,26 @@ def _load_oauth_client(creds_path: str) -> Optional[dict]:
         return None
 
 
+def _chmod_quiet(path: str, mode: int) -> None:
+    """Best-effort chmod that swallows errors (e.g. on filesystems that don't
+    support POSIX permissions). Used to remediate legacy 0o644 token files
+    written by v1.9.x without forcing the user to re-auth."""
+    try:
+        os.chmod(path, mode)
+    except OSError:
+        pass
+
+
 def _load_oauth_token() -> Optional[dict]:
-    """Load saved OAuth token from TOKEN_PATH."""
+    """Load saved OAuth token from TOKEN_PATH.
+
+    Also remediates legacy file permissions: v1.9.x wrote tokens with the
+    umask default (typically 0o644, world-readable). Each load forces the
+    file to 0o600 so users upgrading to v2 are protected without a re-auth.
+    """
     if not os.path.exists(TOKEN_PATH):
         return None
+    _chmod_quiet(TOKEN_PATH, 0o600)
     try:
         with open(TOKEN_PATH, "r") as f:
             return json.load(f)
@@ -171,9 +187,18 @@ def _load_oauth_token() -> Optional[dict]:
 
 
 def _save_oauth_token(token_data: dict):
-    """Save OAuth token to TOKEN_PATH."""
+    """Save OAuth token to TOKEN_PATH with secure (0o600) permissions.
+
+    Uses os.open with O_CREAT|O_WRONLY|O_TRUNC and an explicit mode so the
+    file is never world-readable, even briefly between create and chmod.
+    Existing files have their mode forced to 0o600 before truncation.
+    """
     os.makedirs(os.path.dirname(TOKEN_PATH), exist_ok=True)
-    with open(TOKEN_PATH, "w") as f:
+    if os.path.exists(TOKEN_PATH):
+        _chmod_quiet(TOKEN_PATH, 0o600)
+    flags = os.O_WRONLY | os.O_CREAT | os.O_TRUNC
+    fd = os.open(TOKEN_PATH, flags, 0o600)
+    with os.fdopen(fd, "w") as f:
         json.dump(token_data, f, indent=2)
 
 

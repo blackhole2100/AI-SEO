@@ -91,6 +91,7 @@ __all__ = [
     "validate_url_strict",
     "safe_requests_get",
     "safe_requests_session",
+    "make_safe_playwright_route_handler",
 ]
 
 
@@ -326,6 +327,69 @@ def safe_requests_session(url: str) -> Iterator[requests.Session]:
             yield session
         finally:
             session.close()
+
+
+def make_safe_playwright_route_handler(
+    blocked_resource_types: Optional[set] = None,
+):
+    """
+    Build a Playwright ``page.route()`` callback that aborts subresource
+    requests whose hostname resolves to a non-public IP.
+
+    This is defence in depth for browser-based fetches: Chromium does its
+    own DNS resolution inside the renderer process, so a Python-layer
+    pin on ``socket.getaddrinfo`` cannot reach it. The route handler
+    re-validates every request URL using the same predicate as
+    :func:`validate_url_strict`.
+
+    Args:
+        blocked_resource_types: optional set of Playwright resource type
+            strings (``image``, ``media``, ``font``, ``stylesheet``,
+            ``script``, ``xhr``, ``fetch``, ``websocket``, ``manifest``,
+            ``other``) to abort regardless of IP. Used for fast
+            "skip images and fonts" renders.
+
+    Returns:
+        Callable ``(route, request) -> None`` suitable for
+        ``page.route("**/*", handler)``.
+    """
+    blocked = set(blocked_resource_types or ())
+
+    def handler(route, request):  # type: ignore[no-untyped-def]
+        try:
+            if blocked and request.resource_type in blocked:
+                route.abort()
+                return
+
+            parsed = urlparse(request.url)
+            if parsed.scheme not in ("http", "https"):
+                # data:, blob:, chrome-extension:, etc. — no DNS involved.
+                route.continue_()
+                return
+            host = parsed.hostname
+            if not host:
+                route.abort()
+                return
+
+            try:
+                addrinfo = socket.getaddrinfo(
+                    host, None, family=socket.AF_INET, type=socket.SOCK_STREAM
+                )
+            except socket.gaierror:
+                route.abort()
+                return
+            ips = {info[4][0] for info in addrinfo}
+            if any(not is_safe_ip(ip) for ip in ips):
+                route.abort()
+                return
+            route.continue_()
+        except Exception:  # pragma: no cover - fail-closed
+            try:
+                route.abort()
+            except Exception:
+                pass
+
+    return handler
 
 
 def _cli() -> None:
