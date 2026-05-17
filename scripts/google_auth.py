@@ -422,29 +422,22 @@ def validate_url(url: str) -> bool:
 
     Returns:
         True if the URL is a valid public http/https URL, False otherwise.
-    """
-    from urllib.parse import urlparse
 
-    parsed = urlparse(url)
-    if parsed.scheme not in ("http", "https"):
-        return False
-    if not parsed.hostname:
-        return False
-    blocked = [
-        "localhost", "127.0.0.1", "0.0.0.0", "::1",
-        "metadata.google.internal",
-    ]
-    if parsed.hostname in blocked:
-        return False
-    # Block private IP ranges (10.x, 172.16-31.x, 192.168.x)
-    try:
-        import ipaddress
-        ip = ipaddress.ip_address(parsed.hostname)
-        if ip.is_private or ip.is_loopback or ip.is_link_local:
-            return False
-    except ValueError:
-        pass  # Not an IP address (hostname), which is fine
-    return True
+    Note:
+        Back-compat wrapper around :func:`url_safety.validate_url`. The shared
+        module is the canonical implementation and adds DNS-rebinding-safe
+        helpers (``validate_url_strict``, ``safe_requests_get``) that
+        ``fetch_page.py`` and ``render_page.py`` use before opening sockets.
+    """
+    # Lazy import: avoids a hard requirement on url_safety for callers that
+    # only need google_auth's other helpers (e.g. token refresh) and keeps
+    # the import graph one-directional.
+    _scripts_dir = os.path.dirname(os.path.abspath(__file__))
+    if _scripts_dir not in sys.path:
+        sys.path.insert(0, _scripts_dir)
+    from url_safety import validate_url as _validate_url
+
+    return _validate_url(url)
 
 
 def get_api_key() -> Optional[str]:

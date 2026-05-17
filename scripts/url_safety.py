@@ -1,0 +1,384 @@
+#!/usr/bin/env python3
+"""
+Canonical URL safety module for claude-seo.
+
+Centralizes SSRF protection, DNS rebinding mitigation, and DNS-pinned HTTP
+fetching. Every script in this repository that accepts a user-supplied URL
+MUST validate it through this module before issuing any network request.
+
+Public API
+==========
+
+validate_url(url) -> bool
+    Back-compat boolean check. Rejects non-http(s) schemes, missing
+    hostnames, hard-blocked hostnames (localhost, cloud metadata
+    endpoints), and IP literals that fall inside private/loopback/reserved
+    ranges. Does NOT resolve DNS. Preserves the v1.9.9 contract used by
+    google_auth.py.
+
+validate_url_strict(url) -> tuple[str, str]
+    Resolves the hostname via socket.getaddrinfo, validates every returned
+    A record against the safety predicate, and returns
+    ``(normalized_url, pinned_ipv4)``. Raises ``URLSafetyError`` if any
+    resolved IP is non-public. Use this whenever the caller is about to
+    open a network connection so DNS rebinding cannot swap a public IP
+    for a private one between checks.
+
+safe_requests_get(url, *, timeout=30, **kwargs) -> requests.Response
+    ``requests.get(...)`` wrapped in a DNS-pinning context manager so the
+    OS-level resolver only ever sees the pre-validated IP for the duration
+    of the call. The original hostname is preserved in the HTTP Host
+    header and TLS SNI; only the connect() target is forced to the pinned
+    address.
+
+safe_requests_session(url) -> context manager yielding requests.Session
+    Same protection as ``safe_requests_get`` for callers that need a
+    session (cookies, redirect chains, multiple requests to one host).
+
+is_safe_ip(ip_str) -> bool
+    True iff the address parses as IPv4/IPv6 and is none of:
+    private, loopback, reserved, link-local, multicast, unspecified.
+
+URLSafetyError
+    ValueError subclass raised by the strict validator and pinning helpers.
+
+Threading
+=========
+The DNS pinning helper is a critical section guarded by a non-blocking
+``threading.Lock``. Two concurrent pinned fetches on the same process will
+raise rather than corrupt the global ``socket.getaddrinfo`` reference.
+claude-seo scripts are intentionally single-threaded; parallelism is
+delegated to the agent-process layer.
+
+Limitations
+===========
+Playwright/Chromium-based fetches (``render_page.py``,
+``capture_screenshot.py``) perform their own DNS resolution inside
+Chromium and therefore cannot be DNS-pinned at the Python layer. Those
+scripts must:
+
+  1. Call ``validate_url_strict()`` as a pre-flight check, AND
+  2. Attach a Playwright ``route()`` handler that re-validates each
+     resolved request IP and aborts subresource fetches to private
+     ranges.
+
+The residual DNS-rebinding risk for browser-based fetches is documented
+in SECURITY.md.
+"""
+
+from __future__ import annotations
+
+import ipaddress
+import socket
+import threading
+from contextlib import contextmanager
+from typing import Iterator, Optional
+from urllib.parse import urlparse
+
+try:
+    import requests
+except ImportError as exc:  # pragma: no cover - hard dependency
+    raise RuntimeError(
+        "scripts/url_safety.py requires the 'requests' package. "
+        "Install with: pip install -r requirements.txt"
+    ) from exc
+
+
+__all__ = [
+    "URLSafetyError",
+    "is_safe_ip",
+    "validate_url",
+    "validate_url_strict",
+    "safe_requests_get",
+    "safe_requests_session",
+]
+
+
+# Hard-blocked hostnames. Anything here is refused even before DNS resolution.
+# Cloud metadata endpoints are the most common SSRF target; we list every
+# documented address across AWS, Azure, GCP, Oracle, and Alibaba so a single
+# typo (e.g., metadata.google.internal vs metadata.googleapis.internal)
+# cannot slip through.
+_BLOCKED_HOSTNAMES: frozenset[str] = frozenset(
+    {
+        "localhost",
+        "ip6-localhost",
+        "ip6-loopback",
+        "metadata.google.internal",
+        "metadata.goog",
+        "metadata",
+        "metadata.azure.com",
+        "metadata.ec2.internal",
+        "metadata.oraclecloud.com",
+        # Numeric metadata endpoints (also caught by IP literal check, listed
+        # explicitly for defence-in-depth and clearer error messages).
+        "127.0.0.1",
+        "0.0.0.0",
+        "::1",
+        "169.254.169.254",  # AWS, Azure, GCP, Oracle, Alibaba metadata IPv4
+        "fd00:ec2::254",    # AWS IMDS IPv6
+    }
+)
+
+
+class URLSafetyError(ValueError):
+    """Raised when a URL fails SSRF safety checks."""
+
+
+def is_safe_ip(ip_str: str) -> bool:
+    """Return True iff ``ip_str`` is a public unicast address."""
+    try:
+        ip = ipaddress.ip_address(ip_str)
+    except ValueError:
+        return False
+    return not (
+        ip.is_private
+        or ip.is_loopback
+        or ip.is_reserved
+        or ip.is_link_local
+        or ip.is_multicast
+        or ip.is_unspecified
+    )
+
+
+def validate_url(url: str) -> bool:
+    """
+    Back-compat boolean validator. Does not resolve DNS.
+
+    Returns False when:
+        - Scheme is not http or https
+        - Hostname is missing
+        - Hostname is in the hard-block list
+        - Hostname is an IP literal that fails ``is_safe_ip``
+    Returns True for any other well-formed http(s) URL with a public-looking
+    hostname. Use ``validate_url_strict`` if the caller will open a socket
+    using the hostname (DNS rebinding cannot be defeated at parse time).
+    """
+    parsed = urlparse(url)
+    if parsed.scheme not in ("http", "https"):
+        return False
+    if not parsed.hostname:
+        return False
+    hostname = parsed.hostname.lower()
+    if hostname in _BLOCKED_HOSTNAMES:
+        return False
+    try:
+        ipaddress.ip_address(hostname)
+    except ValueError:
+        return True  # Hostname is a name, not a literal — OK at parse time.
+    return is_safe_ip(hostname)
+
+
+def validate_url_strict(url: str) -> tuple[str, str]:
+    """
+    Resolve and validate the URL's hostname.
+
+    Returns ``(url, pinned_ipv4)`` on success. Raises ``URLSafetyError`` if:
+        - Scheme is invalid or hostname is missing.
+        - Hostname is hard-blocked.
+        - DNS resolution fails.
+        - Any A record resolves to a non-public IP (DNS rebinding refused).
+
+    Multi-A-record handling: every returned record must be public. A
+    hostname with one public and one private A record is refused so an
+    attacker cannot race the resolver between validate and connect.
+    """
+    parsed = urlparse(url)
+    if parsed.scheme not in ("http", "https"):
+        raise URLSafetyError(f"Invalid URL scheme: {parsed.scheme!r}")
+    if not parsed.hostname:
+        raise URLSafetyError("URL has no hostname")
+
+    hostname = parsed.hostname.lower()
+    if hostname in _BLOCKED_HOSTNAMES:
+        raise URLSafetyError(f"Blocked hostname: {hostname}")
+
+    # If the hostname is an IP literal, validate it directly without DNS.
+    try:
+        literal = ipaddress.ip_address(hostname)
+    except ValueError:
+        literal = None
+
+    if literal is not None:
+        if not is_safe_ip(hostname):
+            raise URLSafetyError(f"Blocked IP literal: {hostname}")
+        return url, str(literal)
+
+    port = parsed.port or (443 if parsed.scheme == "https" else 80)
+    try:
+        addrinfo = socket.getaddrinfo(
+            hostname,
+            port,
+            family=socket.AF_INET,
+            type=socket.SOCK_STREAM,
+        )
+    except socket.gaierror as exc:
+        raise URLSafetyError(f"DNS resolution failed for {hostname}: {exc}") from exc
+
+    resolved_ips = sorted({info[4][0] for info in addrinfo})
+    if not resolved_ips:
+        raise URLSafetyError(f"No A records for {hostname}")
+
+    for ip_str in resolved_ips:
+        if not is_safe_ip(ip_str):
+            raise URLSafetyError(
+                f"DNS rebinding refused: {hostname} resolves to "
+                f"non-public IP {ip_str}"
+            )
+
+    pinned = resolved_ips[0]
+    return url, pinned
+
+
+# A single non-blocking lock guards the global getaddrinfo monkey-patch.
+# This is a deliberate choice: claude-seo scripts run one URL fetch at a
+# time, and we'd rather raise loudly than silently corrupt resolver state
+# if a caller ever introduces threading.
+_dns_patch_lock = threading.Lock()
+
+
+@contextmanager
+def _pin_dns(hostname: str, pinned_ip: str, port: int) -> Iterator[None]:
+    """
+    Temporarily override ``socket.getaddrinfo`` so the named host resolves
+    only to ``pinned_ip``. Other hostnames are forwarded to the real
+    resolver. Restores the original function on exit, even on exception.
+    """
+    if not _dns_patch_lock.acquire(blocking=False):
+        raise URLSafetyError(
+            "DNS-pinned fetch already in progress on another thread; "
+            "claude-seo url_safety is not thread-safe by design."
+        )
+
+    original_getaddrinfo = socket.getaddrinfo
+    target = hostname.lower()
+    pinned_record = (
+        socket.AF_INET,
+        socket.SOCK_STREAM,
+        socket.IPPROTO_TCP,
+        "",
+        (pinned_ip, port),
+    )
+
+    def patched(host, requested_port, *args, **kwargs):
+        if host and host.lower() == target:
+            family = kwargs.get("family", args[0] if args else 0)
+            if family in (0, socket.AF_UNSPEC, socket.AF_INET):
+                # Reuse the pinned record regardless of which port the
+                # caller asked for. urllib3 always asks for the same port
+                # the URL specified, which is what we validated.
+                return [(
+                    pinned_record[0],
+                    pinned_record[1],
+                    pinned_record[2],
+                    pinned_record[3],
+                    (pinned_ip, requested_port or port),
+                )]
+            raise socket.gaierror(
+                socket.EAI_FAIL,
+                f"url_safety: address family {family} refused for pinned "
+                f"IPv4 host {host}",
+            )
+        return original_getaddrinfo(host, requested_port, *args, **kwargs)
+
+    socket.getaddrinfo = patched  # type: ignore[assignment]
+    try:
+        yield
+    finally:
+        socket.getaddrinfo = original_getaddrinfo  # type: ignore[assignment]
+        _dns_patch_lock.release()
+
+
+def safe_requests_get(
+    url: str,
+    *,
+    timeout: int = 30,
+    **kwargs,
+) -> requests.Response:
+    """
+    ``requests.get`` with DNS-rebinding protection.
+
+    The request's hostname is pinned to a pre-validated IP for the
+    duration of the call. Standard ``requests`` semantics otherwise.
+    """
+    norm_url, pinned_ip = validate_url_strict(url)
+    parsed = urlparse(norm_url)
+    port = parsed.port or (443 if parsed.scheme == "https" else 80)
+    assert parsed.hostname is not None  # validate_url_strict guarantees this
+    with _pin_dns(parsed.hostname, pinned_ip, port):
+        return requests.get(norm_url, timeout=timeout, **kwargs)
+
+
+@contextmanager
+def safe_requests_session(url: str) -> Iterator[requests.Session]:
+    """
+    Yield a ``requests.Session`` whose connections to ``url``'s hostname
+    are DNS-pinned. Callers may make multiple requests to that host
+    within the ``with`` block without re-resolving.
+    """
+    norm_url, pinned_ip = validate_url_strict(url)
+    parsed = urlparse(norm_url)
+    port = parsed.port or (443 if parsed.scheme == "https" else 80)
+    assert parsed.hostname is not None
+    session = requests.Session()
+    with _pin_dns(parsed.hostname, pinned_ip, port):
+        try:
+            yield session
+        finally:
+            session.close()
+
+
+def _cli() -> None:
+    """Tiny CLI for manual SSRF-policy checks. Not used by other scripts."""
+    import argparse
+    import json
+    import sys
+
+    parser = argparse.ArgumentParser(
+        description="Validate a URL against claude-seo's SSRF policy."
+    )
+    parser.add_argument("url", help="URL to validate")
+    parser.add_argument(
+        "--strict",
+        action="store_true",
+        help="Run DNS resolution and refuse on any non-public A record.",
+    )
+    parser.add_argument(
+        "--json",
+        action="store_true",
+        help="Emit a JSON object instead of a one-line summary.",
+    )
+    args = parser.parse_args()
+
+    result: dict[str, Optional[str]] = {
+        "url": args.url,
+        "mode": "strict" if args.strict else "parse",
+        "ok": None,
+        "pinned_ip": None,
+        "error": None,
+    }
+
+    try:
+        if args.strict:
+            _, ip = validate_url_strict(args.url)
+            result["ok"] = "true"
+            result["pinned_ip"] = ip
+        else:
+            result["ok"] = "true" if validate_url(args.url) else "false"
+    except URLSafetyError as exc:
+        result["ok"] = "false"
+        result["error"] = str(exc)
+
+    if args.json:
+        print(json.dumps(result, indent=2))
+    else:
+        if result["ok"] == "true":
+            extra = f" -> {result['pinned_ip']}" if result["pinned_ip"] else ""
+            print(f"OK: {args.url}{extra}")
+        else:
+            print(f"BLOCKED: {args.url} ({result['error'] or 'parse-time reject'})")
+            sys.exit(2)
+
+
+if __name__ == "__main__":
+    _cli()
