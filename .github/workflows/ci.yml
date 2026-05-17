@@ -57,7 +57,12 @@ jobs:
           python3 -m py_compile scripts/release_report.py
           python3 -m py_compile scripts/release_sign.py
           python3 -m py_compile scripts/verify_release.py
-          echo "All 34 scripts passed syntax check"
+          python3 -m py_compile scripts/content_quality.py
+          python3 -m py_compile scripts/content_humanize.py
+          python3 -m py_compile scripts/content_verify.py
+          python3 -m py_compile scripts/domain_history.py
+          python3 -m py_compile scripts/seo_updates.py
+          echo "All 39 scripts passed syntax check"
 
   test:
     name: Test suite (manifests + sync_flow)
