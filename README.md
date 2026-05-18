@@ -18,6 +18,12 @@
 
 > Using Codex instead of Claude Code? Use [Codex SEO](https://github.com/AgriciDaniel/codex-seo), the Codex-first port with TOML agents, plugin packaging, deterministic runners, and the same SEO workflow surface.
 
+## Who this is for
+
+- **SEO agencies running 5+ client sites** — replace quarterly deep audits with weekly automated runs. Same team capacity, 4× audit cadence, every recommendation comes with a falsifiability check the client can verify.
+- **In-house SEO leads at SaaS / publisher / e-commerce companies** — second-pair-of-eyes before executive reviews. Catches what GSC and Lighthouse hide: schema deprecation, AI-citability gaps, expired-domain heritage risk, parasite-SEO exposure, machine-translation drift.
+- **Freelance SEO consultants** — anchor day-one client scope with a 15-minute audit and a real 0-100 score. Win the engagement with concrete proof of value before you spend an hour writing the proposal.
+
 ![Claude SEO /seo command demo in Claude Code terminal](screenshots/seo-command-demo.gif)
 
 Run a full audit and watch parallel agents fan out across the site:
@@ -28,10 +34,13 @@ Run a full audit and watch parallel agents fan out across the site:
 
 ## Table of Contents
 
+- [Who this is for](#who-this-is-for)
 - [Installation](#installation)
 - [Quick Start](#quick-start)
 - [Commands](#commands)
 - [Features](#features)
+- [Compared to manual / agency / commercial tools](#compared-to-manual--agency--commercial-tools)
+- [Use cases](#use-cases)
 - [Sample Output](#sample-output)
 - [Architecture](#architecture)
 - [Methodology](#methodology)
@@ -178,6 +187,30 @@ PDF reports are generated via [WeasyPrint](https://weasyprint.org/) (A4 layout) 
 ### How does Claude SEO handle local SEO?
 
 Three layers. **Google Business Profile signals**: categories, hours, photos, posts, products, attributes. **NAP consistency** across citations: name, address, phone matched against major directories with deviation flagging. **Review intelligence**: rating trends, sentiment, response coverage. For multi-location businesses, Claude SEO enforces a 30-page warning threshold and a 50-page hard stop to prevent doorway-page violations (configurable). The `/seo maps` workflow adds geo-grid rank tracking, GBP profile auditing, and competitor radius mapping. Local schema generation covers `LocalBusiness` with all required and recommended properties (geo coordinates, opening hours, areaServed). Phase F (v2) added a GBP deprecation linter that detects retired chat-field references and `.business.site` URLs.
+
+## Compared to manual / agency / commercial tools
+
+| | Manual audit | Agency engagement | Commercial SEO audit tool | **Claude SEO** |
+|---|---|---|---|---|
+| **Time per audit** | 4-8 hrs senior SEO time | 1-3 weeks turnaround | 10-45 min crawl + report | **10-15 min** |
+| **Cost** | High (billable hours) | $2k-$15k+ project | $99-$999/mo subscription | **Free skill + Claude Code subscription** |
+| **Repeatable** | Inconsistent across analysts | Inconsistent across engagements | Yes | **Yes, deterministic + scriptable** |
+| **Output format** | Wall-of-findings PDF | Branded slide deck | Web dashboard, CSV exports | **Markdown + PDF + JSON, local files** |
+| **Custom benchmarks** | Manual per analyst | Agency-specific frameworks | Vendor-fixed | **Edit local SKILL.md** |
+| **Data leaves machine?** | No (your spreadsheet) | Yes (sent to agency) | Yes (uploaded to vendor) | **No, fully local by default** |
+| **Lock-in** | None | High | High (data-exit friction) | **None — MIT, your files** |
+| **AI search awareness** | Depends on analyst | Depends on agency seniority | Lagging (typically 6-12 mo behind) | **Google AI Optimization Guide (May 2026), Sept 2025 QRG, INP-not-FID, GEO/AEO=SEO reframe, llms.txt evidence-based posture** |
+| **Falsifiability per finding** | No | No | No | **Yes — every recommendation carries a "how would we know this failed?" check + leading indicator** |
+
+> Cost benchmarks: manual audit assumes a senior SEO consultant at typical agency billable rates; agency engagement based on common discovery/audit deliverable scopes; commercial-tool subscriptions reflect published mid-tier pricing across the SEO audit category (Ahrefs, Semrush, Sitebulb, Screaming Frog). Your numbers may differ.
+
+## Use cases
+
+**SEO agency lead running 10 client sites.** Replaces the quarterly "deep audit" ritual with a weekly Monday-morning `/seo audit` run per site. Time to deliver a client health-score email drops from 4 hours to 12 minutes; coverage goes from quarterly to weekly without billing more hours. The drift baseline catches regressions between audits so the client conversation moves from "look at this snapshot" to "here is what changed this week."
+
+**In-house SEO lead at a 50-person SaaS company.** Runs `/seo audit` 24 hours before each quarterly business review. Catches the items the platform UI buries — broken canonical chains on programmatic pages, schema deprecation after Google's June 2025 retirement wave, AI-citability gaps that erode SERP-to-AI-Overview pickup, expired-domain heritage on acquired blog assets — before the CMO asks why organic traffic is down in front of the board.
+
+**Freelance SEO consultant onboarding a new client.** Runs `/seo audit` on the discovery call. Anchors the engagement scope with a real 0-100 score, 3 prioritized critical findings, and a falsifiability check on each recommendation — instead of a vague "I'll take a look and get back to you." Closes more retainers because the proof of value happens during the call, not after the proposal.
 
 ## Sample Output
 
