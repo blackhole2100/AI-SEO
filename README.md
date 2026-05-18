@@ -9,6 +9,11 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Version](https://img.shields.io/github/v/release/AgriciDaniel/claude-seo)](https://github.com/AgriciDaniel/claude-seo/releases)
 [![Tests](https://img.shields.io/badge/tests-271%20passing-brightgreen)](tests/)
+[![Community](https://img.shields.io/badge/AI%20Marketing%20Hub-Pro%20community-purple)](https://www.skool.com/ai-marketing-hub-pro)
+
+> **Two versions of this skill.**
+> - 🌐 **Public open-source** → [`AgriciDaniel/claude-seo`](https://github.com/AgriciDaniel/claude-seo): MIT, public releases, no membership. Use this if you want stable + downloadable.
+> - 🔒 **Community private mirror** (this repo) → [`AI-Marketing-Hub/claude-seo`](https://github.com/AI-Marketing-Hub/claude-seo): early access to upcoming features and direct collaboration with the [AI Marketing Hub Pro](https://www.skool.com/ai-marketing-hub-pro) community. Requires membership.
 
 ### Why Claude SEO
 
@@ -59,13 +64,18 @@ Run a full audit and watch parallel agents fan out across the site:
 
 ## Installation
 
+> ℹ️ **Which version are you installing?**
+>
+> - **Not an AI Marketing Hub Pro member?** Install from the public repo → [`AgriciDaniel/claude-seo`](https://github.com/AgriciDaniel/claude-seo). All commands below work there: swap `AI-Marketing-Hub/claude-seo` for `AgriciDaniel/claude-seo` and the plugin slug `claude-seo@ai-marketing-hub-claude-seo` for `claude-seo@agricidaniel-seo`.
+> - **Pro member?** The commands below install the community version with early access. Requires `gh auth login` (or PAT) with access to the `AI-Marketing-Hub` org. If `/plugin marketplace add` 404s, DM in the [Skool community](https://www.skool.com/ai-marketing-hub-pro) to get added.
+
 ### Plugin Install (Claude Code 1.0.33+)
 
 The fastest path. One-time marketplace add, then plugin install:
 
 ```bash
-/plugin marketplace add AgriciDaniel/claude-seo
-/plugin install claude-seo@agricidaniel-seo
+/plugin marketplace add AI-Marketing-Hub/claude-seo
+/plugin install claude-seo@ai-marketing-hub-claude-seo
 ```
 
 ### Manual Install (Unix / macOS / Linux)
@@ -468,8 +478,10 @@ Contributions welcome. Please read [CONTRIBUTING.md](CONTRIBUTING.md) before sub
 
 ## Author
 
-Built by [Agrici Daniel](https://agricidaniel.com/about), AI Workflow Architect. Background in marketing automation, AI-assisted content workflows, and open-source tooling for Claude Code.
+Built by **[Agrici Daniel](https://agricidaniel.com/about)**, AI Workflow Architect. Single maintainer, open to community contributions via the [Pro Skool community](https://www.skool.com/ai-marketing-hub-pro). Background in marketing automation, AI-assisted content workflows, and open-source tooling for Claude Code.
 
 - [Blog](https://agricidaniel.com/blog): deep dives on AI marketing automation
+- [AI Marketing Hub (free)](https://www.skool.com/ai-marketing-hub): open community
+- [AI Marketing Hub Pro](https://www.skool.com/ai-marketing-hub-pro): Pro community, early access to this skill
 - [YouTube](https://www.youtube.com/@AgriciDaniel): tutorials and demos
 - [GitHub](https://github.com/AgriciDaniel): all open-source tools
