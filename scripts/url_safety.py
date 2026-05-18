@@ -552,6 +552,8 @@ def _cli() -> None:
 
     if args.json:
         print(json.dumps(result, indent=2))
+        if result["ok"] != "true":
+            sys.exit(2)
     else:
         if result["ok"] == "true":
             extra = f" -> {result['pinned_ip']}" if result["pinned_ip"] else ""

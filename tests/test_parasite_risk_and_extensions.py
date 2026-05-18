@@ -133,6 +133,24 @@ def test_extension_install_script_is_executable(name: str) -> None:
     assert mode & stat.S_IXUSR, f"{name}/install.sh must be executable for chmod"
 
 
+def test_every_extension_install_and_uninstall_is_executable() -> None:
+    """All extensions ship executable install.sh + uninstall.sh — including v1 ones."""
+    ext_root = _REPO_ROOT / "extensions"
+    failures = []
+    for ext in sorted(p for p in ext_root.iterdir() if p.is_dir()):
+        for script_name in ("install.sh", "uninstall.sh"):
+            script = ext / script_name
+            if not script.exists():
+                continue
+            mode = script.stat().st_mode
+            if not (mode & stat.S_IXUSR):
+                failures.append(f"{ext.name}/{script_name}")
+    assert not failures, (
+        "Extension scripts missing user-exec bit (chmod +x):\n  "
+        + "\n  ".join(failures)
+    )
+
+
 @pytest.mark.parametrize(
     "name,skill_dir",
     [

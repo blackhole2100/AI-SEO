@@ -163,9 +163,17 @@ def render_page(
     timeout_ms: int = 15000,
     block_resources: Optional[list[str]] = None,
     extract_content: bool = True,
+    extract_accessibility: bool = False,
     user_agent: Optional[str] = None,
 ) -> dict:
-    """Render or fetch ``url`` per the chosen mode. See module docstring."""
+    """Render or fetch ``url`` per the chosen mode. See module docstring.
+
+    ``extract_accessibility``: when True and the page is rendered (mode
+    'always' or 'auto'+SPA), the Playwright accessibility-tree snapshot is
+    captured and attached to ``result['accessibility_tree']``. Used by
+    ``agent_ux_check.py`` for agent-friendliness scoring (Google AI
+    optimization guide / web.dev agent UX criteria).
+    """
     result: dict = {
         "url": url,
         "status_code": None,
@@ -174,6 +182,7 @@ def render_page(
         "is_spa": None,
         "extracted_text": None,
         "publication_date": None,
+        "accessibility_tree": None,
         "headers": {},
         "redirect_chain": [],
         "console_errors": [],
@@ -268,6 +277,15 @@ def render_page(
                 )
                 result["render_engine"] = "playwright-chromium"
 
+                if extract_accessibility:
+                    try:
+                        result["accessibility_tree"] = page.accessibility.snapshot(
+                            interesting_only=False
+                        )
+                    except Exception:
+                        # Accessibility snapshot is best-effort; never block the audit.
+                        result["accessibility_tree"] = None
+
                 browser.close()
         except PlaywrightTimeout:
             result["error"] = f"playwright navigation timed out after {timeout_ms}ms"
@@ -334,6 +352,11 @@ def _cli() -> None:
         help="skip trafilatura and htmldate post-processing",
     )
     parser.add_argument(
+        "--a11y-tree",
+        action="store_true",
+        help="capture Playwright accessibility-tree snapshot (forces render)",
+    )
+    parser.add_argument(
         "--json",
         action="store_true",
         help="emit a JSON summary (truncates content fields)",
@@ -341,13 +364,15 @@ def _cli() -> None:
     parser.add_argument("--output", "-o", help="write HTML content to file")
     args = parser.parse_args()
 
+    effective_mode = "always" if args.a11y_tree else args.mode
     res = render_page(
         args.url,
-        mode=args.mode,
+        mode=effective_mode,
         viewport=args.viewport,
         timeout_ms=args.timeout_ms,
         block_resources=args.block or None,
         extract_content=not args.no_extract,
+        extract_accessibility=args.a11y_tree,
     )
 
     if args.json:

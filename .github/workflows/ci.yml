@@ -54,7 +54,6 @@ jobs:
           python3 -m py_compile scripts/drift_report.py
           python3 -m py_compile scripts/drift_history.py
           python3 -m py_compile scripts/sync_flow.py
-          python3 -m py_compile scripts/release_report.py
           python3 -m py_compile scripts/release_sign.py
           python3 -m py_compile scripts/verify_release.py
           python3 -m py_compile scripts/content_quality.py

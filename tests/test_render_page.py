@@ -266,7 +266,8 @@ def test_render_page_result_dict_has_all_documented_fields() -> None:
         result = render_page.render_page("https://x.example/", mode="never")
     expected_fields = {
         "url", "status_code", "content", "raw_content", "is_spa",
-        "extracted_text", "publication_date", "headers", "redirect_chain",
-        "console_errors", "render_engine", "render_ms", "mode_used", "error",
+        "extracted_text", "publication_date", "accessibility_tree",
+        "headers", "redirect_chain", "console_errors", "render_engine",
+        "render_ms", "mode_used", "error",
     }
     assert set(result.keys()) == expected_fields

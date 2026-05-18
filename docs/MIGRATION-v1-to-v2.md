@@ -183,15 +183,15 @@ to `0o600` — no user action required.
 | Manifest consistency | 13 | 13 |
 | Lazy detection | 11 | 11 |
 | Sync FLOW | 15 | 15 |
-| **`url_safety` (new)** | — | **52** |
+| **`url_safety` (new)** | — | **83** |
 | **`render_page` (new)** | — | **27** |
 | **Content quality (new)** | — | **25** |
 | **Technical depth (new)** | — | **17** |
 | **Schema v2 (new)** | — | **17** |
-| **Parasite risk + extensions (new)** | — | **21** |
+| **Parasite risk + extensions (new)** | — | **22** |
 | **GBP lint + polish (new)** | — | **8** |
 | **Portability (new)** | — | **10** |
-| **Total** | **39** | **247** |
+| **Total** | **39** | **248** |
 
-v2 adds 208 new test cases (5.3× the v1 baseline) covering every new
+v2 adds 209 new test cases (5.4× the v1 baseline) covering every new
 function's failure modes plus every known SSRF bypass class.

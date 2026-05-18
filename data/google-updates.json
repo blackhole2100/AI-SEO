@@ -8,6 +8,22 @@
   ],
   "last_verified": "2026-05-17",
   "policy": "Every entry must cite a Google-owned URL. Third-party-only claims belong in unverified[]. Bump last_verified each time an entry is added or revised.",
+  "_schema_doc": {
+    "updates[]": {
+      "date": "ISO date YYYY-MM-DD (Google's announcement date).",
+      "name": "Short human-readable title.",
+      "kind": "One of: core | spam | core+spam | policy | qrg | product | schema | cwv.",
+      "source": "Required. Must resolve to a Google-owned domain (developers.google.com, web.dev, chrome.com, blog.google, support.google.com).",
+      "notes": "Optional. One-line summary of practitioner impact."
+    },
+    "unverified[]": {
+      "date": "ISO date or YYYY-MM-xx if exact date unconfirmed.",
+      "claim": "What third-party trackers reported.",
+      "third_party_sources": "Array of source URLs that originated the claim.",
+      "primary_source_check": "URL of the Google-owned page that would confirm or refute.",
+      "status": "Explicit recommendation. Audit scripts MUST NOT encode unverified claims until promoted to updates[]."
+    }
+  },
   "updates": [
     {
       "date": "2024-03-05",
