@@ -1,6 +1,6 @@
 ![Claude SEO plugin cover: SEO analysis skill for Claude Code](screenshots/cover-image.jpeg)
 
-# Claude SEO — SEO Analysis Skill for Claude Code
+# Claude SEO: SEO Analysis Skill for Claude Code
 
 **Claude SEO is an open-source SEO analysis plugin for [Claude Code](https://claude.ai/claude-code).** It runs 25 sub-skills and 18 specialist agents in parallel across technical SEO, content quality (E-E-A-T), Schema.org markup, AI search optimization (GEO), local SEO, e-commerce, and international SEO. Every audit produces a prioritized action plan with falsifiable recommendations grounded in primary-source guidance from Google.
 
@@ -20,9 +20,9 @@
 
 ## Who this is for
 
-- **SEO agencies running 5+ client sites** — replace quarterly deep audits with weekly automated runs. Same team capacity, 4× audit cadence, every recommendation comes with a falsifiability check the client can verify.
-- **In-house SEO leads at SaaS / publisher / e-commerce companies** — second-pair-of-eyes before executive reviews. Catches what GSC and Lighthouse hide: schema deprecation, AI-citability gaps, expired-domain heritage risk, parasite-SEO exposure, machine-translation drift.
-- **Freelance SEO consultants** — anchor day-one client scope with a 15-minute audit and a real 0-100 score. Win the engagement with concrete proof of value before you spend an hour writing the proposal.
+- **SEO agencies running 5+ client sites.** Replace quarterly deep audits with weekly automated runs. Same team capacity, 4× audit cadence, every recommendation comes with a falsifiability check the client can verify.
+- **In-house SEO leads at SaaS / publisher / e-commerce companies.** Second-pair-of-eyes before executive reviews. Catches what GSC and Lighthouse hide: schema deprecation, AI-citability gaps, expired-domain heritage risk, parasite-SEO exposure, machine-translation drift.
+- **Freelance SEO consultants.** Anchor day-one client scope with a 15-minute audit and a real 0-100 score. Win the engagement with concrete proof of value before you spend an hour writing the proposal.
 
 ![Claude SEO /seo command demo in Claude Code terminal](screenshots/seo-command-demo.gif)
 
@@ -102,16 +102,16 @@ powershell -ExecutionPolicy Bypass -File claude-seo\install.ps1
 # Start Claude Code
 claude
 
-# Full site audit — parallel sub-agents produce a prioritized action plan
+# Full site audit: parallel sub-agents produce a prioritized action plan
 /seo audit https://example.com
 
-# Deep single-page analysis — on-page elements, content quality, schema
+# Deep single-page analysis: on-page elements, content quality, schema
 /seo page https://example.com/about
 
-# Schema markup audit — detect, validate, generate
+# Schema markup audit: detect, validate, generate
 /seo schema https://example.com
 
-# AI search optimization — passage citability + primary-source-aligned recommendations
+# AI search optimization: passage citability + primary-source-aligned recommendations
 /seo geo https://example.com
 
 # Generate a sitemap with industry templates
@@ -198,9 +198,9 @@ Three layers. **Google Business Profile signals**: categories, hours, photos, po
 | **Output format** | Wall-of-findings PDF | Branded slide deck | Web dashboard, CSV exports | **Markdown + PDF + JSON, local files** |
 | **Custom benchmarks** | Manual per analyst | Agency-specific frameworks | Vendor-fixed | **Edit local SKILL.md** |
 | **Data leaves machine?** | No (your spreadsheet) | Yes (sent to agency) | Yes (uploaded to vendor) | **No, fully local by default** |
-| **Lock-in** | None | High | High (data-exit friction) | **None — MIT, your files** |
+| **Lock-in** | None | High | High (data-exit friction) | **None. MIT, your files.** |
 | **AI search awareness** | Depends on analyst | Depends on agency seniority | Lagging (typically 6-12 mo behind) | **Google AI Optimization Guide (May 2026), Sept 2025 QRG, INP-not-FID, GEO/AEO=SEO reframe, llms.txt evidence-based posture** |
-| **Falsifiability per finding** | No | No | No | **Yes — every recommendation carries a "how would we know this failed?" check + leading indicator** |
+| **Falsifiability per finding** | No | No | No | **Yes. Every recommendation carries a "how would we know this failed?" check + leading indicator** |
 
 > Cost benchmarks: manual audit assumes a senior SEO consultant at typical agency billable rates; agency engagement based on common discovery/audit deliverable scopes; commercial-tool subscriptions reflect published mid-tier pricing across the SEO audit category (Ahrefs, Semrush, Sitebulb, Screaming Frog). Your numbers may differ.
 
@@ -208,19 +208,19 @@ Three layers. **Google Business Profile signals**: categories, hours, photos, po
 
 **SEO agency lead running 10 client sites.** Replaces the quarterly "deep audit" ritual with a weekly Monday-morning `/seo audit` run per site. Time to deliver a client health-score email drops from 4 hours to 12 minutes; coverage goes from quarterly to weekly without billing more hours. The drift baseline catches regressions between audits so the client conversation moves from "look at this snapshot" to "here is what changed this week."
 
-**In-house SEO lead at a 50-person SaaS company.** Runs `/seo audit` 24 hours before each quarterly business review. Catches the items the platform UI buries — broken canonical chains on programmatic pages, schema deprecation after Google's June 2025 retirement wave, AI-citability gaps that erode SERP-to-AI-Overview pickup, expired-domain heritage on acquired blog assets — before the CMO asks why organic traffic is down in front of the board.
+**In-house SEO lead at a 50-person SaaS company.** Runs `/seo audit` 24 hours before each quarterly business review. Catches the items the platform UI buries (broken canonical chains on programmatic pages, schema deprecation after Google's June 2025 retirement wave, AI-citability gaps that erode SERP-to-AI-Overview pickup, expired-domain heritage on acquired blog assets) before the CMO asks why organic traffic is down in front of the board.
 
-**Freelance SEO consultant onboarding a new client.** Runs `/seo audit` on the discovery call. Anchors the engagement scope with a real 0-100 score, 3 prioritized critical findings, and a falsifiability check on each recommendation — instead of a vague "I'll take a look and get back to you." Closes more retainers because the proof of value happens during the call, not after the proposal.
+**Freelance SEO consultant onboarding a new client.** Runs `/seo audit` on the discovery call. Anchors the engagement scope with a real 0-100 score, 3 prioritized critical findings, and a falsifiability check on each recommendation, instead of a vague "I'll take a look and get back to you." Closes more retainers because the proof of value happens during the call, not after the proposal.
 
 ## Sample Output
 
-Claude SEO writes real markdown reports as its primary deliverable. Below is the first ~50 lines of a `/seo schema https://rankenstein.pro/about` audit verbatim — the actual structure, headers, and grading format the plugin produces.
+Claude SEO writes real markdown reports as its primary deliverable. Below is the first ~50 lines of a `/seo schema https://rankenstein.pro/about` audit verbatim. The actual structure, headers, and grading format the plugin produces follows.
 
 <details>
-<summary><code>SCHEMA-REPORT.md</code> — first 50 lines of a real audit</summary>
+<summary><code>SCHEMA-REPORT.md</code>: first 50 lines of a real audit</summary>
 
 ```markdown
-# Schema Markup Report — rankenstein.pro/about
+# Schema Markup Report: rankenstein.pro/about
 
 **URL:** https://rankenstein.pro/about
 **Date:** 2026-02-09
@@ -291,12 +291,12 @@ Full methodology: [skills/seo/references/thinking-framework.md](skills/seo/refer
 
 v2.0.0 is the largest release in the plugin's history. Six build phases, all shipped:
 
-- **Phase A — Headless rendering everywhere.** Shared `scripts/render_page.py` with Playwright Chromium plus [trafilatura](https://github.com/adbar/trafilatura) and [htmldate](https://github.com/adbar/htmldate). Every audit subagent gets SPA-aware fetching via `--render auto` (auto-detected on Next.js, React, Vue, Nuxt, Astro islands). Closes the SPA limitation that capped v1.x.
-- **Phase B — QRG-aligned content quality gates.** Filler detector and AI-pattern humanizer keyed to QRG §4.6.5 and §4.6.6, claim-verification scanner, expired-domain heritage check via WHOIS, primary-source Google updates changelog.
-- **Phase C — Technical and CWV depth.** LCP subparts via CrUX (TTFB, load delay, load duration, render delay), Speculation Rules and bfcache detection, IndexNow submitter for Bing / Yandex / Seznam / Naver, Unlighthouse multi-page Lighthouse wrapper.
-- **Phase D — Schema completeness.** Four explicit generators (Reservation, OrderAction, DiscussionForumPosting, ProfilePage), e-commerce schema validator (`hasMerchantReturnPolicy`, `shippingDetails`, `MemberProgram`, EU `energyEfficiencyClass`, ProductGroup variants), dual validator (Rich Results Test plus Schema Markup Validator).
-- **Phase E — AI search reframing and 5 new MCP extensions.** Ahrefs, SE Ranking (AI Share-of-Voice), Profound (LLM citation tracker), Bing Webmaster plus IndexNow, Unlighthouse. Plus the parasite-SEO risk scanner per Google's November 2024 [site reputation abuse policy](https://developers.google.com/search/blog/2024/11/site-reputation-abuse-update).
-- **Phase F — Local, international, and privacy polish.** Google Business Profile deprecation linter (chat field, `.business.site` URLs, Q&A), DMA consent-mode-v2 click-through diagnostic, machine-translation QA flag per January 2025 QRG.
+- **Phase A: Headless rendering everywhere.** Shared `scripts/render_page.py` with Playwright Chromium plus [trafilatura](https://github.com/adbar/trafilatura) and [htmldate](https://github.com/adbar/htmldate). Every audit subagent gets SPA-aware fetching via `--render auto` (auto-detected on Next.js, React, Vue, Nuxt, Astro islands). Closes the SPA limitation that capped v1.x.
+- **Phase B: QRG-aligned content quality gates.** Filler detector and AI-pattern humanizer keyed to QRG §4.6.5 and §4.6.6, claim-verification scanner, expired-domain heritage check via WHOIS, primary-source Google updates changelog.
+- **Phase C: Technical and CWV depth.** LCP subparts via CrUX (TTFB, load delay, load duration, render delay), Speculation Rules and bfcache detection, IndexNow submitter for Bing / Yandex / Seznam / Naver, Unlighthouse multi-page Lighthouse wrapper.
+- **Phase D: Schema completeness.** Four explicit generators (Reservation, OrderAction, DiscussionForumPosting, ProfilePage), e-commerce schema validator (`hasMerchantReturnPolicy`, `shippingDetails`, `MemberProgram`, EU `energyEfficiencyClass`, ProductGroup variants), dual validator (Rich Results Test plus Schema Markup Validator).
+- **Phase E: AI search reframing and 5 new MCP extensions.** Ahrefs, SE Ranking (AI Share-of-Voice), Profound (LLM citation tracker), Bing Webmaster plus IndexNow, Unlighthouse. Plus the parasite-SEO risk scanner per Google's November 2024 [site reputation abuse policy](https://developers.google.com/search/blog/2024/11/site-reputation-abuse-update).
+- **Phase F: Local, international, and privacy polish.** Google Business Profile deprecation linter (chat field, `.business.site` URLs, Q&A), DMA consent-mode-v2 click-through diagnostic, machine-translation QA flag per January 2025 QRG.
 
 Test coverage: 248 → 271 (a 5.4× increase over the v1.9.9 baseline). 83 SSRF and DNS-rebinding bypass tests close the full obfuscated-IPv4, FQDN-trailing-dot, and redirect-rebinding bypass classes. Full migration notes and breaking changes: [docs/MIGRATION-v1-to-v2.md](docs/MIGRATION-v1-to-v2.md).
 
@@ -358,7 +358,7 @@ Full-site crawling and URL discovery via the [Firecrawl](https://www.firecrawl.d
 
 Full Firecrawl docs: [extensions/firecrawl/README.md](extensions/firecrawl/README.md).
 
-### Banana — AI image generation
+### Banana: AI image generation
 
 SEO image generation (OG previews, blog heroes, product photos, infographics) via the [Claude Banana](https://github.com/AgriciDaniel/banana-claude) Creative Director pipeline.
 
@@ -373,11 +373,11 @@ Full Banana docs: [extensions/banana/README.md](extensions/banana/README.md).
 
 Five extensions added in Phase E:
 
-- **Ahrefs** — official `@ahrefs/mcp` server with backlink and organic data
-- **SE Ranking** — AI Share-of-Voice across ChatGPT, Gemini, Perplexity, AI Overviews, AI Mode
-- **Profound** — LLM citation tracker with time-series data
-- **Bing Webmaster** — Bing Webmaster Tools plus IndexNow unified
-- **Unlighthouse** — MIT-licensed multi-page Lighthouse runner
+- **Ahrefs:** official `@ahrefs/mcp` server with backlink and organic data
+- **SE Ranking:** AI Share-of-Voice across ChatGPT, Gemini, Perplexity, AI Overviews, AI Mode
+- **Profound:** LLM citation tracker with time-series data
+- **Bing Webmaster:** Bing Webmaster Tools plus IndexNow unified
+- **Unlighthouse:** MIT-licensed multi-page Lighthouse runner
 
 Setup walkthroughs: [docs/MCP-INTEGRATION.md](docs/MCP-INTEGRATION.md).
 
@@ -396,21 +396,21 @@ Claude SEO is part of a family of Claude Code skills that interoperate cleanly:
 
 **Workflow example:**
 
-1. `/seo audit https://example.com` — identify content gaps and technical issues
-2. `/seo backlinks https://example.com` — analyze link profile and competitor gaps
-3. `/seo geo https://example.com/blog/post` — score AI-citation readiness
-4. `/blog write "target keyword"` — create SEO-optimized blog post (Claude Blog)
-5. `/seo image-gen hero "blog topic"` — generate hero image (Banana extension)
+1. `/seo audit https://example.com`: identify content gaps and technical issues
+2. `/seo backlinks https://example.com`: analyze link profile and competitor gaps
+3. `/seo geo https://example.com/blog/post`: score AI-citation readiness
+4. `/blog write "target keyword"`: create SEO-optimized blog post (Claude Blog)
+5. `/seo image-gen hero "blog topic"`: generate hero image (Banana extension)
 
 ## Documentation
 
 - [Installation Guide](docs/INSTALLATION.md)
-- [Commands Reference](docs/COMMANDS.md) — 27 commands in depth
-- [Architecture](docs/ARCHITECTURE.md) — 3-layer design, auto-discovery, parallel dispatch
-- [Migration v1 → v2](docs/MIGRATION-v1-to-v2.md) — breaking changes, six phases of work
-- [MCP Integration](docs/MCP-INTEGRATION.md) — extension setup for all 8 servers
+- [Commands Reference](docs/COMMANDS.md): 27 commands in depth
+- [Architecture](docs/ARCHITECTURE.md): 3-layer design, auto-discovery, parallel dispatch
+- [Migration v1 → v2](docs/MIGRATION-v1-to-v2.md): breaking changes, six phases of work
+- [MCP Integration](docs/MCP-INTEGRATION.md): extension setup for all 8 servers
 - [Troubleshooting](docs/TROUBLESHOOTING.md)
-- [Contributors](CONTRIBUTORS.md) — community credits
+- [Contributors](CONTRIBUTORS.md): community credits
 
 ## FAQ
 
@@ -466,6 +466,6 @@ Contributions welcome. Please read [CONTRIBUTING.md](CONTRIBUTING.md) before sub
 
 Built by [Agrici Daniel](https://agricidaniel.com/about), AI Workflow Architect. Background in marketing automation, AI-assisted content workflows, and open-source tooling for Claude Code.
 
-- [Blog](https://agricidaniel.com/blog) — deep dives on AI marketing automation
-- [YouTube](https://www.youtube.com/@AgriciDaniel) — tutorials and demos
-- [GitHub](https://github.com/AgriciDaniel) — all open-source tools
+- [Blog](https://agricidaniel.com/blog): deep dives on AI marketing automation
+- [YouTube](https://www.youtube.com/@AgriciDaniel): tutorials and demos
+- [GitHub](https://github.com/AgriciDaniel): all open-source tools
