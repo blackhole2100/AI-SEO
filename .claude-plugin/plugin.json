@@ -43,6 +43,11 @@
     "ecommerce-seo",
     "google-shopping",
     "cultural-profiles",
-    "content-parity"
+    "content-parity",
+    "mcp-extensions",
+    "headless-rendering",
+    "ssrf-safe-fetchers",
+    "ai-citation-optimization",
+    "synthesis-framework"
   ]
 }
