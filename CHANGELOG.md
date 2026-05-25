@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] - 2026-05-25
+
+Knowledge-currency refresh for Google's May 2026 wave: the **May 2026 core update**, **Google I/O 2026** (Gemini 3.5 Flash now powers AI Mode globally; AI Mode past 1B monthly users), and the **May 7 2026 retirement of FAQ rich results**. No architecture, API, or command changes — every v2.0.0 entry point still works.
+
+### Added
+
+- **`data/google-updates.json`:** four primary-source-verified entries — March 2026 Core Update (promoted from `unverified[]` after Google status-dashboard confirmation; Mar 27 to Apr 8 rollout), FAQ rich result retirement (May 7), Google I/O 2026 / Gemini 3.5 Flash in AI Mode (May 19), and the May 2026 Core Update (May 21). `unverified[]` is now empty; `last_verified` bumped to 2026-05-25.
+- **`skills/seo-geo/SKILL.md`:** AI Mode is now modeled as a **distinct citation engine** from AI Overviews (Ahrefs: only 13.7% URL overlap across 540K query pairs), with its own row in the platform table, the Gemini 3.5 Flash + 1B-user stats, content **recency** as a citation lever (~3x for content under 3 months, SE Ranking), and the "~44% of AI citations come from the first 30% of the page" finding.
+- **`skills/seo/references/schema-types.md`:** `QAPage` added as the active type for genuine user Q&A (Google's FAQ replacement).
+- **`tests/test_schema_v2.py`:** `test_faq_rich_results_retirement_documented` locks the May 7 2026 FAQ retirement + QAPage replacement across the canonical schema references.
+
+### Changed
+
+- **FAQ schema guidance** corrected across the canonical sources (`schema-types.md`, `deprecated-types-2024-2026.md`, `seo-schema/SKILL.md`, `agents/seo-schema.md`, `seo/SKILL.md`, `seo-page/SKILL.md`, `seo-content/SKILL.md`, `seo-plan/assets/saas.md`): FAQ rich results are **fully retired for all sites as of May 7, 2026**, superseding the Aug 2023 gov/health framing. FAQPage stays Info-priority as an AI/entity signal (never a Critical removal); `QAPage` is the type for genuine Q&A pages.
+- **`skills/seo-content/SKILL.md`:** AI Mode description updated to the Gemini 3.5 Flash / 1B-user / two-citation-engine reality.
+- Version bumped to `2.1.0` across `plugin.json`, `pyproject.toml`, `CITATION.cff`, `install.sh`, `install.ps1`, and 32 SKILL.md files (`seo-content-brief` stays at 1.0.0 per COMMUNITY_OVERRIDES). Gated by `tests/test_manifest_consistency.py`.
+
 ## [2.0.0] - 2026-05-17
 
 v2 is backward-compatible by design — every v1.x command, script signature, and skill entry point still works. The release lands a hardened SSRF + DNS-rebinding safety layer, shared headless rendering across every fetcher, QRG-aligned content gates, four new Schema.org generators, five new MCP extensions, and multi-platform portability. Full narrative in [`docs/MIGRATION-v1-to-v2.md`](docs/MIGRATION-v1-to-v2.md).

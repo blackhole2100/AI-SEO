@@ -10,7 +10,7 @@ argument-hint: "[url]"
 license: MIT
 metadata:
   author: AgriciDaniel
-  version: "2.0.0"
+  version: "2.1.0"
   category: seo
 ---
 
@@ -45,7 +45,7 @@ metadata:
 - Detect all types (JSON-LD preferred)
 - Validate required properties
 - Identify missing opportunities
-- NEVER recommend HowTo (deprecated) or FAQ (restricted to gov/health)
+- NEVER recommend HowTo (deprecated) or FAQ for rich results (retired May 2026); keep existing FAQPage as an AI-citation signal, use QAPage for genuine Q&A
 
 ### Images
 - Alt text: present, descriptive, includes keywords where natural
