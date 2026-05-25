@@ -157,5 +157,8 @@ video-script-*.md
 youtube-shorts-*.md
 youtube-description*.md
 
+# Release decks + Remotion video work (mirrors claude-ads pattern: in-tree, untracked)
+presentations/
+
 # Internal implementation plans / specs (working notes, not user docs)
 docs/superpowers/
