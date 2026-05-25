@@ -13,7 +13,7 @@
 
 > **Two versions of this skill.**
 > - 🌐 **Public open-source** → [`AgriciDaniel/claude-seo`](https://github.com/AgriciDaniel/claude-seo): MIT, public releases, no membership. Use this if you want stable + downloadable.
-> - 🔒 **Community private mirror** (this repo) → [`AI-Marketing-Hub/claude-seo`](https://github.com/AI-Marketing-Hub/claude-seo): early access to upcoming features and direct collaboration with the [AI Marketing Hub Pro](https://www.skool.com/ai-marketing-hub-pro) community. Requires membership.
+> - 🔒 **Community private mirror** → [`AI-Marketing-Hub/claude-seo`](https://github.com/AI-Marketing-Hub/claude-seo): early access to upcoming features and direct collaboration with the [AI Marketing Hub Pro](https://www.skool.com/ai-marketing-hub-pro) community. Requires membership.
 
 ### Why Claude SEO
 
@@ -66,16 +66,16 @@ Run a full audit and watch parallel agents fan out across the site:
 
 > ℹ️ **Which version are you installing?**
 >
-> - **Not an AI Marketing Hub Pro member?** Install from the public repo → [`AgriciDaniel/claude-seo`](https://github.com/AgriciDaniel/claude-seo). All commands below work there: swap `AI-Marketing-Hub/claude-seo` for `AgriciDaniel/claude-seo` and the plugin slug `claude-seo@ai-marketing-hub-claude-seo` for `claude-seo@agricidaniel-seo`.
-> - **Pro member?** The commands below install the community version with early access. Requires `gh auth login` (or PAT) with access to the `AI-Marketing-Hub` org. If `/plugin marketplace add` 404s, DM in the [Skool community](https://www.skool.com/ai-marketing-hub-pro) to get added.
+> - **Public open-source (default).** The commands below install from [`AgriciDaniel/claude-seo`](https://github.com/AgriciDaniel/claude-seo) — MIT, public releases, no membership required.
+> - **AI Marketing Hub Pro member?** Install the community version with early access instead: swap `AgriciDaniel/claude-seo` for `AI-Marketing-Hub/claude-seo` and the plugin slug `claude-seo@agricidaniel-claude-seo` for `claude-seo@ai-marketing-hub-claude-seo`. Requires `gh auth login` (or PAT) with access to the `AI-Marketing-Hub` org. If `/plugin marketplace add` 404s, DM in the [Skool community](https://www.skool.com/ai-marketing-hub-pro) to get added.
 
 ### Plugin Install (Claude Code 1.0.33+)
 
 The fastest path. One-time marketplace add, then plugin install:
 
 ```bash
-/plugin marketplace add AI-Marketing-Hub/claude-seo
-/plugin install claude-seo@ai-marketing-hub-claude-seo
+/plugin marketplace add AgriciDaniel/claude-seo
+/plugin install claude-seo@agricidaniel-claude-seo
 ```
 
 ### Manual Install (Unix / macOS / Linux)

@@ -84,7 +84,9 @@ When `v2` (or whatever branch holds the next release) is ready to go public:
 # Confirm both remotes are wired up
 git remote -v
 
-# Confirm both remotes see the same main HEAD (should match after a release)
+# Confirm both remotes' main heads.
+# NOTE: origin/main is aimh/main PLUS one public-branding commit (see below),
+# so the SHAs intentionally differ by exactly that commit. Do NOT force-sync them.
 git ls-remote --heads aimh main
 git ls-remote --heads origin main
 
@@ -96,6 +98,35 @@ git ls-remote --tags origin | grep -v '\^{}' | awk '{print $2}'
 git fetch aimh
 git log --oneline aimh/main..aimh/v2
 ```
+
+## Public-branding divergence (the one intentional difference)
+
+Since v2.0.0 the two repos are **not** byte-identical. They differ by exactly
+one file on one commit:
+
+| File | `aimh` (private) | `origin` (public) |
+|---|---|---|
+| `.claude-plugin/marketplace.json` `name` | `ai-marketing-hub-claude-seo` | `agricidaniel-claude-seo` |
+| `.claude-plugin/marketplace.json` `owner.name` | `AI Marketing Hub` | `AgriciDaniel` |
+
+Everything else (including `README.md`) is shared and public-first: the
+install block defaults to `AgriciDaniel/claude-seo`, with a Pro swap-note that
+names the private slug. This keeps the public repo free of `ai-marketing-hub`
+slugs while keeping the README a single shared file.
+
+**How the divergence is maintained.** The public-only branding lives as the
+tip commit of `origin/main`, carried on a local `public-main` branch:
+
+```bash
+# public-main = main + one commit that rebrands marketplace.json
+git checkout main && git merge --ff-only v2     # shared canonical
+git checkout public-main && git rebase main      # replay branding onto new base
+git push origin public-main:main                 # public gets canonical + branding
+git push aimh  main                              # private gets canonical only
+```
+
+So `origin/main` = `aimh/main` + 1 commit, by design. The release tag points at
+each repo's own HEAD (`origin` tag includes branding; `aimh` tag does not).
 
 ## Why two repos?
 
@@ -119,16 +150,14 @@ upgrade.
 | Letting `aimh/main` lag behind `origin/main` | Always push to `aimh` first, then `origin` on release |
 | Confusing `aimh/v2` with `origin/v2` | `origin` should never have an unreleased `v2` branch |
 
-## State at the time of writing (2026-05-18)
+## State at the time of writing (2026-05-25)
 
-- `aimh/main` = `7676024` (v1.9.9 final)
-- `origin/main` = `7676024` (v1.9.9 final) ← synced
-- `aimh/v2` = `6778786` (v2.0.0 + Phase J/K/audit cleanup)
-- `origin` has no `v2` branch and no `v2.0.0` tag — both are pre-release
-- `v2.0.0` tag lives on `aimh` only
-
-This is the expected pre-release shape: private leads, public stays at
-the last released version.
+- v2.0.0 is **released to public**. Latest tag on both remotes: `v2.0.0`.
+- `aimh/main` = shared canonical (public-first README, private marketplace name).
+- `origin/main` = `aimh/main` + the public-branding commit (public marketplace name).
+- `v2.0.0` tag points at each repo's own HEAD: `origin`'s tag includes the
+  branding commit, `aimh`'s does not (see "Public-branding divergence" above).
+- `aimh/v2` tracks the shared canonical for ongoing v2.x work.
 
 ## Email-privacy caveat (one-time)
 
