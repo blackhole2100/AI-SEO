@@ -7,7 +7,7 @@ requests>=2.32.4,<3.0.0           # CVE-2024-47081, CVE-2024-35195 fixes
 lxml>=6.1.1,<7.0.0                # CVE-2025-24928 + additional libxml2 security patches
 playwright>=1.59.0,<2.0.0         # CVE-2025-59288 fix (macOS)
 Pillow>=12.2.0,<13.0.0            # CVE-2025-48379 fix
-urllib3>=2.6.3,<3.0.0             # CRITICAL: CVE-2026-21441 (CVSS 8.9), CVE-2025-66418
+urllib3>=2.7.0,<3.0.0             # High-severity urllib3 advisories GHSA-mf9v-mfxr-j63j, GHSA-qccp-gfcp-xxvc
 validators>=0.22.0,<1.0.0         # No known CVEs
 
 # v2.0.0 Phase A: headless rendering across all agents
