@@ -40,7 +40,7 @@ def edit_image(image_path, prompt, model, api_key):
                   ".webp": "image/webp", ".gif": "image/gif"}
     mime_type = mime_types.get(suffix, "image/png")
 
-    url = f"{API_BASE}/{model}:generateContent?key={api_key}"
+    url = f"{API_BASE}/{model}:generateContent"
 
     body = {
         "contents": [
@@ -60,7 +60,7 @@ def edit_image(image_path, prompt, model, api_key):
     req = urllib.request.Request(
         url,
         data=data,
-        headers={"Content-Type": "application/json"},
+        headers={"Content-Type": "application/json", "X-Goog-Api-Key": api_key},
         method="POST",
     )
 

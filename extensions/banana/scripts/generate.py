@@ -32,7 +32,7 @@ VALID_RESOLUTIONS = {"512", "1K", "2K", "4K"}
 def generate_image(prompt, model, aspect_ratio, resolution, api_key,
                    thinking_level=None, image_only=False):
     """Call Gemini API to generate an image."""
-    url = f"{API_BASE}/{model}:generateContent?key={api_key}"
+    url = f"{API_BASE}/{model}:generateContent"
 
     modalities = ["IMAGE"] if image_only else ["TEXT", "IMAGE"]
     body = {
@@ -53,7 +53,7 @@ def generate_image(prompt, model, aspect_ratio, resolution, api_key,
     req = urllib.request.Request(
         url,
         data=data,
-        headers={"Content-Type": "application/json"},
+        headers={"Content-Type": "application/json", "X-Goog-Api-Key": api_key},
         method="POST",
     )
 

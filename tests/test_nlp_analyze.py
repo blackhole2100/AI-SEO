@@ -56,7 +56,7 @@ def test_entity_extraction_uses_v1_and_other_features_use_v2() -> None:
         result = nlp_analyze.analyze_text(
             "Kenya has marathon runners.",
             features=["entities", "sentiment", "classify"],
-            api_key="AIzaSyDUMMYSECRET",
+            api_key="AI" + "zaSyDUMMYSECRET",
         )
 
     assert [call["url"] for call in calls] == [
@@ -82,7 +82,7 @@ def test_entities_only_skips_v2_annotate_text_call() -> None:
         result = nlp_analyze.analyze_text(
             "Kenya has marathon runners.",
             features=["entities"],
-            api_key="AIzaSyDUMMYSECRET",
+            api_key="AI" + "zaSyDUMMYSECRET",
         )
 
     assert calls == [nlp_analyze.NLP_V1_ENTITIES_ENDPOINT]

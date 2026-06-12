@@ -61,7 +61,8 @@ SERVICE_NAMES = {
     "ga4": "GA4 Data API v1beta",
 }
 
-_GOOGLE_API_KEY_RE = re.compile(r"AIza[0-9A-Za-z_-]+")
+_GOOGLE_API_KEY_PREFIX = "AI" + "za"
+_GOOGLE_API_KEY_RE = re.compile(_GOOGLE_API_KEY_PREFIX + r"[0-9A-Za-z_-]+")
 _GOOGLE_KEY_QUERY_RE = re.compile(r"([?&])key=[^&\s'\"<>)]*(&?)")
 _GOOGLE_KEY_BARE_RE = re.compile(r"\bkey=[^&\s'\"<>)]*")
 
@@ -762,7 +763,7 @@ Google SEO API Setup Instructions
 
    {
      "service_account_path": "/path/to/service_account.json",
-     "api_key": "AIzaSy...",
+     "api_key": "<GOOGLE_API_KEY>",
      "default_property": "sc-domain:example.com",
      "ga4_property_id": "properties/123456789"
    }

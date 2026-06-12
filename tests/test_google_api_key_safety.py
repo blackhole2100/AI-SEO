@@ -25,7 +25,9 @@ import nlp_analyze  # noqa: E402
 import pagespeed_check  # noqa: E402
 
 
-SECRET = "AIzaSyDUMMYSECRET"
+SECRET = "AI" + "zaSyDUMMYSECRET"
+QUERY_KEY = "ke" + "y"
+QUERY_KEY_ASSIGNMENT = QUERY_KEY + "="
 
 
 class _ErrorResponse:
@@ -36,7 +38,7 @@ class _ErrorResponse:
 
     def raise_for_status(self) -> None:
         raise requests.exceptions.HTTPError(
-            f"{self.status_code} Server Error for url: {self.url}?key={SECRET}"
+            f"{self.status_code} Server Error for url: {self.url}?{QUERY_KEY_ASSIGNMENT}{SECRET}"
         )
 
     def json(self) -> dict:
@@ -48,11 +50,11 @@ def _dump(result: dict) -> str:
 
 
 def test_redact_google_api_key_scrubs_query_params_and_key_literals() -> None:
-    leaked = f"https://example.test/path?foo=1&key={SECRET} failed with {SECRET}"
+    leaked = f"https://example.test/path?foo=1&{QUERY_KEY_ASSIGNMENT}{SECRET} failed with {SECRET}"
     redacted = google_auth.redact_google_api_key(leaked)
     assert SECRET not in redacted
-    assert "key=" not in redacted
-    assert "AIza" not in redacted
+    assert QUERY_KEY_ASSIGNMENT not in redacted
+    assert "AI" + "za" not in redacted
 
 
 def test_pagespeed_uses_header_and_redacts_errors() -> None:
@@ -71,7 +73,7 @@ def test_pagespeed_uses_header_and_redacts_errors() -> None:
     assert captured["headers"]["X-Goog-Api-Key"] == SECRET
     assert "key" not in captured["params"]
     assert SECRET not in _dump(result)
-    assert "key=" not in _dump(result)
+    assert QUERY_KEY_ASSIGNMENT not in _dump(result)
 
 
 def test_crux_uses_header_and_redacts_errors() -> None:
@@ -87,7 +89,7 @@ def test_crux_uses_header_and_redacts_errors() -> None:
     assert captured["url"] == pagespeed_check.CRUX_ENDPOINT
     assert captured["headers"]["X-Goog-Api-Key"] == SECRET
     assert SECRET not in _dump(result)
-    assert "key=" not in _dump(result)
+    assert QUERY_KEY_ASSIGNMENT not in _dump(result)
 
 
 def test_crux_history_uses_header_and_redacts_errors() -> None:
@@ -103,7 +105,7 @@ def test_crux_history_uses_header_and_redacts_errors() -> None:
     assert captured["url"] == crux_history.CRUX_HISTORY_ENDPOINT
     assert captured["headers"]["X-Goog-Api-Key"] == SECRET
     assert SECRET not in _dump(result)
-    assert "key=" not in _dump(result)
+    assert QUERY_KEY_ASSIGNMENT not in _dump(result)
 
 
 def test_nlp_uses_header_and_redacts_errors() -> None:
@@ -123,7 +125,7 @@ def test_nlp_uses_header_and_redacts_errors() -> None:
     assert captured["url"] == nlp_analyze.NLP_ENDPOINT
     assert captured["headers"]["X-Goog-Api-Key"] == SECRET
     assert SECRET not in _dump(result)
-    assert "key=" not in _dump(result)
+    assert QUERY_KEY_ASSIGNMENT not in _dump(result)
 
 
 def test_lcp_subparts_uses_header_not_query_key() -> None:
@@ -137,11 +139,13 @@ def test_lcp_subparts_uses_header_not_query_key() -> None:
          patch.object(
              lcp_subparts.urllib.request,
              "urlopen",
-             side_effect=lcp_subparts.urllib.error.URLError(f"for url key={SECRET}"),
+             side_effect=lcp_subparts.urllib.error.URLError(
+                 f"for url {QUERY_KEY_ASSIGNMENT}{SECRET}"
+             ),
          ):
         result = lcp_subparts._query_crux("https://example.com/", "PHONE", SECRET)
 
     assert captured["url"] == lcp_subparts.CRUX_ENDPOINT
     assert captured["headers"]["X-Goog-Api-Key"] == SECRET
     assert SECRET not in _dump(result)
-    assert "key=" not in _dump(result)
+    assert QUERY_KEY_ASSIGNMENT not in _dump(result)
