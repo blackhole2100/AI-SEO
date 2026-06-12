@@ -230,6 +230,11 @@ orchestrate itself, so it is not enumerated below.
 The following ship in `extensions/` rather than `skills/` and require a separate
 installer to activate (see each extension's `install.sh`/`install.ps1`):
 
+Of the optional extensions, firecrawl, dataforseo, and image-gen are reachable
+through `/seo` subcommands. Ahrefs, Bing, Profound, SE Ranking, and Unlighthouse
+install as standalone skills invoked by their own descriptions. The model
+auto-routes to those triggers, not through `/seo <name>`.
+
 - **seo-firecrawl** -- Full-site crawling and site mapping via Firecrawl MCP. Install
   via `extensions/firecrawl/install.sh` (Unix) or `extensions/firecrawl/install.ps1`
   (Windows). Once installed, invoke via `/seo firecrawl <command>`.

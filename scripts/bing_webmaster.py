@@ -13,6 +13,7 @@ Usage:
 
 import argparse
 import json
+import re
 import sys
 import time
 from typing import Optional
@@ -39,6 +40,16 @@ BING_API_BASE = "https://ssl.bing.com/webmaster/api.svc/json"
 # Polite delay between requests
 REQUEST_DELAY = 1
 _last_request_time = 0
+
+_BING_APIKEY_RE = re.compile(r"(?i)(apikey=)[^&\s'\"<>)]*")
+
+
+def _redact_bing_api_key(error_text: object, api_key: str) -> str:
+    """Redact Bing API keys from request exception strings."""
+    text = str(error_text)
+    if api_key:
+        text = text.replace(api_key, "***REDACTED***")
+    return _BING_APIKEY_RE.sub(r"\1***REDACTED***", text)
 
 
 def _rate_limit():
@@ -129,7 +140,7 @@ def _bing_request(endpoint: str, api_key: str, params: Optional[dict] = None,
         return {
             "status": "error",
             "data": None,
-            "error": str(e),
+            "error": _redact_bing_api_key(e, api_key),
             "metadata": {"source": "bing_webmaster"},
         }
 

@@ -25,7 +25,7 @@ main() {
         SEO_SKILL_DIR="${_PLUGIN_SEO_DIR}"
     fi
     if [ ! -d "${SEO_SKILL_DIR}" ]; then
-        _GLOB_MATCH=$(ls -d "${HOME}/.claude/plugins/cache/agricidaniel-seo/claude-seo/"*/skills/seo 2>/dev/null | tail -n1 || true)
+        _GLOB_MATCH=$(ls -d "${HOME}/.claude/plugins/cache/*/claude-seo/"*/skills/seo 2>/dev/null | tail -n1 || true)
         [ -n "${_GLOB_MATCH}" ] && [ -d "${_GLOB_MATCH}" ] && SEO_SKILL_DIR="${_GLOB_MATCH}"
     fi
 

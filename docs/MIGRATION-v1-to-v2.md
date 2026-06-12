@@ -158,6 +158,8 @@ We considered but ultimately did **not** break the following:
 
 ## How to upgrade
 
+Caution: Prefer downloading, inspecting, then running remote scripts; the pipe-to-shell form below is the less-safe convenience option.
+
 ```bash
 # Pull v2.0.0
 curl -fsSL https://raw.githubusercontent.com/AgriciDaniel/claude-seo/main/install.sh | bash

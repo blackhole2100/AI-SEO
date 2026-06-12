@@ -52,7 +52,7 @@ if ([string]::IsNullOrEmpty($DfseUsername)) {
 }
 
 $DfsePasswordSecure = Read-Host "DataForSEO password" -AsSecureString
-$DfsePassword = [Runtime.InteropServices.Marshal]::PtrToStringAuto(
+$DfsePassword = [Runtime.InteropServices.Marshal]::PtrToStringBSTR(
     [Runtime.InteropServices.Marshal]::SecureStringToBSTR($DfsePasswordSecure)
 )
 if ([string]::IsNullOrEmpty($DfsePassword)) {
@@ -154,7 +154,7 @@ print('  ok')
 # Pre-warm npx package
 Write-Host "→ Pre-downloading dataforseo-mcp-server..." -ForegroundColor Yellow
 try {
-    & npx -y dataforseo-mcp-server --help 2>&1 | Out-Null
+    & npx -y dataforseo-mcp-server@2.8.10 --help 2>&1 | Out-Null
 } catch {
     # Ignore errors from pre-warm
 }

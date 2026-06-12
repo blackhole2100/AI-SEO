@@ -11,6 +11,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import urllib.error
 import urllib.parse
 import urllib.request
 
@@ -99,6 +100,9 @@ def api_get(path, ref, headers):
             if "Authorization" in authed:
                 return api_get(path, ref, authed)
         raise
+    except urllib.error.URLError as exc:
+        reason = getattr(exc, "reason", exc)
+        raise SystemExit(f"Network error reaching GitHub: {reason}") from None
 
 
 def fetch_file(path, ref, headers):

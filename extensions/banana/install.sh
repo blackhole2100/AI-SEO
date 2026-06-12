@@ -61,15 +61,16 @@ main() {
     # Check if nanobanana-mcp is already configured
     MCP_CONFIGURED=false
     if [ -f "${SETTINGS_FILE}" ]; then
-        if python3 -c "
-import json
-with open('${SETTINGS_FILE}', 'r') as f:
+        if python3 - "${SETTINGS_FILE}" <<'PY' 2>/dev/null; then
+import json, sys
+settings_path = sys.argv[1]
+with open(settings_path, 'r') as f:
     settings = json.load(f)
 if 'mcpServers' in settings and 'nanobanana-mcp' in settings['mcpServers']:
-    exit(0)
+    sys.exit(0)
 else:
-    exit(1)
-" 2>/dev/null; then
+    sys.exit(1)
+PY
             MCP_CONFIGURED=true
             echo "✓ nanobanana-mcp already configured in settings.json"
         fi

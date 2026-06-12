@@ -1,14 +1,14 @@
 ---
 name: seo-ahrefs
-description: Ahrefs API analyst (extension). Reads referring domains, backlinks, organic keywords, and content explorer data via the official @ahrefs/mcp server. Pairs with seo-backlinks for multi-source confidence weighting.
+description: Ahrefs API analyst (extension). Reads referring domains, backlinks, organic keywords, and content explorer data via the official @ahrefs/mcp@0.0.11 server. Pairs with seo-backlinks for multi-source confidence weighting.
 metadata:
   version: "2.2.0"
-compatibility: "Requires the official @ahrefs/mcp server (installed by extensions/ahrefs/install.sh)."
+compatibility: "Requires the official @ahrefs/mcp@0.0.11 server (installed by extensions/ahrefs/install.sh)."
 ---
 
 # seo-ahrefs
 
-Live Ahrefs data via the official `@ahrefs/mcp` server.
+Live Ahrefs data via the official `@ahrefs/mcp@0.0.11` server.
 
 ## Prerequisites
 

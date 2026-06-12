@@ -39,7 +39,7 @@ Write-Host "Free tier: 500 credits/month"
 Write-Host ""
 
 $apiKey = Read-Host "Firecrawl API key" -AsSecureString
-$apiKeyPlain = [Runtime.InteropServices.Marshal]::PtrToStringAuto(
+$apiKeyPlain = [Runtime.InteropServices.Marshal]::PtrToStringBSTR(
     [Runtime.InteropServices.Marshal]::SecureStringToBSTR($apiKey))
 if ([string]::IsNullOrWhiteSpace($apiKeyPlain)) {
     Write-Host "x API key cannot be empty." -ForegroundColor Red

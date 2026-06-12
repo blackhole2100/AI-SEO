@@ -189,6 +189,7 @@ try {
     }
 
     # Copy hooks
+    Write-Host "  Note: hook enforcement requires plugin install; manual hook copy is best-effort." -ForegroundColor Yellow
     $HooksPath = "$TempDir\hooks"
     if (Test-Path $HooksPath) {
         $SkillHooks = "$SkillDir\hooks"

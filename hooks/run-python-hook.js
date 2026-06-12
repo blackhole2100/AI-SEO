@@ -33,11 +33,8 @@ function probe(candidate) {
   const result = spawnSync(candidate.exe, [...candidate.args, "-c", script], {
     encoding: "utf8",
   });
-  if (result.error) {
-    return false;
-  }
   const output = `${result.stdout || ""}\n${result.stderr || ""}`;
-  return result.status === 0 && !isStoreStubOutput(output);
+  return result.status === 0 && Boolean((result.stdout || "").trim()) && !isStoreStubOutput(output);
 }
 
 function main() {
