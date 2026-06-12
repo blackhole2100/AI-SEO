@@ -110,8 +110,11 @@ def _validate_schema_object(obj: dict, block_num: int) -> List[str]:
     if schema_type in deprecated:
         errors.append(f"{prefix}: @type '{schema_type}' is {deprecated[schema_type]}")
 
-    # Check for restricted types used incorrectly
-    restricted = {"FAQPage": "restricted to government and healthcare sites only (Aug 2023)"}
+    # Check for restricted types used incorrectly.
+    # FAQPage is intentionally NOT flagged: Google retired FAQ rich results for
+    # all sites (May 7, 2026), but the markup still aids AI Mode / AI Overviews
+    # entity resolution, so it is valid to ship. See skills/seo-schema/SKILL.md.
+    restricted: dict = {}
     if schema_type in restricted:
         errors.append(f"{prefix}: @type '{schema_type}' is {restricted[schema_type]}; verify site qualifies")
 

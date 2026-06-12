@@ -70,15 +70,21 @@ $settingsContent = if (Test-Path $SettingsFile) { Get-Content $SettingsFile -Raw
 if (-not $settingsContent.mcpServers) { $settingsContent | Add-Member -NotePropertyName mcpServers -NotePropertyValue @{} -Force }
 $settingsContent.mcpServers | Add-Member -NotePropertyName 'firecrawl-mcp' -NotePropertyValue @{
     command = 'npx'
-    args = @('-y', 'firecrawl-mcp')
+    args = @('-y', 'firecrawl-mcp@3.11.0')
     env = @{ FIRECRAWL_API_KEY = $apiKeyPlain }
 } -Force
 $settingsContent | ConvertTo-Json -Depth 10 | Set-Content $SettingsFile -Encoding UTF8
+# Restrict the credential-bearing settings file to the current user only.
+try {
+    icacls $SettingsFile /inheritance:r /grant:r "${env:USERNAME}:F" | Out-Null
+} catch {
+    Write-Host "  Note: could not restrict settings.json ACL; review manually." -ForegroundColor Yellow
+}
 Write-Host "  v MCP server configured" -ForegroundColor Green
 
 # Pre-warm
 Write-Host "=> Pre-downloading firecrawl-mcp..." -ForegroundColor Yellow
-npx -y firecrawl-mcp --help 2>$null | Out-Null
+npx -y firecrawl-mcp@3.11.0 --help 2>$null | Out-Null
 
 Write-Host ""
 Write-Host "v Firecrawl extension installed!" -ForegroundColor Green
