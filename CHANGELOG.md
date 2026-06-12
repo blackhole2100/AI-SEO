@@ -14,6 +14,8 @@ Security, cross-platform, and data-accuracy release. Folds the v2.1.0 currency c
 - **Installer credential injection (blocker).** The DataForSEO, Firecrawl, and Banana installers interpolated user-supplied credentials into a `python3 -c` source string, allowing arbitrary code execution at install time when a credential contained `'''`. Credentials now pass as `argv` through a quoted heredoc, and the settings file is written atomically with `0600` permissions (shell installers plus the DataForSEO PowerShell installer). Found by an independent audit.
 - **SSRF parser-differential bypass.** `url_safety.validate_url` accepted authority-confusion URLs such as `https://127.0.0.1:6666\@1.1.1.1`, which `requests` connects to the internal host. The validator now rejects backslash and userinfo authority confusion, covering every caller. Reported by @Fushuling (#110).
 - **Google API key leak.** `pagespeed_check`, `crux_history`, `nlp_analyze`, and `lcp_subparts` put the API key in the request URL and echoed it on error. Keys now travel in the `X-Goog-Api-Key` header with redacted error output. Reported by @webgunnz (#122); header approach from #104 (@fayerman-source).
+- **Post-audit hardening pass.** Extended the credential-injection fix to the extension uninstallers and the Banana config probe (argv through quoted heredocs). Added Bing Webmaster API key redaction on transport errors. Switched the DataForSEO and Firecrawl PowerShell installers from `PtrToStringAuto` to `PtrToStringBSTR` so SecureString credentials decode correctly under PowerShell on Linux and macOS.
+- **Secret-scan CI gate.** A new job in `ci.yml` and `v2.yml` fails the build when any tracked file contains a high-signal credential pattern (Google, GitHub, AWS, Google OAuth, OpenAI, Slack); test fixtures and documented placeholders are allowlisted. `.gitignore` extended to cover more credential and key formats. Verified against the full history and tracked tree: no real secret present.
 
 ### Fixed
 
@@ -25,6 +27,12 @@ Security, cross-platform, and data-accuracy release. Folds the v2.1.0 currency c
 - **NLP entity metadata (#103).** Use the V1 `analyzeEntities` endpoint so Knowledge Graph `mid`/`wikipedia_url` and salience are returned.
 - **Moz free-tier auth (#100).** Use the Links API REST endpoint with HTTP Basic auth.
 - **FAQ schema hook.** FAQPage is no longer flagged (FAQ rich results were retired in May 2026, but the markup still aids AI Mode); deprecated and retired types still block.
+- **Broken sub-skill reference paths.** `/seo local` and `/seo maps` instructed the model to load `references/*.md` from directories that do not exist; both now point to the shared `skills/seo/references/` files they always intended.
+- **seo-cluster template now ships.** `templates/cluster-map.html` was excluded by an over-broad `.gitignore` rule, so installed users never received the interactive cluster visualization. It is now tracked.
+- **Unlighthouse and Ahrefs extension invocations.** The Unlighthouse extension called a non-existent npm package (`unlighthouse-cli`); it now uses `unlighthouse@0.13.5`. The Ahrefs extension is pinned to `@ahrefs/mcp@0.0.11` and invokes the package's real `mcp` binary.
+- **FLOW prompt dead links.** 82 links across the 41 FLOW prompt files pointed at the upstream folder layout that does not exist in this plugin. `sync_flow.py` now rewrites them to the flattened layout on every sync, and the existing files were repaired.
+- **sync_flow offline crash.** `--dry-run` raised an uncaught network error when GitHub was unreachable; it now exits cleanly with an actionable message.
+- **Install slug and stale figures.** Corrected the marketplace slug in the install docs to `claude-seo@agricidaniel-claude-seo`, the `CITATION.cff` release date, the README test count (326), the AGENTS.md script count (50), and the README FAQ guidance.
 
 ### Added
 
@@ -37,10 +45,12 @@ Security, cross-platform, and data-accuracy release. Folds the v2.1.0 currency c
 - Plugin description trimmed under the 500-character registry cap (#99).
 - Docs normalized from bare `python` to `python3`; CLAUDE.md and AGENTS.md script inventory corrected to 50; README test count updated.
 - Corrected the inert `user-invokable` frontmatter key to `user-invocable`.
+- Pinned the Ahrefs, Unlighthouse, and DataForSEO npm packages to exact versions across installers and prewarm steps.
 
 ### Housekeeping
 
 - Removed the duplicate root `CODEOWNERS`; CI compiles every `scripts/*.py` dynamically; marketplace extension count corrected from 7 to 8; dependency floor bumps (Dependabot #105 to #109, #116).
+- Removed the orphaned `branding/` preview tooling (it referenced deleted diagram assets) and the inactive npm Dependabot watcher (the repo ships no npm manifest). Hardened the Python hook probe against environment-specific `EPERM`, gave Banana `validate_setup.py --help` proper argument handling, and repaired stale internal documentation links. Full suite at 326 passing.
 
 ## [2.1.0] - 2026-05-25
 
