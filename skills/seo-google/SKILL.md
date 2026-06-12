@@ -9,7 +9,7 @@ description: >
   "indexing API", "GA4 organic", "URL inspection", "google api setup",
   "real CWV data", "impressions", "clicks", "CTR", "position data",
   "LCP", "INP", "CLS", "FCP", "TTFB", or "Lighthouse scores".
-user-invokable: true
+user-invocable: true
 argument-hint: "[command] [url|property]"
 license: MIT
 metadata:

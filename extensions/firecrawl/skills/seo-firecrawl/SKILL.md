@@ -5,7 +5,7 @@ description: >
   Use when user says "crawl site", "map site", "full crawl",
   "find all pages", "broken links", "site structure",
   "discover pages", "JS rendering", or needs site-wide analysis.
-user-invokable: true
+user-invocable: true
 argument-hint: "[command] <url>"
 license: MIT
 compatibility: "Requires Firecrawl MCP server"

@@ -6,7 +6,7 @@ description: >
   to your on-page SEO. Use when user says "SEO drift", "baseline", "track changes",
   "did anything break", "SEO regression", "compare SEO", "before and after",
   "monitor SEO changes", or "deployment check".
-user-invokable: true
+user-invocable: true
 argument-hint: "baseline|compare|history <url>"
 license: MIT
 metadata:

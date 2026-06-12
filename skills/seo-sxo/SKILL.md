@@ -7,7 +7,7 @@ description: >
   to rank by analyzing what Google rewards for each keyword. Use when user says
   "SXO", "search experience", "page type mismatch", "SERP analysis", "user story",
   "persona scoring", "why isn't my page ranking", "intent mismatch", or "wireframe".
-user-invokable: true
+user-invocable: true
 argument-hint: "<url> [keyword]"
 license: MIT
 metadata:

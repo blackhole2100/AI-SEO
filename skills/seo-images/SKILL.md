@@ -7,7 +7,7 @@ description: >
   IPTC/XMP metadata injection). Use when user says "image optimization",
   "alt text", "image SEO", "image size", "image audit", "optimize images",
   "image metadata", "image SERP", "convert to webp", or "image file optimize".
-user-invokable: true
+user-invocable: true
 argument-hint: "[url]"
 license: MIT
 metadata:

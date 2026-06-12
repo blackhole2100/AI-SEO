@@ -8,7 +8,7 @@ description: >
   Use when user says "topic cluster", "content cluster", "semantic clustering",
   "pillar page", "hub and spoke", "content architecture", "keyword grouping",
   or "cluster plan".
-user-invokable: true
+user-invocable: true
 argument-hint: "<seed-keyword or url>"
 license: MIT
 metadata:

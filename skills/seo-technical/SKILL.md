@@ -5,7 +5,7 @@ description: >
   URL structure, mobile, Core Web Vitals, structured data, JavaScript rendering,
   and IndexNow protocol. Use when user says "technical SEO", "crawl issues",
   "robots.txt", "Core Web Vitals", "site speed", or "security headers".
-user-invokable: true
+user-invocable: true
 argument-hint: "[url]"
 license: MIT
 metadata:

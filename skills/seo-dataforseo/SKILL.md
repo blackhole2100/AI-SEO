@@ -9,7 +9,7 @@ description: >
   installed. Use when user says "dataforseo", "live SERP", "keyword volume",
   "backlink data", "competitor data", "AI visibility check", "LLM mentions",
   "image SERP", "google images", "image rankings", or "real search data".
-user-invokable: true
+user-invocable: true
 argument-hint: "[command] [query]"
 license: MIT
 compatibility: "Requires DataForSEO MCP server"

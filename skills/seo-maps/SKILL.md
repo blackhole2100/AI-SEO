@@ -10,7 +10,7 @@ description: >
   says "maps", "geo-grid", "rank tracking", "GBP audit", "review
   velocity", "competitor radius", "maps analysis", "local rank
   tracking", "Share of Local Voice", or "SoLV".
-user-invokable: true
+user-invocable: true
 argument-hint: "[command] [url|keyword|location]"
 license: MIT
 compatibility: "DataForSEO MCP for Tier 1+, Google Maps API for Tier 2"

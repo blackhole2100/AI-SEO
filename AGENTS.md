@@ -54,7 +54,7 @@ in case a recipe needs a specific call.
 
 Claude SEO is a Tier 4 SEO analysis skill with 25 sub-skills (21 core + 1 orchestrator +
 1 framework integration + 2 extension mirrors), 18 sub-agents (15 core + 1 framework
-integration + 2 extension mirrors), and 30 Python execution scripts.
+integration + 2 extension mirrors), and 50 Python execution scripts.
 
 ## Quick Reference
 
@@ -119,7 +119,7 @@ DATAFORSEO_USERNAME=user DATAFORSEO_PASSWORD=pass python3 scripts/dataforseo_mer
 
 ## Using with Google Antigravity
 
-Antigravity discovers this project via `plugin.json` at the repo root.
+Antigravity discovers this project via `.claude-plugin/plugin.json`.
 Place the repo in `~/.gemini/antigravity/plugins/claude-seo/` or install via:
 
 ```bash

@@ -271,7 +271,7 @@ git remote -v        # expects: origin (public) + aimh (private)
 
 # Both share main HEAD
 git ls-remote --heads aimh main
-git ls-remote --heads origin main   # SHAs must match for a clean release
+git ls-remote --heads origin main   # origin = aimh/main + 1 public-branding commit (intentional; see docs/WORKFLOW-public-private.md)
 ```
 
 Full workflow reference: `docs/WORKFLOW-public-private.md`.

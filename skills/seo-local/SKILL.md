@@ -10,7 +10,7 @@ description: >
   Business Profile", "GBP", "map pack", "local pack", "citations",
   "NAP consistency", "local rankings", "service area", "multi-location",
   or "local search".
-user-invokable: true
+user-invocable: true
 argument-hint: "[url]"
 license: MIT
 metadata:

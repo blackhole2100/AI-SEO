@@ -7,7 +7,7 @@ description: >
   from DataForSEO Merchant API. Use when user says "ecommerce SEO", "product SEO",
   "Google Shopping", "marketplace SEO", "product schema", "Amazon SEO",
   "product listings", "shopping ads", or "merchant SEO".
-user-invokable: true
+user-invocable: true
 argument-hint: "<url or keyword>"
 license: MIT
 compatibility: "Enhanced with DataForSEO Merchant API (optional)"

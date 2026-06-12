@@ -6,7 +6,7 @@ description: >
   thin content safeguards, and index bloat prevention. Use when user says
   "programmatic SEO", "pages at scale", "dynamic pages", "template pages",
   "generated pages", or "data-driven SEO".
-user-invokable: true
+user-invocable: true
 argument-hint: "[url or plan]"
 license: MIT
 metadata:

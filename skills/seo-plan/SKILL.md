@@ -6,7 +6,7 @@ description: >
   roadmap. Use when user says "SEO plan", "SEO strategy", "SEO planning",
   "content strategy", "keyword strategy", "content calendar",
   "site architecture", or "SEO roadmap".
-user-invokable: true
+user-invocable: true
 argument-hint: "[business-type]"
 license: MIT
 metadata:
