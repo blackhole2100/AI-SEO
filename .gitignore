@@ -162,3 +162,9 @@ presentations/
 
 # Internal implementation plans / specs (working notes, not user docs)
 docs/superpowers/
+
+# Internal project-management records (private; must not ship to public origin)
+MEMORY.md
+docs/BACKLOG-COMPLETION-REPORT-v2.md
+docs/*COMPLETION-REPORT*.md
+docs/VERIFICATION-AUDIT*.md

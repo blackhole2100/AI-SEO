@@ -321,13 +321,13 @@ https://developers.google.com/search/docs/fundamentals/ai-optimization-guide
 
 ```bash
 # Audit a directory for the IPTC label (counts: missing, ai, captured, etc.)
-python scripts/iptc_ai_label.py audit ./images/ --json
+python3 scripts/iptc_ai_label.py audit ./images/ --json
 
 # Audit a single image
-python scripts/iptc_ai_label.py audit ./hero.webp --json
+python3 scripts/iptc_ai_label.py audit ./hero.webp --json
 
 # Inject the AI label into an image
-python scripts/iptc_ai_label.py inject ./ai-hero.webp \
+python3 scripts/iptc_ai_label.py inject ./ai-hero.webp \
     --source-type trainedAlgorithmicMedia
 
 # Other vocabulary values:

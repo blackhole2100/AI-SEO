@@ -1,4 +1,4 @@
-![Claude SEO terminal banner: animated CRT command palette with /seo audit, /seo schema, /seo geo, system line showing 25 sub-skills, 271 tests, 8 MCP servers](assets/banner.svg)
+![Claude SEO terminal banner: animated CRT command palette with /seo audit, /seo schema, /seo geo, system line showing 25 sub-skills, 316 tests, 8 MCP servers](assets/banner.svg)
 
 # Claude SEO: SEO Analysis Skill for Claude Code
 
@@ -8,7 +8,7 @@
 [![Claude Code Skill](https://img.shields.io/badge/Claude%20Code-Skill-blue)](https://claude.ai/claude-code)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Version](https://img.shields.io/github/v/release/AgriciDaniel/claude-seo)](https://github.com/AgriciDaniel/claude-seo/releases)
-[![Tests](https://img.shields.io/badge/tests-271%20passing-brightgreen)](tests/)
+[![Tests](https://img.shields.io/badge/tests-316%20passing-brightgreen)](tests/)
 [![Community](https://img.shields.io/badge/AI%20Marketing%20Hub-Pro%20community-purple)](https://www.skool.com/ai-marketing-hub-pro)
 
 > **Two versions of this skill.**
@@ -472,7 +472,7 @@ MIT License. See [LICENSE](LICENSE) for details.
 
 ## Contributing
 
-Contributions welcome. Please read [CONTRIBUTING.md](CONTRIBUTING.md) before submitting PRs. The project enforces a per-PR audit gate covering manifest consistency (14 assertions), the test suite (271 passing), and an 8-dimension security review before any merge to `main`.
+Contributions welcome. Please read [CONTRIBUTING.md](CONTRIBUTING.md) before submitting PRs. The project enforces a per-PR audit gate covering manifest consistency (14 assertions), the test suite (316 passing), and an 8-dimension security review before any merge to `main`.
 
 ---
 

@@ -21,7 +21,7 @@ claude-seo/
   CONTRIBUTORS.md                    # Community credits (Pro Hub Challenge)
   AGENTS.md                          # Multi-platform agent instructions (Cursor, Antigravity)
   .claude-plugin/
-    plugin.json                    # Plugin manifest (v1.9.8)
+    plugin.json                    # Plugin manifest (v2.1.0)
     marketplace.json               # Marketplace catalog for distribution
   skills/                            # 25 sub-skills (auto-discovered)
     seo/                           # Main orchestrator skill
@@ -82,7 +82,7 @@ claude-seo/
     seo-ecommerce.md             # E-commerce SEO analysis
   hooks/                           # Quality gate hooks
     hooks.json                   # PostToolUse schema validation
-  scripts/                         # Python execution scripts (30 tracked + 2 dev-only)
+  scripts/                         # Python execution scripts (50 tracked + dev-only helpers)
     google_auth.py               # Credential management (OAuth, SA, API key, 4-tier detection)
     backlinks_auth.py            # Backlink API credential management (Moz, Bing)
     moz_api.py                   # Moz Link Explorer API (DA/PA, spam, domains, anchors)
@@ -111,6 +111,28 @@ claude-seo/
     dataforseo_merchant.py       # Google Shopping / Amazon data fetching
     dataforseo_normalize.py      # DataForSEO response normalization utility
     sync_flow.py                 # FLOW prompt library sync (GitHub API, CC BY 4.0 headers, --dry-run, --ref)
+    url_safety.py                # Canonical URL/SSRF safety module (validate, DNS-pin, safe fetch)
+    render_page.py               # Shared headless renderer (SPA-aware, Playwright)
+    lcp_subparts.py              # LCP subparts breakdown via CrUX API
+    preload_check.py             # Speculation Rules / bfcache / prerender / preload detector
+    agent_ux_check.py            # Agent-friendly page auditor
+    content_quality.py           # QRG-aligned content quality detector
+    content_humanize.py          # AI-pattern remover (rewrites AI-typical phrasing)
+    content_verify.py            # Claim extractor + citation-gap detector
+    schema_generate.py           # JSON-LD generators for high-leverage v2 schema types
+    schema_ecommerce_validate.py # Product schema validator (merchant-listing requirements)
+    iptc_ai_label.py             # IPTC DigitalSourceType audit/injection for AI imagery
+    parasite_risk.py             # Parasite-SEO risk scanner
+    gbp_deprecation_lint.py      # GBP feature-deprecation linter
+    domain_history.py            # Expired-domain heritage check
+    seo_updates.py               # Primary-source Google updates query tool
+    indexnow_submit.py           # IndexNow submitter
+    ucp_check.py                 # UCP (Universal Commerce Protocol) profile auditor
+    unlighthouse_run.py          # Unlighthouse CLI wrapper (site-wide Lighthouse)
+    validate_backlink_report.py  # Backlink report validation
+    portability_check.py         # Cross-platform portability lint for SKILL.md files
+    release_sign.py              # SHA-256 manifest generator for release signing
+    verify_release.py            # Verify checkout integrity against a release manifest
     mobile_analysis.py           # Mobile rendering analysis (gitignored, dev-only)
   schema/                          # Schema.org JSON-LD templates
   extensions/                      # Optional add-on install helpers
@@ -160,7 +182,7 @@ claude-seo/
 - Follow kebab-case naming for all skill directories
 - Agents invoked via Agent tool, never via Bash
 - Python dependencies install into `~/.claude/skills/seo/.venv/`
-- Test with `python -m pytest tests/` after changes (if applicable)
+- Test with `python3 -m pytest tests/` after changes (if applicable)
 
 ## Security Rules
 

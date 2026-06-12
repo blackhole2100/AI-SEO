@@ -24,11 +24,11 @@ specifically for **Bing/Yandex/Seznam/Naver indexing** and
 
 | Command | Underlying script |
 |---|---|
-| `/seo bing links <url>` | `python scripts/bing_webmaster.py links <url>` |
-| `/seo bing compare <urlA> <urlB>` | `python scripts/bing_webmaster.py compare <urlA> <urlB>` |
-| `/seo bing submit <url>` (single URL) | `python scripts/indexnow_submit.py --host ... --urls <url>` |
-| `/seo bing submit-batch <file>` | `python scripts/indexnow_submit.py --urls-file <file>` |
-| `/seo bing verify-indexnow` | `python scripts/indexnow_submit.py --verify-only` |
+| `/seo bing links <url>` | `python3 scripts/bing_webmaster.py links <url>` |
+| `/seo bing compare <urlA> <urlB>` | `python3 scripts/bing_webmaster.py compare <urlA> <urlB>` |
+| `/seo bing submit <url>` (single URL) | `python3 scripts/indexnow_submit.py --host ... --urls <url>` |
+| `/seo bing submit-batch <file>` | `python3 scripts/indexnow_submit.py --urls-file <file>` |
+| `/seo bing verify-indexnow` | `python3 scripts/indexnow_submit.py --verify-only` |
 
 ## When this skill applies
 
