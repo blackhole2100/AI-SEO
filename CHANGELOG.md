@@ -5,6 +5,43 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.0] - 2026-06-12
+
+Security, cross-platform, and data-accuracy release. Folds the v2.1.0 currency content into the first public ship and closes the full open-issue and PR backlog. No breaking changes.
+
+### Security
+
+- **Installer credential injection (blocker).** The DataForSEO, Firecrawl, and Banana installers interpolated user-supplied credentials into a `python3 -c` source string, allowing arbitrary code execution at install time when a credential contained `'''`. Credentials now pass as `argv` through a quoted heredoc, and the settings file is written atomically with `0600` permissions (shell installers plus the DataForSEO PowerShell installer). Found by an independent audit.
+- **SSRF parser-differential bypass.** `url_safety.validate_url` accepted authority-confusion URLs such as `https://127.0.0.1:6666\@1.1.1.1`, which `requests` connects to the internal host. The validator now rejects backslash and userinfo authority confusion, covering every caller. Reported by @Fushuling (#110).
+- **Google API key leak.** `pagespeed_check`, `crux_history`, `nlp_analyze`, and `lcp_subparts` put the API key in the request URL and echoed it on error. Keys now travel in the `X-Goog-Api-Key` header with redacted error output. Reported by @webgunnz (#122); header approach from #104 (@fayerman-source).
+
+### Fixed
+
+- **GSC false "0 clicks" totals (#130).** Site totals were summed from per-query rows, which GSC anonymizes for low-volume queries. Totals now come from a dimensionless aggregate query. Reported by @fayerman-source.
+- **Windows drift_baseline portability (#114, #124).** Removed `/dev/stdout`, use a tempfile fetch-to-parse handoff with `errors="replace"`, and handle the Microsoft Store Python alias (PRs #117, #128, #111, #115, #125).
+- **Cross-platform PostToolUse hook (#102, #112, #120).** The JSON-LD validator runs through a Node launcher that resolves `python3`/`py`, fixing failures on macOS and Linux without a bare `python` (PR #101).
+- **fetch_page UTF-8 double-encode (#121).** Honor the Content-Type and `<meta>` charset deterministically when the server omits a charset.
+- **GSC deprecated `indexed` field (#113).** No longer surfaced (it always returned 0).
+- **NLP entity metadata (#103).** Use the V1 `analyzeEntities` endpoint so Knowledge Graph `mid`/`wikipedia_url` and salience are returned.
+- **Moz free-tier auth (#100).** Use the Links API REST endpoint with HTTP Basic auth.
+- **FAQ schema hook.** FAQPage is no longer flagged (FAQ rich results were retired in May 2026, but the markup still aids AI Mode); deprecated and retired types still block.
+
+### Added
+
+- Full-audit report persistence and audit-aware report builders (#51, #61).
+- ruff configuration (#123) and `pyproject.toml` authors and keywords (#118).
+- Regression tests for installer injection, GSC totals, and the schema hook policy.
+
+### Changed
+
+- Plugin description trimmed under the 500-character registry cap (#99).
+- Docs normalized from bare `python` to `python3`; CLAUDE.md and AGENTS.md script inventory corrected to 50; README test count updated.
+- Corrected the inert `user-invokable` frontmatter key to `user-invocable`.
+
+### Housekeeping
+
+- Removed the duplicate root `CODEOWNERS`; CI compiles every `scripts/*.py` dynamically; marketplace extension count corrected from 7 to 8; dependency floor bumps (Dependabot #105 to #109, #116).
+
 ## [2.1.0] - 2026-05-25
 
 Knowledge-currency refresh for Google's May 2026 wave: the **May 2026 core update**, **Google I/O 2026** (Gemini 3.5 Flash now powers AI Mode globally; AI Mode past 1B monthly users), and the **May 7 2026 retirement of FAQ rich results**. No architecture, API, or command changes — every v2.0.0 entry point still works.
