@@ -64,7 +64,13 @@ def _base_headers():
 def _authed_headers():
     """Returns authenticated headers, or base headers if gh CLI is absent or unauthed."""
     try:
-        result = subprocess.run(["gh", "auth", "token"], capture_output=True, text=True)
+        result = subprocess.run(
+            ["gh", "auth", "token"],
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+        )
     except FileNotFoundError:
         return _base_headers()
     if result.returncode != 0 or not result.stdout.strip():

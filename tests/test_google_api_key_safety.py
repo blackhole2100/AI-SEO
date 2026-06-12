@@ -15,6 +15,7 @@ from unittest.mock import patch
 import requests
 
 _SCRIPTS = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "scripts")
+_REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if _SCRIPTS not in sys.path:
     sys.path.insert(0, _SCRIPTS)
 
@@ -149,3 +150,13 @@ def test_lcp_subparts_uses_header_not_query_key() -> None:
     assert captured["headers"]["X-Goog-Api-Key"] == SECRET
     assert SECRET not in _dump(result)
     assert QUERY_KEY_ASSIGNMENT not in _dump(result)
+
+
+def test_mcp_docs_do_not_show_google_query_key_examples() -> None:
+    text = open(
+        os.path.join(_REPO_ROOT, "docs", "MCP-INTEGRATION.md"),
+        encoding="utf-8",
+    ).read()
+    assert f'"{QUERY_KEY}": api_key' not in text
+    assert f"params = {{\"{QUERY_KEY}\": api_key}}" not in text
+    assert "X-Goog-Api-Key" in text

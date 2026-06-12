@@ -372,7 +372,7 @@ def main():
 
     # Validate URL
     target = args.url
-    if target.startswith("http"):
+    if target.lower().startswith("http"):
         if not validate_url(target):
             result = {
                 "status": "error",

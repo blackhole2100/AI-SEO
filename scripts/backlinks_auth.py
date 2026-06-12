@@ -309,10 +309,13 @@ TIER 1: MOZ API (free signup, 2,500 rows/month)
      (Free tier continues after trial with 2,500 rows/month)
   3. A valid credit card is required at signup but will NOT be charged
   4. After signup, go to https://moz.com/products/api/keys
-  5. Copy your API key (looks like: mozscape-xxxxxxxx)
+  5. Copy your API credentials. Claude SEO accepts either:
+     - a token-style key (looks like: mozscape-xxxxxxxx)
+     - free-tier accessId:secret credentials, raw or base64 encoded
 
   Configure:
     export MOZ_API_KEY="mozscape-xxxxxxxx"
+    # or: export MOZ_API_KEY="accessId:secret"
 
   Or save to """ + CONFIG_PATH + """:
     {

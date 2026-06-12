@@ -68,3 +68,9 @@ Match existing claude-seo patterns:
 Use `python scripts/render_page.py <URL> --mode auto --json` for page HTML. `auto` does a raw fetch and only spins up Playwright when an SPA shell is detected; use `--mode always` to force a render or `--mode never` to skip Playwright entirely. The JSON exposes `raw_content` (pre-JS), `content` (post-JS), `is_spa`, `extracted_text` (boilerplate-stripped via trafilatura), and `publication_date` (htmldate). SSRF and DNS-rebinding protection live in `scripts/url_safety.py` — never call `requests.get` directly on user-supplied URLs.
 
 E-commerce sites overwhelmingly inject product schema client-side (Shopify, Magento PWA, headless commerce on Next.js). Prefer `--mode always` for product page audits and compare `raw_content` vs `content` to confirm whether the JSON-LD is server-rendered.
+
+## Audit Persistence
+
+If `output_dir` is provided by the audit orchestrator, write:
+- `output_dir/findings/ecommerce.md`: product schema, marketplace, image, pricing, content, and internal-link findings
+- Structured JSON-compatible findings for `audit-data.json` under the E-commerce SEO category

@@ -314,7 +314,7 @@ Generate a professional PDF report with charts and analytics.
 - **seo-audit**: Spawns `seo-google` agent for live CWV + indexation data (conditional)
 - **seo-technical**: Uses pagespeed_check.py for real CWV field data
 - **seo-performance**: CrUX field data supplements Lighthouse lab data
-- **seo-sitemap**: GSC sitemap status shows real crawl/index coverage
+- **seo-sitemap**: GSC sitemap status shows submitted counts, errors, and warnings; use URL Inspection for indexation truth
 - **seo-content**: GSC query data informs keyword targeting
 - **seo-geo**: GSC search appearance data includes AI Overview references
 

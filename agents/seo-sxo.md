@@ -98,3 +98,9 @@ Before presenting results, verify:
 Use `python scripts/render_page.py <URL> --mode auto --json` for page HTML. `auto` does a raw fetch and only spins up Playwright when an SPA shell is detected; use `--mode always` to force a render or `--mode never` to skip Playwright entirely. The JSON exposes `raw_content` (pre-JS), `content` (post-JS), `is_spa`, `extracted_text` (boilerplate-stripped via trafilatura), and `publication_date` (htmldate). SSRF and DNS-rebinding protection live in `scripts/url_safety.py` — never call `requests.get` directly on user-supplied URLs.
 
 Search experience scoring needs the *rendered* DOM because users see what JS produces. Prefer `--mode always` so above-the-fold analysis matches what the persona actually encounters.
+
+## Audit Persistence
+
+If `output_dir` is provided by the audit orchestrator, write:
+- `output_dir/findings/sxo.md`: SERP intent, page-type mismatch, user-story, persona, and UX gap findings
+- Structured JSON-compatible findings for `audit-data.json` under the Search Experience category

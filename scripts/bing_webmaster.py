@@ -136,7 +136,7 @@ def _bing_request(endpoint: str, api_key: str, params: Optional[dict] = None,
 
 def _normalize_site_url(url: str) -> str:
     """Normalize a site URL for Bing API (needs trailing slash for domains)."""
-    if not url.startswith("http"):
+    if not url.lower().startswith("http"):
         url = f"https://{url}"
     parsed = urlparse(url)
     # Bing expects: https://example.com/
@@ -327,7 +327,7 @@ def main():
 
     # Validate URLs
     target = args.url
-    if target.startswith("http") and not validate_url(target):
+    if target.lower().startswith("http") and not validate_url(target):
         result = {
             "status": "error",
             "data": None,
@@ -347,7 +347,7 @@ def main():
     # Validate competitor URL if provided (SSRF protection)
     if args.competitor_url:
         comp = args.competitor_url
-        if comp.startswith("http") and not validate_url(comp):
+        if comp.lower().startswith("http") and not validate_url(comp):
             result = {
                 "status": "error",
                 "data": None,
@@ -377,7 +377,7 @@ def main():
 
     # Warn if site not in verified list
     verified = get_bing_verified_sites()
-    parsed_target = urlparse(target if target.startswith("http") else f"https://{target}")
+    parsed_target = urlparse(target if target.lower().startswith("http") else f"https://{target}")
     if verified and parsed_target.netloc not in verified and parsed_target.netloc.replace("www.", "") not in verified:
         print(f"Warning: {parsed_target.netloc} not in bing_verified_sites config. API may return limited data.",
               file=sys.stderr)

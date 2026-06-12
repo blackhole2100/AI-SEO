@@ -172,6 +172,8 @@ def _reject_authority_confusion(url: str, parsed) -> None:
 
     if "\\" in authority or "%5c" in authority_lower:
         raise URLSafetyError("URL authority contains a backslash")
+    if "%" in authority:
+        raise URLSafetyError("URL authority contains percent-encoding")
     if parsed.username is not None or parsed.password is not None or "@" in authority:
         raise URLSafetyError("URL userinfo is not allowed")
     if "#@" in url or "%23@" in url_lower:
@@ -325,7 +327,7 @@ def validate_url_strict(url: str) -> tuple[str, str]:
             family=socket.AF_INET,
             type=socket.SOCK_STREAM,
         )
-    except socket.gaierror as exc:
+    except (socket.gaierror, UnicodeError) as exc:
         raise URLSafetyError(f"DNS resolution failed for {hostname}: {exc}") from exc
 
     resolved_ips = sorted({info[4][0] for info in addrinfo})

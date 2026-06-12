@@ -87,11 +87,11 @@ def get_pagespeed_data(url: str, api_key: str) -> dict:
     endpoint = "https://www.googleapis.com/pagespeedonline/v5/runPagespeed"
     params = {
         "url": url,
-        "key": api_key,
         "strategy": "mobile",  # or "desktop"
         "category": ["performance", "accessibility", "best-practices", "seo"]
     }
-    response = requests.get(endpoint, params=params)
+    headers = {"X-Goog-Api-Key": api_key}
+    response = requests.get(endpoint, params=params, headers=headers)
     return response.json()
 ```
 
@@ -105,9 +105,8 @@ def get_crux_data(url: str, api_key: str) -> dict:
         "url": url,
         "formFactor": "PHONE"  # or "DESKTOP"
     }
-    headers = {"Content-Type": "application/json"}
-    params = {"key": api_key}
-    response = requests.post(endpoint, json=payload, headers=headers, params=params)
+    headers = {"Content-Type": "application/json", "X-Goog-Api-Key": api_key}
+    response = requests.post(endpoint, json=payload, headers=headers)
     return response.json()
 ```
 

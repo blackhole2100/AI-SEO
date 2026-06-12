@@ -230,6 +230,8 @@ def fetch_cwv_data(url: str) -> dict | None:
             [sys.executable, psi_script, url, "--psi-only", "--strategy", "mobile", "--json"],
             capture_output=True,
             text=True,
+            encoding="utf-8",
+            errors="replace",
             timeout=180,
         )
     except subprocess.TimeoutExpired:

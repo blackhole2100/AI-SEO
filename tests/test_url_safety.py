@@ -105,6 +105,8 @@ def test_validate_url_blocks_obfuscated_bypasses(url: str) -> None:
         "https://user:pass@example.com/",
         "https://127.0.0.1#@example.com/",
         "https://example.com%5c@1.1.1.1/",
+        "https://metadata.google.internal%2e/",
+        "http://127.0.0.1%2e/",
     ],
 )
 def test_validate_url_blocks_authority_confusion(url: str) -> None:

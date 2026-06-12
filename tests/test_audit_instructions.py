@@ -43,8 +43,28 @@ def test_audit_agents_use_renderer_or_capture_script() -> None:
 
 
 def test_audit_agents_document_output_dir_findings_contract() -> None:
-    for filename in ("seo-performance.md", "seo-visual.md", "seo-technical.md",
-                     "seo-content.md", "seo-schema.md"):
+    for filename in (
+        "seo-performance.md",
+        "seo-visual.md",
+        "seo-technical.md",
+        "seo-content.md",
+        "seo-schema.md",
+        "seo-sitemap.md",
+        "seo-geo.md",
+        "seo-local.md",
+        "seo-maps.md",
+        "seo-google.md",
+        "seo-backlinks.md",
+        "seo-cluster.md",
+        "seo-sxo.md",
+        "seo-drift.md",
+        "seo-ecommerce.md",
+    ):
         text = (REPO_ROOT / "agents" / filename).read_text(encoding="utf-8")
         assert "output_dir" in text
         assert "findings/" in text
+
+
+def test_seo_audit_report_command_keeps_outputs_in_audit_dir() -> None:
+    text = (REPO_ROOT / "skills" / "seo-audit" / "SKILL.md").read_text(encoding="utf-8")
+    assert "--output-dir {domain}-audit/" in text
