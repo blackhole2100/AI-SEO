@@ -23,11 +23,23 @@ except ImportError:
     sys.exit(1)
 
 try:
-    from google_auth import get_api_key, validate_url
+    from google_auth import (
+        get_api_key,
+        google_api_key_headers,
+        redact_google_api_key,
+        validate_url,
+    )
+    from url_safety import URLSafetyError, safe_requests_get
 except ImportError:
     import os
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-    from google_auth import get_api_key, validate_url
+    from google_auth import (
+        get_api_key,
+        google_api_key_headers,
+        redact_google_api_key,
+        validate_url,
+    )
+    from url_safety import URLSafetyError, safe_requests_get
 
 NLP_ENDPOINT = "https://language.googleapis.com/v2/documents:annotateText"
 
@@ -97,7 +109,8 @@ def analyze_text(
 
     try:
         resp = requests.post(
-            f"{NLP_ENDPOINT}?key={key}",
+            NLP_ENDPOINT,
+            headers=google_api_key_headers(key),
             json=body,
             timeout=30,
         )
@@ -117,7 +130,7 @@ def analyze_text(
         resp.raise_for_status()
         data = resp.json()
     except requests.exceptions.RequestException as e:
-        result["error"] = f"NLP API request failed: {e}"
+        result["error"] = f"NLP API request failed: {redact_google_api_key(e)}"
         return result
 
     # Entities
@@ -207,13 +220,17 @@ def analyze_url(
 
     # Fetch the page text
     try:
-        resp = requests.get(url, timeout=30, headers={
-            "User-Agent": "Mozilla/5.0 (compatible; ClaudeSEO/1.7 NLP Analyzer)"
-        })
+        resp = safe_requests_get(
+            url,
+            timeout=30,
+            headers={"User-Agent": "Mozilla/5.0 (compatible; ClaudeSEO/1.7 NLP Analyzer)"},
+        )
         resp.raise_for_status()
         html = resp.text
+    except URLSafetyError as e:
+        return {"error": f"URL blocked by SSRF protection: {e}"}
     except requests.exceptions.RequestException as e:
-        return {"error": f"Could not fetch URL: {e}"}
+        return {"error": f"Could not fetch URL: {redact_google_api_key(e)}"}
 
     # Extract text from HTML (simple approach)
     try:
