@@ -6,6 +6,17 @@ All Claude SEO commands start with `/seo` followed by a subcommand.
 
 ## Command List
 
+### `/seo setup`
+
+Explicitly create or refresh the isolated Python runtime and Playwright Chromium.
+This is required once after a marketplace plugin install. Manual installers run
+the same setup automatically. It never installs packages globally.
+
+### `/seo doctor`
+
+Check runtime, dependency, and Chromium readiness without changing the system.
+Diagnostic output omits absolute paths and environment values.
+
 ### `/seo audit <url>`
 
 Full website SEO audit with parallel analysis.

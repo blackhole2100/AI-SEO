@@ -31,14 +31,14 @@ add to `~/.claude/settings.json`:
 
 Scripted setup helper:
 ```bash
-python3 extensions/banana/scripts/setup_mcp.py --key YOUR_KEY
+claude-seo run --extension banana setup_mcp.py --key YOUR_KEY
 ```
 
 ## Verifying Installation
 
 Run the validation script:
 ```bash
-python3 ~/.claude/skills/seo-image-gen/scripts/validate_setup.py
+claude-seo run --extension banana validate_setup.py
 ```
 
 Or check manually:

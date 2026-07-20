@@ -222,6 +222,26 @@ User Request (e.g., /seo page)
 
 ## Extensions
 
+### Managed Python runtime
+
+Bundled tools are dispatched through `bin/claude-seo` and
+`scripts/runtime.py`, never through a working-directory-relative Python command.
+The launcher resolves Python 3.10 or newer, while the standard-library runtime
+provides three operations: `run`, `setup`, and read-only `doctor`.
+
+Plugin environments live under persistent `CLAUDE_PLUGIN_DATA`. Manual installs
+keep the compatible `~/.claude/skills/seo/.venv` location. A state marker records
+the runtime schema, requirements SHA-256, Python major and minor version, public
+plugin version, and browser state. Requirements, runtime-schema, or Python ABI
+changes require explicit setup; a version-only difference remains compatible and
+is refreshed on the next setup. Environment replacement is staged and rolled
+back if validation or marker publication fails.
+
+`run` accepts only allowlisted script basenames or a contained extension script.
+It forwards arguments without a shell, preserves child exit codes, forces UTF-8
+child streams, and uses the same persistent Playwright browser directory created
+by setup.
+
 Extensions are opt-in add-ons that integrate external data sources via MCP servers. They live in `extensions/<name>/` and ship their own install / uninstall scripts.
 
 ```

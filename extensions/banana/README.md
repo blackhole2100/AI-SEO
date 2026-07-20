@@ -39,7 +39,7 @@ The installer will:
 
 CSV batch planning helper:
 ```bash
-python3 extensions/banana/scripts/batch.py --csv requests.csv --model "$NANOBANANA_MODEL"
+claude-seo run --extension banana batch.py --csv requests.csv --model "$NANOBANANA_MODEL"
 ```
 
 ## Use Case Defaults

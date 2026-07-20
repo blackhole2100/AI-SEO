@@ -13,7 +13,7 @@ license: MIT
 compatibility: "Requires DataForSEO MCP server"
 metadata:
   author: AgriciDaniel
-  version: "2.2.3"
+  version: "2.2.4"
   category: seo
 ---
 
@@ -48,7 +48,7 @@ DataForSEO charges per API call. Be efficient:
 
 **Before every DataForSEO MCP call**, run cost estimation:
 ```
-python3 scripts/dataforseo_costs.py check <endpoint> [--count N]
+claude-seo run dataforseo_costs.py check <endpoint> [--count N]
 ```
 
 - If `"status": "approved"` → proceed with the API call
@@ -57,7 +57,7 @@ python3 scripts/dataforseo_costs.py check <endpoint> [--count N]
 
 **After each API call completes**, log the cost:
 ```
-python3 scripts/dataforseo_costs.py log <endpoint> <actual_cost>
+claude-seo run dataforseo_costs.py log <endpoint> <actual_cost>
 ```
 
 **User commands for cost management:**

@@ -28,15 +28,17 @@ try:
     import matplotlib.pyplot as plt
     import matplotlib.patches as mpatches
     import numpy as np
-except ImportError:
-    print("Error: matplotlib required. Install with: pip install matplotlib", file=sys.stderr)
-    sys.exit(1)
+    _CHART_IMPORT_ERROR = None
+except (ImportError, OSError, RuntimeError) as exc:
+    matplotlib = plt = mpatches = np = None
+    _CHART_IMPORT_ERROR = exc
 
 try:
     from weasyprint import HTML
-except ImportError:
-    print("Error: weasyprint required. Install with: pip install weasyprint", file=sys.stderr)
-    sys.exit(1)
+    _PDF_IMPORT_ERROR = None
+except (ImportError, OSError) as exc:
+    HTML = None
+    _PDF_IMPORT_ERROR = exc
 
 
 # ─── Brand Colors ────────────────────────────────────────────────────────────
@@ -140,7 +142,17 @@ def _setup_matplotlib():
     })
 
 
-_setup_matplotlib()
+if plt is not None:
+    _setup_matplotlib()
+
+
+def _require_chart_dependencies() -> None:
+    """Raise a runtime error only when a requested report needs charts."""
+    if plt is None or np is None:
+        raise RuntimeError(
+            "matplotlib and numpy are required for chart generation. "
+            "Install the report dependencies from requirements.txt."
+        ) from _CHART_IMPORT_ERROR
 
 
 # ─── Chart Functions ─────────────────────────────────────────────────────────
@@ -150,6 +162,7 @@ def chart_lighthouse_gauges(data: dict, output_dir: Path) -> str:
     scores = data.get("lighthouse_scores", {})
     if not scores:
         return ""
+    _require_chart_dependencies()
 
     fig, axes = plt.subplots(2, 2, figsize=(8, 4), subplot_kw={"projection": "polar"})
     categories = [
@@ -210,6 +223,7 @@ def chart_cwv_distributions(data: dict, output_dir: Path) -> str:
 
     if not labels:
         return ""
+    _require_chart_dependencies()
 
     fig, ax = plt.subplots(figsize=(8, max(2.5, len(labels) * 0.7)))
     y = range(len(labels))
@@ -259,6 +273,7 @@ def chart_cwv_timeline(data: dict, output_dir: Path) -> str:
     available = [m for m in cwv_metrics if m in metrics]
     if not available:
         return ""
+    _require_chart_dependencies()
 
     fig, axes = plt.subplots(len(available), 1, figsize=(10, 3 * len(available)), sharex=True)
     if len(available) == 1:
@@ -327,6 +342,7 @@ def chart_top_queries(data: dict, output_dir: Path) -> str:
 
     if not impressions or max(impressions) < 3:
         return ""
+    _require_chart_dependencies()
 
     fig, ax = plt.subplots(figsize=(7, max(2, len(labels) * 0.3)))
     y = range(len(labels))
@@ -375,6 +391,7 @@ def chart_index_status(data: dict, output_dir: Path) -> str:
 
     if not sizes:
         return ""
+    _require_chart_dependencies()
 
     fig, ax = plt.subplots(figsize=(4.5, 3.5))
     wedges, texts, autotexts = ax.pie(
@@ -2063,35 +2080,39 @@ def generate_report(report_type, data, domain, output_dir, output_format="pdf"):
 
     chart_paths = {}
 
-    if report_type in ("cwv-audit", "full"):
-        psi = data.get("psi", data)
-        mobile = psi.get("psi", {}).get("mobile", psi) if isinstance(psi, dict) else {}
-        path = chart_lighthouse_gauges(mobile, charts_dir)
-        if path:
-            chart_paths["gauges_path"] = path
-
-        crux = data.get("crux", {})
-        path = chart_cwv_distributions({"crux": crux} if crux else data, charts_dir)
-        if path:
-            chart_paths["distributions_path"] = path
-
-        history = data.get("crux_history", {})
-        if history and not history.get("error"):
-            path = chart_cwv_timeline(history, charts_dir)
+    try:
+        if report_type in ("cwv-audit", "full"):
+            psi = data.get("psi", data)
+            mobile = psi.get("psi", {}).get("mobile", psi) if isinstance(psi, dict) else {}
+            path = chart_lighthouse_gauges(mobile, charts_dir)
             if path:
-                chart_paths["timeline_path"] = path
+                chart_paths["gauges_path"] = path
 
-    if report_type in ("gsc-performance", "full"):
-        gsc = data.get("gsc", data)
-        path = chart_top_queries(gsc, charts_dir)
-        if path:
-            chart_paths["top_queries_path"] = path
+            crux = data.get("crux", {})
+            path = chart_cwv_distributions({"crux": crux} if crux else data, charts_dir)
+            if path:
+                chart_paths["distributions_path"] = path
 
-    if report_type in ("indexation", "full"):
-        inspect = data.get("inspection", data)
-        path = chart_index_status(inspect, charts_dir)
-        if path:
-            chart_paths["index_status_path"] = path
+            history = data.get("crux_history", {})
+            if history and not history.get("error"):
+                path = chart_cwv_timeline(history, charts_dir)
+                if path:
+                    chart_paths["timeline_path"] = path
+
+        if report_type in ("gsc-performance", "full"):
+            gsc = data.get("gsc", data)
+            path = chart_top_queries(gsc, charts_dir)
+            if path:
+                chart_paths["top_queries_path"] = path
+
+        if report_type in ("indexation", "full"):
+            inspect = data.get("inspection", data)
+            path = chart_index_status(inspect, charts_dir)
+            if path:
+                chart_paths["index_status_path"] = path
+    except RuntimeError as exc:
+        result["error"] = str(exc)
+        return result
 
     # ── Build HTML Sections ──────────────────────────────────────────────────
 
@@ -2362,6 +2383,12 @@ def generate_report(report_type, data, domain, output_dir, output_format="pdf"):
         result["files"].append(str(html_path))
 
     if output_format in ("pdf", "both", "all"):
+        if HTML is None:
+            result["error"] = (
+                "weasyprint is required for PDF generation. "
+                "Install the report dependencies from requirements.txt."
+            )
+            return result
         pdf_path = output_dir / f"{base_name}.pdf"
         try:
             HTML(string=html_content).write_pdf(str(pdf_path))
@@ -2643,7 +2670,7 @@ def main():
     # Load data
     if args.data:
         try:
-            with open(args.data, "r") as f:
+            with open(args.data, "r", encoding="utf-8") as f:
                 data = json.load(f)
         except (json.JSONDecodeError, IOError) as e:
             print(f"Error reading data file: {e}", file=sys.stderr)

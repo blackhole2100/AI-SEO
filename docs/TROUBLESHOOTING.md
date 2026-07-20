@@ -49,22 +49,20 @@ curl -fsSL https://raw.githubusercontent.com/AgriciDaniel/claude-seo/main/instal
 
 **Solution:**
 
-As of v1.2.0, dependencies are installed in a venv. Try:
+Dependencies belong in the managed runtime. For a plugin install, run:
 
 ```bash
-# Use the venv pip
-~/.claude/skills/seo/.venv/bin/pip install -r ~/.claude/skills/seo/requirements.txt
+/seo doctor
+/seo setup
 ```
 
-If the venv doesn't exist, install with `--user`:
+For a manual install, run:
 ```bash
-pip install --user -r ~/.claude/skills/seo/requirements.txt
+~/.claude/skills/seo/bin/claude-seo doctor
+~/.claude/skills/seo/bin/claude-seo setup
 ```
 
-Do not install individual packages; use the shipped requirements file:
-```bash
-pip install --user -r ~/.claude/skills/seo/requirements.txt
-```
+Do not install individual packages, use `pip --user`, or create a PATH shim.
 
 ### requirements.txt Not Found
 
@@ -95,8 +93,8 @@ curl -fsSL https://raw.githubusercontent.com/AgriciDaniel/claude-seo/main/requir
 **Solution (v1.2.0+):** The Windows installer now tries both `python` and `py -3`. If both fail:
 
 1. Install Python from [python.org](https://python.org) and check "Add to PATH"
-2. Or use the Windows launcher: `py -3 -m pip install -r requirements.txt`
-3. Use `python3 -m pip` instead of bare `pip`
+2. Rerun `install.ps1`; it resolves `py -3`, `python3`, then `python`
+3. Run `/seo doctor` after installation
 
 ---
 
@@ -104,15 +102,11 @@ curl -fsSL https://raw.githubusercontent.com/AgriciDaniel/claude-seo/main/requir
 
 **Symptom:** `playwright._impl._errors.Error: Executable doesn't exist`
 
-**Solution:**
+**Solution:** rerun managed setup so the browser is installed through the same
+interpreter and persistent browser directory:
 ```bash
-playwright install chromium
-```
-
-If that fails:
-```bash
-pip install playwright
-python3 -m playwright install chromium
+/seo setup
+/seo doctor
 ```
 
 ---
@@ -179,7 +173,7 @@ cp /path/to/claude-seo/agents/*.md ~/.claude/agents/
 1. Ensure placeholders are replaced
 2. Verify @context is `https://schema.org`
 3. Check for deprecated/retired types: HowTo and SpecialAnnouncement, plus the June 2025 retirements (ClaimReview, VehicleListing, EstimatedSalary, LearningVideo, and the CourseInfo carousel)
-4. FAQPage rich results were retired for all sites on 2026-05-07: FAQPage no longer yields rich results, but the hook should NOT block it (still a valid AI/entity signal)
+4. FAQPage rich results were retired for all sites on 2026-05-07. The hook does not block it because it remains a valid Schema.org type, but no AI or ranking benefit is confirmed.
 5. Validate at [Google's Rich Results Test](https://search.google.com/test/rich-results)
 
 ---

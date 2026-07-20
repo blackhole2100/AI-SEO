@@ -12,7 +12,7 @@ argument-hint: "[url]"
 license: MIT
 metadata:
   author: AgriciDaniel
-  version: "2.2.3"
+  version: "2.2.4"
   category: seo
 ---
 
@@ -321,13 +321,13 @@ https://support.google.com/merchants/answer/14743464
 
 ```bash
 # Audit a directory for the IPTC label (counts: missing, ai, captured, etc.)
-python3 scripts/iptc_ai_label.py audit ./images/ --json
+claude-seo run iptc_ai_label.py audit ./images/ --json
 
 # Audit a single image
-python3 scripts/iptc_ai_label.py audit ./hero.webp --json
+claude-seo run iptc_ai_label.py audit ./hero.webp --json
 
 # Inject the AI label into an image
-python3 scripts/iptc_ai_label.py inject ./ai-hero.webp \
+claude-seo run iptc_ai_label.py inject ./ai-hero.webp \
     --source-type trainedAlgorithmicMedia
 
 # Other vocabulary values:

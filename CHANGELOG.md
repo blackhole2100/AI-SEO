@@ -5,6 +5,45 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.4] - 2026-07-20
+
+Community maintenance release following a full review of every open issue and pull request.
+Accepted findings were reconciled against the current release base, with superseded or unsafe
+patches excluded. No breaking command changes. Full suite: 410 passing tests.
+
+### Added
+
+- Managed cross-platform Python runtime with `claude-seo run`, `/seo setup`, and `/seo doctor`.
+  Plugin environments persist under Claude's plugin data directory, manual installs use an
+  isolated local environment, and bundled scripts no longer depend on the caller's working
+  directory or a hardcoded Python executable.
+- SSRF-safe sitemap discovery covering robots.txt directives, common CMS locations, stale
+  fallbacks, bounded responses, and strict cross-host validation.
+- Contributor and issue-reporter acknowledgements for the complete maintenance review cycle.
+
+### Fixed
+
+- GSC queries now honor exact result limits, validate dimensions before API access, support
+  dimensionless totals, and report whether aggregate totals are complete.
+- Bing Webmaster backlink commands now use supported endpoints, bounded pagination, deduplication,
+  registered-property comparison, partial-failure reporting, and sanitized errors.
+- DataForSEO agents now expose only the required MCP tool family and fail closed when it is absent.
+- Banana extension paths now work in plugin and manual layouts.
+- OAuth token persistence is safe on Windows, hook and child-process output is UTF-8, and report
+  input handling is explicitly UTF-8.
+- SPA rendering recognizes common hosted builders, uses bounded DOM stabilization, and extracts
+  JSON-LD before HTML truncation without leaking malformed fragments in routine output.
+- Removed unsupported FAQPage rich-result benefit claims and templates after Google's retirement
+  of FAQ rich results.
+- GitHub Actions checkout and Python setup actions moved to v7. Anonymous FLOW synchronization now
+  retries rate-limited requests through the authenticated path when available.
+
+### Security
+
+- Runtime dispatch is allowlisted, setup upgrades are rollback-safe, diagnostics redact paths and
+  identity-like values, and structured-data output is bounded.
+- Removed the maintainer email address from public package and citation metadata.
+
 ## [2.2.3] - 2026-07-14
 
 Prompt-hygiene alignment to the Fable 5 prompt principles. No behavior, routing, or output changes.

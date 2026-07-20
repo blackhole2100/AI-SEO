@@ -83,5 +83,5 @@ If you are auditing, these are the high-leverage files:
 
 - No credentials or API keys are committed to this repository. `.gitignore` blocks every known credential filename pattern.
 - Install scripts write only to user-level directories under `~/.claude/` and `~/.config/claude-seo/`.
-- Python dependencies install into an isolated virtual environment at `~/.claude/skills/seo/.venv/`.
+- Python dependencies install into an isolated virtual environment. Plugin installs use persistent `CLAUDE_PLUGIN_DATA`; manual installs use `~/.claude/skills/seo/.venv/`. The runtime never falls back to global or user package installation.
 - Every new fetcher must route through `scripts/url_safety.py` — there is no exception for "trusted" URLs.

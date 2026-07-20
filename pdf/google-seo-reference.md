@@ -99,7 +99,7 @@ Measured at the 75th percentile of real user data (field data).
 
 ### Deprecated/Restricted Types (as of May 2026)
 - **HowTo**: Rich results removed (September 2023)
-- **FAQ**: Rich results retired for all sites (May 7, 2026). FAQPage markup can still aid AI/entity-signal use, but not rich-result eligibility.
+- **FAQ**: Rich results retired for all sites (May 7, 2026). FAQPage remains a valid Schema.org type, but no AI or ranking benefit is confirmed.
 - **SpecialAnnouncement**: Deprecated (July 31, 2025)
 - **CourseInfo, EstimatedSalary, LearningVideo**: Retired (June 2025)
 - **ClaimReview**: Retired (June 2025)

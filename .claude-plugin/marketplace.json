@@ -5,16 +5,15 @@
     "name": "AgriciDaniel"
   },
   "metadata": {
-    "description": "Comprehensive SEO analysis plugin for Claude Code. 25 sub-skills and 18 sub-agents, plus 8 optional MCP extensions (DataForSEO, Firecrawl, Banana, Ahrefs, SE Ranking, Profound, Bing Webmaster, Unlighthouse): headless rendering, QRG-aligned content quality gates, LCP subparts via CrUX, IndexNow, Schema.org generators, and AI Share-of-Voice tracking. v2.2.3 applies a 319-finding verified maintenance pass: GBP Q&A correction, Google-confirmed AI Mode model naming, refreshed image-model IDs, and a new reference-graph consistency gate."
+    "description": "Comprehensive SEO analysis plugin for Claude Code. 25 sub-skills and 18 sub-agents, plus 8 optional MCP extensions (DataForSEO, Firecrawl, Banana, Ahrefs, SE Ranking, Profound, Bing Webmaster, Unlighthouse). v2.2.4 adds a managed cross-platform runtime and safe sitemap discovery, and repairs GSC pagination, Bing endpoints, extension paths, Windows portability, SPA rendering, and JSON-LD extraction."
   },
   "plugins": [
     {
       "name": "claude-seo",
       "source": "./",
-      "description": "Comprehensive SEO analysis plugin for Claude Code. 25 sub-skills and 18 sub-agents, plus 8 optional MCP extensions. Shared headless rendering, QRG-aligned content quality gates, LCP subparts via CrUX, IndexNow, four Schema.org generators, AI Share-of-Voice tracking, and multi-platform portability. v2.2.3 applies a 319-finding verified maintenance pass: GBP Q&A correction, Google-confirmed AI Mode model naming, refreshed image-model IDs, and a new reference-graph consistency gate wired into CI.",
+      "description": "Comprehensive SEO analysis plugin for Claude Code. 25 sub-skills and 18 sub-agents, plus 8 optional MCP extensions. v2.2.4 adds a managed cross-platform runtime and safe sitemap discovery, and repairs GSC pagination, Bing endpoints, extension paths, Windows portability, SPA rendering, JSON-LD extraction, and DataForSEO permissions.",
       "author": {
         "name": "AgriciDaniel",
-        "email": "agricidaniel@gmail.com",
         "url": "https://github.com/AgriciDaniel"
       },
       "category": "marketing",

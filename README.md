@@ -8,7 +8,7 @@
 [![Claude Code Skill](https://img.shields.io/badge/Claude%20Code-Skill-blue)](https://claude.ai/claude-code)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Version](https://img.shields.io/github/v/release/AgriciDaniel/claude-seo)](https://github.com/AgriciDaniel/claude-seo/releases)
-[![Tests](https://img.shields.io/badge/tests-326%20passing-brightgreen)](tests/)
+[![Tests](https://img.shields.io/badge/tests-410%20passing-brightgreen)](tests/)
 [![Community](https://img.shields.io/badge/AI%20Marketing%20Hub-Pro%20community-purple)](https://www.skool.com/ai-marketing-hub-pro)
 
 > **Two versions of this skill.**
@@ -82,7 +82,12 @@ The fastest path. One-time marketplace add, then plugin install:
 ```bash
 /plugin marketplace add AgriciDaniel/claude-seo
 /plugin install claude-seo@agricidaniel-claude-seo
+/seo setup
 ```
+
+The explicit setup step creates an isolated Python environment in Claude's
+persistent plugin data and installs Playwright Chromium. Check it at any time
+with `/seo doctor`. No global Python packages or PATH shims are created.
 
 ### Manual Install (Unix / macOS / Linux)
 
@@ -138,10 +143,12 @@ claude
 
 ![Claude SEO sub-skill ecosystem: 25 modules grouped into 8 categories (audit, content, schema, technical, AI search, local + maps, commerce + intl, extensions) around the central orchestrator](assets/sub-skills.svg)
 
-30 user-invocable `/seo` commands across the orchestrator, its sub-skills, and 8 MCP extensions. Full reference in [docs/COMMANDS.md](docs/COMMANDS.md).
+32 user-invocable `/seo` commands across the orchestrator, its sub-skills, and 8 MCP extensions. Full reference in [docs/COMMANDS.md](docs/COMMANDS.md).
 
 | Command | Description |
 |---------|-------------|
+| `/seo setup` | Create or refresh the isolated Python runtime and Chromium |
+| `/seo doctor` | Check runtime readiness without changing the system |
 | `/seo audit <url>` | Full website audit with parallel sub-agent delegation |
 | `/seo page <url>` | Deep single-page analysis |
 | `/seo technical <url>` | Technical SEO audit across 9 categories |
@@ -320,7 +327,7 @@ v2.0.0 is the largest release in the plugin's history. Six build phases, all shi
 - **Phase E: AI search reframing and 5 new MCP extensions.** Ahrefs, SE Ranking (AI Share-of-Voice), Profound (LLM citation tracker), Bing Webmaster plus IndexNow, Unlighthouse. Plus the parasite-SEO risk scanner per Google's November 2024 [site reputation abuse policy](https://developers.google.com/search/blog/2024/11/site-reputation-abuse-update).
 - **Phase F: Local, international, and privacy polish.** Google Business Profile deprecation linter (chat field and `.business.site` URLs, with Q&A treated as category/region-limited), DMA consent-mode-v2 click-through diagnostic, machine-translation QA flag per January 2025 QRG.
 
-Test coverage grew from 39 (v1.9.9) to 326 across the v2 line; the url_safety suite alone runs 91 SSRF and DNS-rebinding bypass cases, closing the obfuscated-IPv4, FQDN-trailing-dot, and redirect-rebinding bypass classes. Full migration notes and breaking changes: [docs/MIGRATION-v1-to-v2.md](docs/MIGRATION-v1-to-v2.md).
+Test coverage grew from 39 (v1.9.9) to 410 across the v2 line; the url_safety suite alone runs 91 SSRF and DNS-rebinding bypass cases, closing the obfuscated-IPv4, FQDN-trailing-dot, and redirect-rebinding bypass classes. Full migration notes and breaking changes: [docs/MIGRATION-v1-to-v2.md](docs/MIGRATION-v1-to-v2.md).
 
 ### Since v2.0.0
 
@@ -329,6 +336,7 @@ Test coverage grew from 39 (v1.9.9) to 326 across the v2 line; the url_safety su
 - **v2.2.1 (June 2026): Google-currency reconfirmation + full command audit.** Lighthouse 13.4.0 with the new Agentic Browsing category, Google Search ignores llms.txt, an internally-reweighted E-E-A-T scorecard (Trust highest, per Google's 'trust is most important'); every `/seo` command and subcommand audited and COMMANDS.md brought to 100% coverage.
 - **v2.2.2 (July 2026): full-review maintenance.** Corrected GBP Q&A handling, AI Mode model naming, image-model IDs, hook input behavior, and added a strict reference-graph consistency gate.
 - **v2.2.3 (July 2026): prompt-hygiene alignment.** Normalized emphasis and punctuation across the prompt surface without changing behavior, routing, or output contracts.
+- **v2.2.4 (July 2026): community maintenance.** Added the managed cross-platform runtime and safe sitemap discovery, repaired GSC pagination and totals, replaced removed Bing endpoints, fixed extension and Windows portability gaps, and reconciled every open issue and pull request.
 
 ## Limitations
 

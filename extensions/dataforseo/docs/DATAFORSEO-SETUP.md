@@ -51,10 +51,10 @@ If the installer's auto-configuration fails, add this to `~/.claude/settings.jso
       "command": "npx",
       "args": ["-y", "dataforseo-mcp-server"],
       "env": {
-        "DATAFORSEO_USERNAME": "your-email@example.com",
+        "DATAFORSEO_USERNAME": "<account-username>",
         "DATAFORSEO_PASSWORD": "your-api-password",
         "ENABLED_MODULES": "SERP,KEYWORDS_DATA,ONPAGE,DATAFORSEO_LABS,BACKLINKS,DOMAIN_ANALYTICS,BUSINESS_DATA,CONTENT_ANALYSIS,AI_OPTIMIZATION",
-        "FIELD_CONFIG_PATH": "/home/youruser/.claude/skills/seo/dataforseo-field-config.json"
+        "FIELD_CONFIG_PATH": "/path/to/dataforseo-field-config.json"
       }
     }
   }

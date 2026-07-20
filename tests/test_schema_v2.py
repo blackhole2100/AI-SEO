@@ -248,8 +248,8 @@ def test_deprecated_types_reference_exists_and_lists_retired_kinds() -> None:
 def test_faq_rich_results_retirement_documented() -> None:
     """FAQ rich results were fully retired on 2026-05-07 (supersedes the older
     Aug 2023 gov/health restriction). The canonical schema references must reflect
-    the retirement and point users to QAPage for genuine Q&A — while keeping
-    FAQPage as an AI/entity signal (not a Critical removal)."""
+    the retirement and point users to QAPage for genuine Q&A, without claiming
+    a confirmed AI or ranking benefit for FAQPage."""
     from pathlib import Path
 
     root = Path(__file__).resolve().parents[1]
@@ -268,3 +268,26 @@ def test_faq_rich_results_retirement_documented() -> None:
     assert "QAPage" in deprecated and "QAPage" in schema_types
     # Google's faqpage doc cited as primary source.
     assert "structured-data/faqpage" in deprecated
+
+
+def test_faqpage_guidance_does_not_claim_unconfirmed_benefits() -> None:
+    """Public guidance must not turn an unverified AI benefit into a claim."""
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parents[1]
+    targets = [
+        root / "hooks" / "validate-schema.py",
+        root / "pdf" / "google-seo-reference.md",
+        root / "docs" / "TROUBLESHOOTING.md",
+        root / "skills" / "seo-content-brief" / "references"
+        / "page-type-templates.md",
+    ]
+    combined = "\n".join(path.read_text(encoding="utf-8") for path in targets).lower()
+    forbidden = (
+        "still aids ai",
+        "can still aid ai",
+        "valid ai/entity signal",
+        "+ faqpage",
+    )
+    for phrase in forbidden:
+        assert phrase not in combined

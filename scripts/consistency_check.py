@@ -43,6 +43,7 @@ GENERIC_BASENAMES = {"README.md", "SKILL.md", "__init__.py", "LICENSE", "LICENSE
                      "plugin.json", "marketplace.json", "hooks.json"}
 DOC_EXAMPLE_AGENTS = {"seo-newagent"}
 LOCK_PATH = "skills/seo-flow/references/flow-prompts.lock"
+RUNTIME_UTILITY_COMMANDS = {"setup", "doctor"}
 
 
 def tracked_files():
@@ -123,7 +124,7 @@ def check_script_refs(files, texts):
             candidates = [f"scripts/{m}"]
             if ext_root:
                 candidates.insert(0, f"{ext_root}/scripts/{m}")
-            if not any(c in files for c in candidates):
+            if not any(c in files or os.path.isfile(os.path.join(REPO, c)) for c in candidates):
                 errors.append(f"{f}: dead script ref scripts/{m} "
                               f"(checked: {', '.join(candidates)})")
     orphans = []
@@ -136,6 +137,57 @@ def check_script_refs(files, texts):
         if others <= 0:
             orphans.append(f"scripts/{s}: referenced nowhere outside itself")
     return errors, orphans
+
+
+def check_skill_dir_script_refs(files, texts):
+    """Validate scripts invoked through Claude's portable skill-root variable.
+
+    Extension installers place their scripts beside the installed skill. In the
+    source tree those scripts live at ``extensions/<name>/scripts``. Core skills
+    must carry scripts inside their own skill directory before using this form.
+    """
+    pat = re.compile(r'\$\{CLAUDE_SKILL_DIR\}/scripts/([A-Za-z0-9_]+\.py)\b')
+    errors = []
+    for f in texts:
+        for script in sorted(set(pat.findall(read(f)))):
+            ext_root = extension_root(f)
+            if ext_root:
+                candidate = f"{ext_root}/scripts/{script}"
+            elif f.startswith("skills/"):
+                skill_root = "/".join(f.split("/")[:2])
+                candidate = f"{skill_root}/scripts/{script}"
+            else:
+                errors.append(f"{f}: CLAUDE_SKILL_DIR script used outside a skill layout")
+                continue
+            if candidate not in files and not os.path.isfile(os.path.join(REPO, candidate)):
+                errors.append(
+                    f"{f}: dead skill-root script {script} (checked: {candidate})"
+                )
+    return errors
+
+
+def check_runtime_invocations(texts):
+    """Reject cwd-dependent or interpreter-dependent bundled script commands."""
+    errors = []
+    carriers = [
+        f for f in texts
+        if f.startswith(("skills/", "agents/", "extensions/")) and f.endswith(".md")
+    ]
+    bare = re.compile(
+        r"\b(?:python3|python|py\s+-3)\s+[^\n`]*?scripts/[A-Za-z0-9_./-]+\.py"
+    )
+    runtime = re.compile(r"\bclaude-seo\s+run(?:\s+--extension\s+[a-z0-9-]+)?\s+([A-Za-z0-9_-]+\.py)")
+    for f in carriers:
+        content = read(f)
+        for match in bare.finditer(content):
+            errors.append(f"{f}: bare bundled-script invocation: {match.group(0)}")
+        for script in sorted(set(runtime.findall(content))):
+            if not os.path.isfile(os.path.join(REPO, "scripts", script)) and not any(
+                os.path.isfile(path)
+                for path in glob.glob(os.path.join(REPO, "extensions", "*", "scripts", script))
+            ):
+                errors.append(f"{f}: runtime invocation references missing script {script}")
+    return errors
 
 
 def check_routing(files):
@@ -153,7 +205,7 @@ def check_routing(files):
         errors.append(f"routing: `/seo {c}` in orchestrator but not docs/COMMANDS.md")
     for c in sorted(b - a):
         errors.append(f"routing: `/seo {c}` in docs/COMMANDS.md but not orchestrator")
-    for c in sorted((a | b) - known):
+    for c in sorted((a | b) - known - RUNTIME_UTILITY_COMMANDS):
         errors.append(f"routing: `/seo {c}` has no matching skill directory")
     return errors
 
@@ -228,6 +280,8 @@ def main():
     ref_errors, ref_infos = check_references(fileset, md)
     script_errors, script_orphans = check_script_refs(fileset, texts)
     errors = (ref_errors + check_research_refs(fileset, texts) + script_errors
+              + check_skill_dir_script_refs(fileset, texts)
+              + check_runtime_invocations(texts)
               + check_routing(fileset) + check_agent_refs(fileset, texts)
               + check_flow_lock(fileset))
     warnings = script_orphans + check_orphan_files(fileset, texts)

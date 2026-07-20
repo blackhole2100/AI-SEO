@@ -19,9 +19,9 @@ Everything else is additive — new commands, new scripts, new reference
 files, new extensions. Existing audit reports will look slightly fuller
 but use exactly the same overall structure.
 
-This guide covers the v1.x → v2.0.0 jump only; the v2.1.0 through v2.2.3
+This guide covers the v1.x → v2.0.0 jump only; the v2.1.0 through v2.2.4
 releases are documented in [../CHANGELOG.md](../CHANGELOG.md), and the
-suite is now at 326 tests.
+suite is now at 410 tests.
 
 ## What's new in v2
 

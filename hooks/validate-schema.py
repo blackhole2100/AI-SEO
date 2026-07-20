@@ -31,9 +31,9 @@ checks if the file contains schema markup before validating.
 """
 
 import json
+import os
 import re
 import sys
-import os
 from typing import List
 
 
@@ -112,8 +112,8 @@ def _validate_schema_object(obj: dict, block_num: int) -> List[str]:
 
     # Check for restricted types used incorrectly.
     # FAQPage is intentionally NOT flagged: Google retired FAQ rich results for
-    # all sites (May 7, 2026), but the markup still aids AI Mode / AI Overviews
-    # entity resolution, so it is valid to ship. See skills/seo-schema/SKILL.md.
+    # all sites (May 7, 2026), but FAQPage remains a valid Schema.org type.
+    # This project makes no claim of a confirmed AI or ranking benefit.
     restricted: dict = {}
     if schema_type in restricted:
         errors.append(f"{prefix}: @type '{schema_type}' is {restricted[schema_type]}; verify site qualifies")

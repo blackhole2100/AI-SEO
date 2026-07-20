@@ -9,13 +9,25 @@ argument-hint: "[url or generate]"
 license: MIT
 metadata:
   author: AgriciDaniel
-  version: "2.2.3"
+  version: "2.2.4"
   category: seo
 ---
 
 # Sitemap Analysis & Generation
 
 ## Mode 1: Analyze Existing Sitemap
+
+Discover candidates before reporting a sitemap missing:
+
+```bash
+claude-seo run sitemap_discovery.py <url> --json
+```
+
+The helper reads every bounded `Sitemap:` declaration in robots.txt, validates
+cross-host targets through the shared SSRF-safe fetch layer, and still probes
+common paths when a declared sitemap is stale or invalid. Use only entries in
+`found`; preserve declared failures as findings instead of treating a robots.txt
+line alone as proof that a sitemap works.
 
 ### Validation Checks
 - Valid XML format
@@ -125,7 +137,8 @@ Google documents three subtypes with their own rules, validate per-subtype:
 ## Error Handling
 
 - **URL unreachable**: Report the HTTP status code and suggest checking if the site is live
-- **No sitemap found**: Check common locations (/sitemap.xml, /sitemap_index.xml, robots.txt reference) before reporting "not found"
+- **No sitemap found**: Run `sitemap_discovery.py` and report "not found" only
+  when its `found` list is empty after declared and common candidates are checked
 - **Invalid XML format**: Report specific parsing errors with line numbers
 - **Rate limiting detected**: Back off and report partial results with a note about retry timing
 
