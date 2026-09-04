@@ -28,7 +28,7 @@ to Claude's persistent plugin data. Use `/seo doctor` for a read-only check.
 ### Manual Install (Unix, macOS, Linux)
 
 ```bash
-git clone --depth 1 https://github.com/AgriciDaniel/claude-seo.git
+git clone --depth 1 https://github.com/blackhole2100/claude-seo.git
 bash claude-seo/install.sh
 ```
 
@@ -44,7 +44,7 @@ rm install.sh
 ### Manual Install (Windows, PowerShell)
 
 ```powershell
-git clone --depth 1 https://github.com/AgriciDaniel/claude-seo.git
+git clone --depth 1 https://github.com/blackhole2100/claude-seo.git
 powershell -ExecutionPolicy Bypass -File claude-seo\install.ps1
 ```
 
@@ -55,7 +55,7 @@ The Windows path uses `git clone` rather than `irm | iex` because Claude Code's 
 1. **Clone the repository**
 
 ```bash
-git clone https://github.com/AgriciDaniel/claude-seo.git
+git clone https://github.com/blackhole2100/claude-seo.git
 cd claude-seo
 ```
 
@@ -118,7 +118,7 @@ If installed as a plugin:
 If installed manually, run the uninstaller from a fresh clone:
 
 ```bash
-git clone --depth 1 https://github.com/AgriciDaniel/claude-seo.git
+git clone --depth 1 https://github.com/blackhole2100/claude-seo.git
 bash claude-seo/uninstall.sh
 ```
 

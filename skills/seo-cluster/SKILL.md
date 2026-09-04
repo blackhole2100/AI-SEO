@@ -31,12 +31,12 @@ interactive cluster map visualizations.
 
 ## Quick Reference
 
-| Command | What it does |
-|---------|-------------|
-| `/seo cluster plan <seed-keyword>` | Full planning workflow: expand, cluster, architect, visualize |
-| `/seo cluster plan --from strategy` | Import from existing `/seo plan` output |
-| `/seo cluster execute` | Execute plan: create content via claude-blog or output briefs |
-| `/seo cluster map` | Regenerate the interactive cluster visualization |
+| Command                             | What it does                                                  |
+| ----------------------------------- | ------------------------------------------------------------- |
+| `/seo cluster plan <seed-keyword>`  | Full planning workflow: expand, cluster, architect, visualize |
+| `/seo cluster plan --from strategy` | Import from existing `/seo plan` output                       |
+| `/seo cluster execute`              | Execute plan: create content via claude-blog or output briefs |
+| `/seo cluster map`                  | Regenerate the interactive cluster visualization              |
 
 ---
 
@@ -62,19 +62,21 @@ This is the core differentiator. Load `references/serp-overlap-methodology.md` f
 the full algorithm.
 
 **Process:**
+
 1. Group keywords by initial intent guess (reduces pairwise comparisons)
 2. For each candidate pair within a group, WebSearch both keywords
 3. Count shared URLs in the top 10 organic results (ignore ads, featured snippets, PAA)
 4. Apply thresholds:
 
-| Shared Results | Relationship | Action |
-|---------------|-------------|--------|
-| 7-10 | Same post | Merge into single target page |
-| 4-6 | Same cluster | Group under same spoke cluster |
-| 2-3 | Interlink | Place in adjacent clusters, add cross-links |
-| 0-1 | Separate | Assign to different clusters or exclude |
+| Shared Results | Relationship | Action                                      |
+| -------------- | ------------ | ------------------------------------------- |
+| 7-10           | Same post    | Merge into single target page               |
+| 4-6            | Same cluster | Group under same spoke cluster              |
+| 2-3            | Interlink    | Place in adjacent clusters, add cross-links |
+| 0-1            | Separate     | Assign to different clusters or exclude     |
 
 **Optimization:** With 40 keywords, full pairwise = 780 comparisons. Instead:
+
 - Pre-group by intent (4 groups of ~10 = 4 x 45 = 180 comparisons)
 - Only cross-check group boundary keywords
 - Skip pairs where both are long-tail variants of the same head term (assume same cluster)
@@ -88,12 +90,12 @@ If `"status": "blocked"`, fall back to WebSearch.
 
 Classify each keyword into one of four intent categories:
 
-| Intent | Signals | Include in Clusters? |
-|--------|---------|---------------------|
-| Informational | how, what, why, guide, tutorial, learn | Yes |
-| Commercial | best, top, review, comparison, vs, alternative | Yes |
-| Transactional | buy, price, discount, coupon, order, sign up | Yes |
-| Navigational | brand names, specific product names, login | No (exclude) |
+| Intent        | Signals                                        | Include in Clusters? |
+| ------------- | ---------------------------------------------- | -------------------- |
+| Informational | how, what, why, guide, tutorial, learn         | Yes                  |
+| Commercial    | best, top, review, comparison, vs, alternative | Yes                  |
+| Transactional | buy, price, discount, coupon, order, sign up   | Yes                  |
+| Navigational  | brand names, specific product names, login     | No (exclude)         |
 
 Remove navigational keywords from clustering. Flag borderline cases for
 manual review. Keywords can have mixed intent (e.g., "best CRM software" is
@@ -110,16 +112,16 @@ Load `references/hub-spoke-architecture.md` for full specifications.
 3. **Assign posts to clusters**: Each cluster gets 2-4 spoke posts
 4. **Select templates per post**: Based on intent classification:
 
-| Intent Pattern | Template Options |
-|---------------|-----------------|
-| Informational (broad) | ultimate-guide |
-| Informational (how) | how-to |
-| Informational (list) | listicle |
-| Informational (concept) | explainer |
-| Commercial (compare) | comparison |
-| Commercial (evaluate) | review |
-| Commercial (rank) | best-of |
-| Transactional | landing-page |
+| Intent Pattern          | Template Options |
+| ----------------------- | ---------------- |
+| Informational (broad)   | ultimate-guide   |
+| Informational (how)     | how-to           |
+| Informational (list)    | listicle         |
+| Informational (concept) | explainer        |
+| Commercial (compare)    | comparison       |
+| Commercial (evaluate)   | review           |
+| Commercial (rank)       | best-of          |
+| Transactional           | landing-page     |
 
 5. **Set word count targets:**
    - Pillar page: 2500-4000 words
@@ -132,25 +134,37 @@ Load `references/hub-spoke-architecture.md` for full specifications.
 
 Design the bidirectional linking structure:
 
-| Link Type | Direction | Requirement |
-|-----------|-----------|-------------|
-| Spoke to pillar | spoke -> pillar | Mandatory (every spoke) |
-| Pillar to spoke | pillar -> spoke | Mandatory (every spoke) |
-| Spoke to spoke (within cluster) | spoke <-> spoke | 2-3 links per post |
-| Cross-cluster | spoke -> spoke (other cluster) | 0-1 links per post |
+| Link Type                       | Direction                      | Requirement             |
+| ------------------------------- | ------------------------------ | ----------------------- |
+| Spoke to pillar                 | spoke -> pillar                | Mandatory (every spoke) |
+| Pillar to spoke                 | pillar -> spoke                | Mandatory (every spoke) |
+| Spoke to spoke (within cluster) | spoke <-> spoke                | 2-3 links per post      |
+| Cross-cluster                   | spoke -> spoke (other cluster) | 0-1 links per post      |
 
 **Rules:**
+
 - Every post must have minimum 3 incoming internal links
 - No orphan pages (every post reachable from pillar in 2 clicks)
 - Anchor text must use target keyword or close variant (no "click here")
 - Link placement: within body content, not just navigation/sidebar
 
 Generate the link matrix as a JSON adjacency list:
+
 ```json
 {
   "links": [
-    { "from": "pillar", "to": "cluster-0-post-0", "type": "mandatory", "anchor": "keyword" },
-    { "from": "cluster-0-post-0", "to": "pillar", "type": "mandatory", "anchor": "keyword" }
+    {
+      "from": "pillar",
+      "to": "cluster-0-post-0",
+      "type": "mandatory",
+      "anchor": "keyword"
+    },
+    {
+      "from": "cluster-0-post-0",
+      "to": "pillar",
+      "type": "mandatory",
+      "anchor": "keyword"
+    }
   ]
 }
 ```
@@ -230,7 +244,7 @@ Test: Does ~/.claude/skills/blog/SKILL.md exist?
    - Key points to cover
    - Competing pages to differentiate from
 3. Write briefs to `cluster-briefs/` directory as individual markdown files
-4. Inform user: "Install [claude-blog](https://github.com/AgriciDaniel/claude-blog)
+4. Inform user: "Install [claude-blog](https://github.com/blackhole2100/claude-blog)
    to auto-create content. Briefs saved to `cluster-briefs/`."
 
 ---
@@ -240,16 +254,16 @@ Test: Does ~/.claude/skills/blog/SKILL.md exist?
 Post-execution quality report. Run automatically after `/seo cluster execute` or
 on demand via analysis of the output directory.
 
-| Metric | Target | How Measured |
-|--------|--------|-------------|
-| Coverage | 100% | Posts written / posts planned |
-| Link Density | 3+ per post | Count internal links per post |
-| Orphan Pages | 0 | Posts with < 1 incoming link |
-| Cannibalization | 0 conflicts | Check for duplicate primary keywords |
-| Image Count | 1+ per post | Posts with at least one image |
-| Pillar Links | 100% | All spokes link to pillar and vice versa |
-| Cross-Links | 80%+ | Recommended spoke-to-spoke links implemented |
-| Content Gaps | 0 | Planned posts that were skipped or incomplete |
+| Metric          | Target      | How Measured                                  |
+| --------------- | ----------- | --------------------------------------------- |
+| Coverage        | 100%        | Posts written / posts planned                 |
+| Link Density    | 3+ per post | Count internal links per post                 |
+| Orphan Pages    | 0           | Posts with < 1 incoming link                  |
+| Cannibalization | 0 conflicts | Check for duplicate primary keywords          |
+| Image Count     | 1+ per post | Posts with at least one image                 |
+| Pillar Links    | 100%        | All spokes link to pillar and vice versa      |
+| Cross-Links     | 80%+        | Recommended spoke-to-spoke links implemented  |
+| Content Gaps    | 0           | Planned posts that were skipped or incomplete |
 
 ---
 
@@ -268,25 +282,25 @@ When `/seo cluster map` is invoked:
 
 All outputs are written to the current working directory:
 
-| File | Description |
-|------|-------------|
-| `cluster-plan.json` | Machine-readable cluster plan (full data) |
-| `cluster-plan.md` | Human-readable cluster plan summary |
-| `cluster-map.html` | Interactive SVG visualization |
-| `cluster-briefs/` | Content briefs (if no claude-blog) |
-| `cluster-scorecard.md` | Post-execution quality report |
+| File                   | Description                               |
+| ---------------------- | ----------------------------------------- |
+| `cluster-plan.json`    | Machine-readable cluster plan (full data) |
+| `cluster-plan.md`      | Human-readable cluster plan summary       |
+| `cluster-map.html`     | Interactive SVG visualization             |
+| `cluster-briefs/`      | Content briefs (if no claude-blog)        |
+| `cluster-scorecard.md` | Post-execution quality report             |
 
 ---
 
 ## Cross-Skill Integration
 
-| Skill | Relationship |
-|-------|-------------|
-| `seo-plan` | Import source: strategy import reads seo-plan output |
-| `seo-content` | Quality check: E-E-A-T validation of generated content |
-| `seo-schema` | Schema markup: Article, BreadcrumbList, ItemList for cluster pages |
-| `seo-dataforseo` | Data source: SERP data when DataForSEO MCP is available |
-| `seo-google` | Reporting: generate PDF report of cluster plan and scorecard |
+| Skill            | Relationship                                                       |
+| ---------------- | ------------------------------------------------------------------ |
+| `seo-plan`       | Import source: strategy import reads seo-plan output               |
+| `seo-content`    | Quality check: E-E-A-T validation of generated content             |
+| `seo-schema`     | Schema markup: Article, BreadcrumbList, ItemList for cluster pages |
+| `seo-dataforseo` | Data source: SERP data when DataForSEO MCP is available            |
+| `seo-google`     | Reporting: generate PDF report of cluster plan and scorecard       |
 
 After cluster planning or execution completes, offer:
 "Generate a PDF report? Use `/seo google report`"
@@ -295,18 +309,18 @@ After cluster planning or execution completes, offer:
 
 ## Error Handling
 
-| Error | Cause | Resolution |
-|-------|-------|------------|
-| "No seed keyword provided" | Missing argument | Prompt user for seed keyword or URL |
-| "Insufficient keyword variants" | Expansion yielded < 15 keywords | Run second expansion pass with PAA questions |
-| "SERP data unavailable" | WebSearch and DataForSEO both failing | Retry after 30s; if persistent, use intent-only clustering with warning |
-| "No strategy file found" | `--from strategy` but no plan exists | Prompt user to run `/seo plan` first |
-| "cluster-plan.json not found" | Execute without planning | Prompt user to run `/seo cluster plan` first |
-| "claude-blog not installed" | Execute attempted without blog skill | Generate content briefs instead; suggest installation |
-| "DataForSEO budget exceeded" | Cost check returned "blocked" | Fall back to WebSearch; inform user |
-| "Duplicate primary keywords" | Cannibalization detected | Merge affected posts or reassign keywords |
-| "Orphan page detected" | Post missing incoming links | Add links from nearest cluster siblings |
-| "Resume state corrupted" | Mismatch between plan and output | Rebuild state from output directory scan |
+| Error                           | Cause                                 | Resolution                                                              |
+| ------------------------------- | ------------------------------------- | ----------------------------------------------------------------------- |
+| "No seed keyword provided"      | Missing argument                      | Prompt user for seed keyword or URL                                     |
+| "Insufficient keyword variants" | Expansion yielded < 15 keywords       | Run second expansion pass with PAA questions                            |
+| "SERP data unavailable"         | WebSearch and DataForSEO both failing | Retry after 30s; if persistent, use intent-only clustering with warning |
+| "No strategy file found"        | `--from strategy` but no plan exists  | Prompt user to run `/seo plan` first                                    |
+| "cluster-plan.json not found"   | Execute without planning              | Prompt user to run `/seo cluster plan` first                            |
+| "claude-blog not installed"     | Execute attempted without blog skill  | Generate content briefs instead; suggest installation                   |
+| "DataForSEO budget exceeded"    | Cost check returned "blocked"         | Fall back to WebSearch; inform user                                     |
+| "Duplicate primary keywords"    | Cannibalization detected              | Merge affected posts or reassign keywords                               |
+| "Orphan page detected"          | Post missing incoming links           | Add links from nearest cluster siblings                                 |
+| "Resume state corrupted"        | Mismatch between plan and output      | Rebuild state from output directory scan                                |
 
 ---
 

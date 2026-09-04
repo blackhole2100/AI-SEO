@@ -82,7 +82,7 @@ def test_profile_includes_same_as_and_knows_about() -> None:
     r = schema_generate.profile(
         "Daniel Agrici",
         url="https://agricidaniel.com/about",
-        same_as=["https://github.com/AgriciDaniel", "https://orcid.org/0000-0000-0000-0000"],
+        same_as=["https://github.com/blackhole2100", "https://orcid.org/0000-0000-0000-0000"],
         knows_about=["SEO", "Schema markup", "Core Web Vitals"],
     )
     assert r["@type"] == "ProfilePage"

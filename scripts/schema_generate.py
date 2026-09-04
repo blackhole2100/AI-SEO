@@ -36,7 +36,7 @@ Usage::
     python scripts/schema_generate.py profile \\
         --name "Daniel Agrici" \\
         --url https://agricidaniel.com/about \\
-        --same-as https://github.com/AgriciDaniel \\
+        --same-as https://github.com/blackhole2100 \\
                   https://twitter.com/agricidaniel \\
         --knows-about "SEO" "Schema markup" "Core Web Vitals"
 

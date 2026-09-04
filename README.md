@@ -4,15 +4,15 @@
 
 **Claude SEO is an open-source SEO analysis plugin for [Claude Code](https://claude.ai/claude-code).** It runs 25 sub-skills and 18 specialist agents in parallel across technical SEO, content quality (E-E-A-T), Schema.org markup, AI search optimization (GEO), local SEO, e-commerce, and international SEO. Every audit produces a prioritized action plan with testable recommendations grounded in primary-source guidance from Google.
 
-[![CI](https://github.com/AgriciDaniel/claude-seo/actions/workflows/ci.yml/badge.svg)](https://github.com/AgriciDaniel/claude-seo/actions/workflows/ci.yml)
+[![CI](https://github.com/blackhole2100/claude-seo/actions/workflows/ci.yml/badge.svg)](https://github.com/blackhole2100/claude-seo/actions/workflows/ci.yml)
 [![Claude Code Skill](https://img.shields.io/badge/Claude%20Code-Skill-blue)](https://claude.ai/claude-code)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Version](https://img.shields.io/github/v/release/AgriciDaniel/claude-seo)](https://github.com/AgriciDaniel/claude-seo/releases)
+[![Version](https://img.shields.io/github/v/release/AgriciDaniel/claude-seo)](https://github.com/blackhole2100/claude-seo/releases)
 [![Tests](https://img.shields.io/badge/tests-410%20passing-brightgreen)](tests/)
 [![Community](https://img.shields.io/badge/AI%20Marketing%20Hub-Pro%20community-purple)](https://www.skool.com/ai-marketing-hub-pro)
 
 > **Two versions of this skill.**
-> - 🌐 **Public open-source** → [`AgriciDaniel/claude-seo`](https://github.com/AgriciDaniel/claude-seo): MIT, public releases, no membership. Use this if you want stable + downloadable.
+> - 🌐 **Public open-source** → [`AgriciDaniel/claude-seo`](https://github.com/blackhole2100/claude-seo): MIT, public releases, no membership. Use this if you want stable + downloadable.
 > - 🔒 **Community private mirror** → [`AI-Marketing-Hub/claude-seo`](https://github.com/AI-Marketing-Hub/claude-seo): early access to upcoming features and direct collaboration with the [AI Marketing Hub Pro](https://www.skool.com/ai-marketing-hub-pro) community. Requires membership.
 
 ### Why Claude SEO
@@ -27,7 +27,7 @@
 
 Google Search Console for a site started 23 March 2026 and run on this workflow: total clicks and impressions across its first three months, through 12 June 2026.
 
-> Using Codex instead of Claude Code? Use [Codex SEO](https://github.com/AgriciDaniel/codex-seo), the Codex-first port with TOML agents, plugin packaging, deterministic runners, and the same SEO workflow surface.
+> Using Codex instead of Claude Code? Use [Codex SEO](https://github.com/blackhole2100/codex-seo), the Codex-first port with TOML agents, plugin packaging, deterministic runners, and the same SEO workflow surface.
 
 ## Who this is for
 
@@ -72,7 +72,7 @@ Run a full audit and watch parallel agents fan out across the site:
 
 > ℹ️ **Which version are you installing?**
 >
-> - **Public open-source (default).** The commands below install from [`AgriciDaniel/claude-seo`](https://github.com/AgriciDaniel/claude-seo) — MIT, public releases, no membership required.
+> - **Public open-source (default).** The commands below install from [`AgriciDaniel/claude-seo`](https://github.com/blackhole2100/claude-seo) — MIT, public releases, no membership required.
 > - **AI Marketing Hub Pro member?** Install the community version with early access instead: swap `AgriciDaniel/claude-seo` for `AI-Marketing-Hub/claude-seo` and the plugin slug `claude-seo@agricidaniel-claude-seo` for `claude-seo@ai-marketing-hub-claude-seo`. Requires `gh auth login` (or PAT) with access to the `AI-Marketing-Hub` org. If `/plugin marketplace add` 404s, DM in the [Skool community](https://www.skool.com/ai-marketing-hub-pro) to get added.
 
 ### Plugin Install (Claude Code 1.0.33+)
@@ -92,7 +92,7 @@ with `/seo doctor`. No global Python packages or PATH shims are created.
 ### Manual Install (Unix / macOS / Linux)
 
 ```bash
-git clone --depth 1 https://github.com/AgriciDaniel/claude-seo.git
+git clone --depth 1 https://github.com/blackhole2100/claude-seo.git
 bash claude-seo/install.sh
 ```
 
@@ -111,7 +111,7 @@ rm install.sh
 ### Windows (PowerShell)
 
 ```powershell
-git clone --depth 1 https://github.com/AgriciDaniel/claude-seo.git
+git clone --depth 1 https://github.com/blackhole2100/claude-seo.git
 powershell -ExecutionPolicy Bypass -File claude-seo\install.ps1
 ```
 
@@ -357,7 +357,7 @@ Two real boundaries worth being upfront about.
 ## Uninstall
 
 ```bash
-git clone --depth 1 https://github.com/AgriciDaniel/claude-seo.git
+git clone --depth 1 https://github.com/blackhole2100/claude-seo.git
 bash claude-seo/uninstall.sh
 ```
 
@@ -399,7 +399,7 @@ Full Firecrawl docs: [extensions/firecrawl/README.md](extensions/firecrawl/READM
 
 ### Banana: AI image generation
 
-SEO image generation (OG previews, blog heroes, product photos, infographics) via the [Claude Banana](https://github.com/AgriciDaniel/banana-claude) Creative Director pipeline.
+SEO image generation (OG previews, blog heroes, product photos, infographics) via the [Claude Banana](https://github.com/blackhole2100/banana-claude) Creative Director pipeline.
 
 ```bash
 ./extensions/banana/install.sh
@@ -426,12 +426,12 @@ Claude SEO is part of a family of Claude Code skills that interoperate cleanly:
 
 | Skill | What it does | How it connects |
 |-------|-------------|-----------------|
-| [Claude SEO](https://github.com/AgriciDaniel/claude-seo) | SEO analysis, audits, schema, GEO | Core. Analyzes sites and generates action plans. |
-| [Claude Blog](https://github.com/AgriciDaniel/claude-blog) | Blog writing, optimization, scoring | Companion. Writes content optimized by SEO findings. |
-| [Claude Banana](https://github.com/AgriciDaniel/banana-claude) | AI image generation via Gemini | Shared. Generates images for SEO assets and blog posts. |
-| [Codex SEO](https://github.com/AgriciDaniel/codex-seo) | Codex-first SEO skill suite | Port. Same SEO system adapted for Codex skills, TOML agents, deterministic runners. |
+| [Claude SEO](https://github.com/blackhole2100/claude-seo) | SEO analysis, audits, schema, GEO | Core. Analyzes sites and generates action plans. |
+| [Claude Blog](https://github.com/blackhole2100/claude-blog) | Blog writing, optimization, scoring | Companion. Writes content optimized by SEO findings. |
+| [Claude Banana](https://github.com/blackhole2100/banana-claude) | AI image generation via Gemini | Shared. Generates images for SEO assets and blog posts. |
+| [Codex SEO](https://github.com/blackhole2100/codex-seo) | Codex-first SEO skill suite | Port. Same SEO system adapted for Codex skills, TOML agents, deterministic runners. |
 | [AI Marketing Claude](https://github.com/zubair-trabzada/ai-marketing-claude) | Copywriting, emails, social, ads, funnels, CRO | Community. Post-audit marketing action from SEO findings. |
-| [FLOW](https://github.com/AgriciDaniel/flow) | Evidence-led SEO framework (41 AI prompts, CC BY 4.0) | Knowledge base. Powers `seo-flow` prompts. |
+| [FLOW](https://github.com/blackhole2100/flow) | Evidence-led SEO framework (41 AI prompts, CC BY 4.0) | Knowledge base. Powers `seo-flow` prompts. |
 
 **Workflow example:**
 
@@ -509,4 +509,4 @@ Built by **[Agrici Daniel](https://agricidaniel.com/about)**, AI Workflow Archit
 - [AI Marketing Hub (free)](https://www.skool.com/ai-marketing-hub): open community
 - [AI Marketing Hub Pro](https://www.skool.com/ai-marketing-hub-pro): Pro community, early access to this skill
 - [YouTube](https://www.youtube.com/@AgriciDaniel): tutorials and demos
-- [GitHub](https://github.com/AgriciDaniel): all open-source tools
+- [GitHub](https://github.com/blackhole2100): all open-source tools

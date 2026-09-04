@@ -46,7 +46,7 @@ jobs:
             exit 1
           fi
           git ls-remote --exit-code --refs \
-            https://github.com/AgriciDaniel/claude-seo.git \
+            https://github.com/blackhole2100/claude-seo.git \
             "refs/heads/$TARGET_REF" "refs/tags/$TARGET_REF" >/dev/null
           printf 'ref=%s\n' "$TARGET_REF" >> "$GITHUB_OUTPUT"
 

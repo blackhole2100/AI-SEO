@@ -1,6 +1,6 @@
 ---
 name: seo-image-gen
-description: "AI image generation for SEO assets: OG/social preview images, blog hero images, schema images, product photography, infographics. Powered by Gemini via nanobanana-mcp. Requires banana extension installed. Use when user says \"generate image\", \"OG image\", \"social preview\", \"hero image\", \"blog image\", \"product photo\", \"infographic\", \"seo image\", \"create visual\", \"image-gen\", \"favicon\", \"schema image\", \"pinterest pin\", \"generate visual\", \"banner\", or \"thumbnail\"."
+description: 'AI image generation for SEO assets: OG/social preview images, blog hero images, schema images, product photography, infographics. Powered by Gemini via nanobanana-mcp. Requires banana extension installed. Use when user says "generate image", "OG image", "social preview", "hero image", "blog image", "product photo", "infographic", "seo image", "create visual", "image-gen", "favicon", "schema image", "pinterest pin", "generate visual", "banner", or "thumbnail".'
 argument-hint: "[og|hero|product|infographic|custom|batch] <description>"
 user-invocable: true
 license: MIT
@@ -19,16 +19,18 @@ aspect ratios, and resolution defaults.
 
 ## Architecture Note
 
-This extension is built on [Claude Banana](https://github.com/AgriciDaniel/banana-claude),
+This extension is built on [Claude Banana](https://github.com/blackhole2100/banana-claude),
 the standalone AI image generation skill for Claude Code.
 
 This skill has two components with distinct roles:
+
 - **SKILL.md** (this file): Handles interactive `/seo image-gen` commands for generating images
 - **Agent** (`agents/seo-image-gen.md`): Audit-only analyst spawned during `/seo audit` to assess existing OG/social images and produce a generation plan (never auto-generates)
 
 ## Prerequisites
 
 This skill requires the banana extension to be installed:
+
 ```bash
 ./extensions/banana/install.sh
 ```
@@ -40,29 +42,29 @@ and provide install instructions.
 
 ## Quick Reference
 
-| Command | What it does |
-|---------|-------------|
-| `/seo image-gen og <description>` | Generate OG/social preview image (1200x630 feel) |
-| `/seo image-gen hero <description>` | Blog hero image (widescreen, dramatic) |
-| `/seo image-gen product <description>` | Product photography (clean, white BG) |
-| `/seo image-gen infographic <description>` | Infographic visual (vertical, data-heavy) |
-| `/seo image-gen custom <description>` | Custom image with full Creative Director pipeline |
-| `/seo image-gen batch <description> [N]` | Generate N variations (default: 3) |
+| Command                                    | What it does                                      |
+| ------------------------------------------ | ------------------------------------------------- |
+| `/seo image-gen og <description>`          | Generate OG/social preview image (1200x630 feel)  |
+| `/seo image-gen hero <description>`        | Blog hero image (widescreen, dramatic)            |
+| `/seo image-gen product <description>`     | Product photography (clean, white BG)             |
+| `/seo image-gen infographic <description>` | Infographic visual (vertical, data-heavy)         |
+| `/seo image-gen custom <description>`      | Custom image with full Creative Director pipeline |
+| `/seo image-gen batch <description> [N]`   | Generate N variations (default: 3)                |
 
 ## SEO Image Use Cases
 
 Each use case maps to pre-configured banana parameters:
 
-| Use Case | Aspect Ratio | Resolution | Domain Mode | Notes |
-|----------|-------------|------------|-------------|-------|
-| **OG/Social Preview** | `16:9` | `1K` | Product or UI/Web | Clean, professional, text-friendly |
-| **Blog Hero** | `16:9` | `2K` | Cinema or Editorial | Dramatic, atmospheric, editorial quality |
-| **Schema Image** | `4:3` | `1K` | Product | Clean, descriptive, schema ImageObject |
-| **Social Square** | `1:1` | `1K` | UI/Web | Platform-optimized square |
-| **Product Photo** | `4:3` | `2K` | Product | White background, studio lighting |
-| **Infographic** | `2:3` | `4K` | Infographic | Data-heavy, vertical layout |
-| **Favicon/Icon** | `1:1` | `512` | Logo | Minimal, scalable, recognizable |
-| **Pinterest Pin** | `2:3` | `2K` | Editorial | Tall vertical card |
+| Use Case              | Aspect Ratio | Resolution | Domain Mode         | Notes                                    |
+| --------------------- | ------------ | ---------- | ------------------- | ---------------------------------------- |
+| **OG/Social Preview** | `16:9`       | `1K`       | Product or UI/Web   | Clean, professional, text-friendly       |
+| **Blog Hero**         | `16:9`       | `2K`       | Cinema or Editorial | Dramatic, atmospheric, editorial quality |
+| **Schema Image**      | `4:3`        | `1K`       | Product             | Clean, descriptive, schema ImageObject   |
+| **Social Square**     | `1:1`        | `1K`       | UI/Web              | Platform-optimized square                |
+| **Product Photo**     | `4:3`        | `2K`       | Product             | White background, studio lighting        |
+| **Infographic**       | `2:3`        | `4K`       | Infographic         | Data-heavy, vertical layout              |
+| **Favicon/Icon**      | `1:1`        | `512`      | Logo                | Minimal, scalable, recognizable          |
+| **Pinterest Pin**     | `2:3`        | `2K`       | Editorial           | Tall vertical card                       |
 
 ## Generation Pipeline
 
@@ -81,9 +83,11 @@ For every generation request:
 ### Check for Presets
 
 If the user mentions a brand or has SEO presets configured:
+
 ```bash
 # Use the installed Banana MCP/tool configuration to list presets.
 ```
+
 Load matching preset and apply as defaults. Also check `references/seo-image-presets.md`
 for SEO-specific preset templates.
 
@@ -110,7 +114,10 @@ After every successful generation, guide the user on:
    ```
 6. **OG meta tags**:For social preview images, remind about:
    ```html
-   <meta property="og:image" content="https://example.com/images/og-image.webp" />
+   <meta
+     property="og:image"
+     content="https://example.com/images/og-image.webp"
+   />
    <meta property="og:image:width" content="1200" />
    <meta property="og:image:height" content="630" />
    <meta property="og:image:alt" content="Descriptive alt text" />
@@ -119,32 +126,34 @@ After every successful generation, guide the user on:
 ## Cost Awareness
 
 Image generation costs money. Be transparent:
+
 - Show estimated cost before generating (especially for batch)
 - Log every generation in the installed Banana MCP/tool ledger when available
 - Use the installed Banana MCP/tool usage summary if user asks about usage
 
 Approximate costs:
+
 - Verify current pricing in the installed MCP/tool configuration before quoting
 
 ## Model Routing
 
-| Scenario | Model | Why |
-|----------|-------|-----|
-| OG images, social previews | Installed MCP/tool default @ 1K | Fast, cost-effective |
-| Hero images, product photos | Installed MCP/tool quality model @ 2K | Quality + detail |
-| Infographics with text | Installed MCP/tool text-capable model @ 2K, thinking: high if supported | Better text rendering |
-| Quick drafts | Installed MCP/tool draft model @ 512 | Rapid iteration |
+| Scenario                    | Model                                                                   | Why                   |
+| --------------------------- | ----------------------------------------------------------------------- | --------------------- |
+| OG images, social previews  | Installed MCP/tool default @ 1K                                         | Fast, cost-effective  |
+| Hero images, product photos | Installed MCP/tool quality model @ 2K                                   | Quality + detail      |
+| Infographics with text      | Installed MCP/tool text-capable model @ 2K, thinking: high if supported | Better text rendering |
+| Quick drafts                | Installed MCP/tool draft model @ 512                                    | Rapid iteration       |
 
 ## Error Handling
 
-| Error | Resolution |
-|-------|-----------|
-| MCP not configured | Run `./extensions/banana/install.sh` |
-| API key invalid | New key at https://aistudio.google.com/apikey |
-| Rate limited (429) | Wait 60s, retry. Free tier: ~10 RPM / ~500 RPD |
-| `IMAGE_SAFETY` | Rephrase prompt - see `references/prompt-engineering.md` Safety section |
-| MCP unavailable | Configure MCP with `./extensions/banana/install.sh`; claude-seo does not vendor a local generation fallback script |
-| Extension not installed | Show install instructions: `./extensions/banana/install.sh` |
+| Error                   | Resolution                                                                                                         |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| MCP not configured      | Run `./extensions/banana/install.sh`                                                                               |
+| API key invalid         | New key at https://aistudio.google.com/apikey                                                                      |
+| Rate limited (429)      | Wait 60s, retry. Free tier: ~10 RPM / ~500 RPD                                                                     |
+| `IMAGE_SAFETY`          | Rephrase prompt - see `references/prompt-engineering.md` Safety section                                            |
+| MCP unavailable         | Configure MCP with `./extensions/banana/install.sh`; claude-seo does not vendor a local generation fallback script |
+| Extension not installed | Show install instructions: `./extensions/banana/install.sh`                                                        |
 
 ## Cross-Skill Integration
 
@@ -155,6 +164,7 @@ Approximate costs:
 ## Reference Documentation
 
 Load on-demand. Do NOT load all at startup:
+
 - `references/prompt-engineering.md`:6-component system, domain modes, templates
 - `references/gemini-models.md`:Model specs, rate limits, capabilities
 - `references/mcp-tools.md`:MCP tool parameters and responses
@@ -166,6 +176,7 @@ Load on-demand. Do NOT load all at startup:
 ## Response Format
 
 After generating, always provide:
+
 1. **Image path**:where it was saved
 2. **Crafted prompt**:show what was sent to the API (educational)
 3. **Settings**:model, aspect ratio, resolution
